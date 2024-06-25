@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/headLinesFragment"
+        android:title="@string/headlines"
+        android:icon="@drawable/search_bar" />
+
+    <item android:id="@+id/userNewsFragment"
+        android:title="@string/my_news"
+        android:icon="@drawable/user_news" />
+
+    <item android:id="@+id/weatherFragment"
+        android:title="@string/weather"
+        android:icon="@drawable/weather" />
+
+    <item android:id="@+id/searchFragment"
+        android:title="@string/settings"
+        android:icon="@drawable/settings" />
+
+</menu>
