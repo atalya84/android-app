@@ -1,9 +1,12 @@
 <resources>
     <string name="app_name">newsflow</string>
-    <string name="headlines">HeadLines</string>
+    <string name="headlines">News</string>
     <string name="my_news">My News</string>
     <string name="settings">Settings</string>
     <string name="weather">Weather</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search_news">Search news...</string>
+    <string name="add_news">Add News</string>
+    <string name="enter_your_city_name">Enter Your City Name</string>
 </resources>

@@ -37,6 +37,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        dataBinding = true
     }
 }
 
@@ -74,4 +75,7 @@ dependencies {
     // Glide
     implementation ("com.github.bumptech.glide:glide:4.12.0")
     ksp ("com.github.bumptech.glide:compiler:4.12.0")
+
+    implementation ("com.google.android.material:material:1.12.0")
+    implementation ("com.github.androdocs:Simple-HTTP-Request:v1.0")
 }
