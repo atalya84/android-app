@@ -12,7 +12,9 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 import com.example.newsflow.R
 import androidx.fragment.app.Fragment
-import com.example.newsflow.ui.fragments.SearchFragment
+import com.example.newsflow.ui.fragments.HeadlinesFragment
+import com.example.newsflow.ui.fragments.SettingsFragment
+import com.example.newsflow.ui.fragments.UserNewsFragment
 import com.example.newsflow.ui.fragments.WeatherFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -42,8 +44,16 @@ class NewsActivity : AppCompatActivity() {
                     loadFragment(WeatherFragment())
                     true
                 }
-                R.id.searchFragment -> {
-                    loadFragment(SearchFragment())
+                R.id.settingsFragment -> {
+                    loadFragment(SettingsFragment())
+                    true
+                }
+                R.id.headLinesFragment -> {
+                    loadFragment(HeadlinesFragment())
+                    true
+                }
+                R.id.userNewsFragment -> {
+                    loadFragment(UserNewsFragment())
                     true
                 }
                 else -> false
