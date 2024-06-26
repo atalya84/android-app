@@ -10,7 +10,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:id="@+id/first"
@@ -40,8 +40,9 @@
 
             <ImageView
                 android:id="@+id/search"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginEnd="10dp"
                 android:background="?android:attr/selectableItemBackground"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
@@ -106,8 +107,8 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:src="@drawable/sunrise"/>
 
                 <TextView
@@ -120,7 +121,7 @@
                     android:gravity="center"
                     android:padding="5dp"
                     android:textColor="@color/white"
-                    android:textSize="14sp" />
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
@@ -134,8 +135,8 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:src="@drawable/sunset"/>
                 <TextView
                     android:id="@+id/sunsets"
@@ -146,7 +147,7 @@
                     android:gravity="center"
                     android:padding="5dp"
                     android:textColor="@color/white"
-                    android:textSize="14sp" />
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
@@ -156,7 +157,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="120dp"
+            android:layout_marginTop="80dp"
             android:orientation="vertical"
             android:gravity="center_horizontal">
 
@@ -184,14 +185,14 @@
             android:layout_width="150dp"
             android:layout_height="1dp"
             android:background="@color/blue"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="5dp"
             android:layout_gravity="center_horizontal"/>
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="10dp">
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -374,12 +375,12 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginStart="80dp"
                     android:gravity="center"
                     android:padding="5dp"
                     android:text="--"
-                    android:layout_marginStart="80dp"
                     android:textColor="@color/black"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
