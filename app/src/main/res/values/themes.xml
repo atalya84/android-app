@@ -20,10 +20,4 @@
         <item name="android:color">@color/yellow</item>
     </style>
 
-    <!-- Define the custom BottomNavigationView style -->
-    <style name="Widget.BottomNavigationView" parent="Widget.Design.BottomNavigationView">
-        <item name="itemTextColor">@color/</item>
-        <item name="itemIconTint">@color/bottom_nav_item_icon_color</item>
-    </style>
-
 </resources>
