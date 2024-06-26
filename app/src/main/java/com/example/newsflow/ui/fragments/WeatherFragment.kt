@@ -1,20 +1,23 @@
 package com.example.newsflow.ui.fragments
 
 import android.os.Bundle
-import com.example.newsflow.R
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.os.AsyncTask
 import android.widget.Toast
 import com.androdocs.httprequest.HttpRequest
+import com.example.newsflow.R
 import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class WeatherFragment : AppCompatActivity() {
+class WeatherFragment : Fragment() {
 
     var CITY: String = ""
     val API = "6c635fd7996cc1b5d9466f1ea159adf5"
@@ -33,25 +36,33 @@ class WeatherFragment : AppCompatActivity() {
     lateinit var pressure: TextView
     lateinit var windSpeed: TextView
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_weather)
-        userCity = findViewById(R.id.Your_city)
-        search = findViewById(R.id.search)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_weather, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        userCity = view.findViewById(R.id.Your_city)
+        search = view.findViewById(R.id.search)
 
         // CALL ALL ANSWERS :
-        city = findViewById(R.id.city)
-        country = findViewById(R.id.country)
-        time = findViewById(R.id.time)
-        temp = findViewById(R.id.temp)
-        forecast = findViewById(R.id.forecast)
-        humidity = findViewById(R.id.humidity)
-        min_temp = findViewById(R.id.min_temp)
-        max_temp = findViewById(R.id.max_temp)
-        sunrises = findViewById(R.id.sunrises)
-        sunsets = findViewById(R.id.sunsets)
-        pressure = findViewById(R.id.pressure)
-        windSpeed = findViewById(R.id.wind_speed)
+        city = view.findViewById(R.id.city)
+        country = view.findViewById(R.id.country)
+        time = view.findViewById(R.id.time)
+        temp = view.findViewById(R.id.temp)
+        forecast = view.findViewById(R.id.forecast)
+        humidity = view.findViewById(R.id.humidity)
+        min_temp = view.findViewById(R.id.min_temp)
+        max_temp = view.findViewById(R.id.max_temp)
+        sunrises = view.findViewById(R.id.sunrises)
+        sunsets = view.findViewById(R.id.sunsets)
+        pressure = view.findViewById(R.id.pressure)
+        windSpeed = view.findViewById(R.id.wind_speed)
 
         // CLICK ON SEARCH BUTTON :
         search.setOnClickListener {
@@ -108,7 +119,7 @@ class WeatherFragment : AppCompatActivity() {
                 this@WeatherFragment.windSpeed.text = windSpeed
 
             } catch (e: Exception) {
-                Toast.makeText(this@WeatherFragment, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_SHORT).show()
             }
         }
     }

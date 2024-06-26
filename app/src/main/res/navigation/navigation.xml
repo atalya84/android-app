@@ -6,15 +6,6 @@
     app:startDestination="@id/headlinesFragment">
 
     <fragment
-        android:id="@+id/weatherFragment2"
-        android:name="com.example.newsflow.ui.fragments.WeatherFragment"
-        android:label="fragment_weather"
-        tools:layout="@layout/fragment_weather" >
-        <action
-            android:id="@+id/action_weatherFragment2_to_headlinesFragment"
-            app:destination="@id/headlinesFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/articleFragment"
         android:name="com.example.newsflow.ui.fragments.ArticleFragment"
         android:label="ArticleFragment" >
@@ -25,7 +16,17 @@
     <fragment
         android:id="@+id/headlinesFragment"
         android:name="com.example.newsflow.ui.fragments.HeadlinesFragment"
-        android:label="HeadlinesFragment" />
+        android:label="HeadlinesFragment" >
+        <action
+            android:id="@+id/action_headlinesFragment_to_weatherFragment3"
+            app:destination="@id/weatherFragment3" />
+        <action
+            android:id="@+id/action_headlinesFragment_to_articleFragment"
+            app:destination="@id/articleFragment" />
+        <action
+            android:id="@+id/action_headlinesFragment_to_userNewsFragment2"
+            app:destination="@id/userNewsFragment2" />
+    </fragment>
     <fragment
         android:id="@+id/userNewsFragment2"
         android:name="com.example.newsflow.ui.fragments.UserNewsFragment"
@@ -33,6 +34,15 @@
         tools:layout="@layout/fragment_user_news" >
         <action
             android:id="@+id/action_userNewsFragment2_to_headlinesFragment"
+            app:destination="@id/headlinesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/weatherFragment3"
+        android:name="com.example.newsflow.ui.fragments.WeatherFragment"
+        android:label="fragment_weather"
+        tools:layout="@layout/fragment_weather" >
+        <action
+            android:id="@+id/action_weatherFragment3_to_headlinesFragment"
             app:destination="@id/headlinesFragment" />
     </fragment>
 </navigation>
