@@ -12,11 +12,13 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 import com.example.newsflow.R
 import androidx.fragment.app.Fragment
+import com.example.newsflow.ui.fragments.AddArticleFragment
 import com.example.newsflow.ui.fragments.HeadlinesFragment
 import com.example.newsflow.ui.fragments.SettingsFragment
 import com.example.newsflow.ui.fragments.UserNewsFragment
 import com.example.newsflow.ui.fragments.WeatherFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class NewsActivity : AppCompatActivity() {
 
@@ -58,6 +60,38 @@ class NewsActivity : AppCompatActivity() {
                 }
                 else -> false
             }
+        }
+        val cancelButton: FloatingActionButton = findViewById(R.id.cancelBotton)
+        val addButton: FloatingActionButton = findViewById(R.id.addBotton)
+
+        addButton.setOnClickListener {
+            loadFragment(AddArticleFragment())
+            cancelButton.isEnabled = true
+            addButton.isEnabled = false
+
+            val size = bottomNav.menu.size()
+            for (i in 0 until size) {
+                bottomNav.menu.getItem(i).isChecked = false
+                bottomNav.menu.getItem(i).isEnabled = false
+            }
+
+            val menuItemDashboard = bottomNav.menu.findItem(R.id.fab)
+            menuItemDashboard.isChecked = true
+        }
+
+        cancelButton.setOnClickListener {
+            loadFragment(HeadlinesFragment())
+            cancelButton.isEnabled = false
+            addButton.isEnabled = true
+
+            val size = bottomNav.menu.size()
+            for (i in 0 until size) {
+                bottomNav.menu.getItem(i).isChecked = false
+                bottomNav.menu.getItem(i).isEnabled = true
+            }
+
+            val menuItemDashboard = bottomNav.menu.findItem(R.id.headLinesFragment)
+            menuItemDashboard.isChecked = true
         }
     }
     private  fun loadFragment(fragment: Fragment){

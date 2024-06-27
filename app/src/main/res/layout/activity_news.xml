@@ -48,4 +48,19 @@
         android:layout_margin="50dp"
         />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/cancelBotton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/red"
+        android:contentDescription="@string/add_news"
+        android:src="@drawable/cancel"
+        app:maxImageSize="40dp"
+        app:tint="@color/white"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MaterialComponents.FloatingActionButton"
+        android:layout_gravity="bottom|center"
+        android:layout_margin="50dp"
+        android:enabled="false"
+        />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
