@@ -25,7 +25,7 @@ import org.json.JSONObject
 class WeatherFragment : Fragment() {
 
     private val weatherViewModel: WeatherViewModel by viewModels {
-        WeatherFactory()
+        WeatherFactory(requireContext())
     }
 
     private lateinit var userCity: EditText
@@ -40,8 +40,8 @@ class WeatherFragment : Fragment() {
     private lateinit var maxTemp: TextView
     private lateinit var sunrise: TextView
     private lateinit var sunset: TextView
-    private lateinit var pressure: TextView
     private lateinit var windSpeed: TextView
+
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     override fun onCreateView(
@@ -71,6 +71,9 @@ class WeatherFragment : Fragment() {
         sunrise = view.findViewById(R.id.sunrises)
         sunset = view.findViewById(R.id.sunsets)
         windSpeed = view.findViewById(R.id.wind_speed)
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+//        weatherViewModel.getCurrentLocationWeather()
 
         search.setOnClickListener {
             val cityName = userCity.text.toString()
@@ -124,12 +127,6 @@ class WeatherFragment : Fragment() {
             sunrise.text = responseSunrise
             sunset.text = responseSunset
             this@WeatherFragment.windSpeed.text = responseWindSpeed
-
         }
-
-//        weatherData.value = WeatherData(
-//            cityName, countryName, updatedAtText, temperature, cast, humidity, tempMin,
-//            tempMax, pressure, windSpeed, sunrise, sunset
-//        )
     }
 }
