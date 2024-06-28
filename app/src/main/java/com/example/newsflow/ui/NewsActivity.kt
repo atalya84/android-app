@@ -96,7 +96,7 @@ class NewsActivity : AppCompatActivity() {
     }
     private  fun loadFragment(fragment: Fragment){
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.frame_layout,fragment)
+        transaction.replace(R.id.fragment_container_view,fragment)
         transaction.commit()
     }
     public override fun onStop() {

@@ -79,4 +79,6 @@ dependencies {
     implementation ("com.google.android.material:material:1.12.0")
     implementation ("com.github.androdocs:Simple-HTTP-Request:v1.0")
     implementation ("com.google.android.gms:play-services-location:21.0.1")
+
+    implementation("androidx.navigation:navigation-dynamic-features-fragment:2.3.5")
 }

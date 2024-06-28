@@ -8,33 +8,7 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
-                  <entry key="LoginFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="197" />
-                            <option name="y" value="83" />
-                          </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_LoginFragment_to_homeFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_LoginFragment_to_signUpFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="addItemFragment">
+                  <entry key="articleFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
@@ -45,7 +19,7 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_addItemFragment_to_itemFragment">
+                            <entry key="action_articleFragment_to_headlinesFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -55,85 +29,7 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="editItemFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="500" />
-                            <option name="y" value="368" />
-                          </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_editItemFragment_to_itemFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="editProfileFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="-7" />
-                            <option name="y" value="313" />
-                          </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_editProfileFragment_to_LoginFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_editProfileFragment_to_homeFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="homeFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="190" />
-                            <option name="y" value="567" />
-                          </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_homeFragment_to_editProfileFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_homeFragment_to_itemFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_homeFragment_to_spaceFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="itemFragment">
+                  <entry key="headlinesFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
@@ -144,17 +40,17 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_itemFragment_to_addItemFragment">
+                            <entry key="action_headlinesFragment_to_articleFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_itemFragment_to_editItemFragment">
+                            <entry key="action_headlinesFragment_to_userNewsFragment2">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_itemFragment_to_homeFragment">
+                            <entry key="action_headlinesFragment_to_weatherFragment3">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -164,23 +60,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="signUpFragment">
+                  <entry key="userNewsFragment2">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="513" />
-                            <option name="y" value="316" />
+                            <option name="x" value="500" />
+                            <option name="y" value="368" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_signUpFragment_to_LoginFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_signUpFragment_to_homeFragment">
+                            <entry key="action_userNewsFragment2_to_headlinesFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -190,18 +81,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="spaceFragment">
+                  <entry key="weatherFragment3">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
                             <option name="x" value="12" />
-                            <option name="y" value="12" />
+                            <option name="y" value="46" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_spaceFragment_to_homeFragment">
+                            <entry key="action_weatherFragment3_to_headlinesFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
