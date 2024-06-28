@@ -8,23 +8,26 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
+                  <entry key="addArticleFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="316" />
+                            <option name="y" value="-472" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="articleFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="500" />
-                            <option name="y" value="12" />
+                            <option name="x" value="838" />
+                            <option name="y" value="-390" />
                           </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_articleFragment_to_headlinesFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -34,65 +37,49 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="256" />
-                            <option name="y" value="46" />
+                            <option name="x" value="336" />
+                            <option name="y" value="58" />
                           </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_headlinesFragment_to_articleFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_headlinesFragment_to_userNewsFragment2">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_headlinesFragment_to_weatherFragment3">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="userNewsFragment2">
+                  <entry key="settingsFragment2">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="500" />
-                            <option name="y" value="368" />
+                            <option name="x" value="282" />
+                            <option name="y" value="562" />
                           </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_userNewsFragment2_to_headlinesFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="weatherFragment3">
+                  <entry key="userNewsFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="12" />
-                            <option name="y" value="46" />
+                            <option name="x" value="790" />
+                            <option name="y" value="242" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="weatherFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-44" />
+                            <option name="y" value="60" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_weatherFragment3_to_headlinesFragment">
+                            <entry key="action_weatherFragment_to_addArticleFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
