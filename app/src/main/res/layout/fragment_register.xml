@@ -22,10 +22,11 @@
 
     <EditText
         android:id="@+id/etName"
+        android:fontFamily="@font/poppins"
         android:layout_width="0dp"
         android:layout_height="43dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="50dp"
         android:ems="10"
         android:hint="@string/name"
@@ -36,6 +37,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageEx" />
 
     <EditText
+        android:fontFamily="@font/poppins"
         android:id="@+id/etEmail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -53,6 +55,7 @@
     <EditText
         android:id="@+id/etPassword"
         android:layout_width="0dp"
+        android:fontFamily="@font/poppins"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
         android:layout_marginTop="35dp"
@@ -76,6 +79,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etPassword"
+        android:fontFamily="@font/poppins"
         android:backgroundTint="@color/ligthBlue"/>
 
     <ImageView
@@ -91,6 +95,7 @@
     <TextView
         android:id="@+id/imageEx"
         android:layout_width="wrap_content"
+        android:fontFamily="@font/poppins"
         android:layout_height="wrap_content"
         android:text="@string/select_your_profile_picture"
         android:layout_marginTop="5dp"
