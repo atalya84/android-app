@@ -11,21 +11,20 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 import com.example.newsflow.R
-import androidx.fragment.app.Fragment
-import com.example.newsflow.ui.fragments.AddArticleFragment
-import com.example.newsflow.ui.fragments.HeadlinesFragment
-import com.example.newsflow.ui.fragments.SettingsFragment
-import com.example.newsflow.ui.fragments.UserNewsFragment
-import com.example.newsflow.ui.fragments.WeatherFragment
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class NewsActivity : AppCompatActivity() {
 
-    lateinit var bottomNav : BottomNavigationView
+    private lateinit var bottomNavigationView: BottomNavigationView
+    private lateinit var navHostFragment: NavHostFragment
+    private lateinit var navController: NavController
 
-    val scope = CoroutineScope(Dispatchers.IO + Job())
-    var uriResult: MutableLiveData<Uri?> = MutableLiveData<Uri?>()
+    private val scope = CoroutineScope(Dispatchers.IO + Job())
+    private var uriResult: MutableLiveData<Uri?> = MutableLiveData<Uri?>()
     val requestPermission =
         registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
             if (uri != null) {
@@ -39,65 +38,43 @@ class NewsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_news)
-        bottomNav = findViewById(R.id.bottomNavigationView) as BottomNavigationView
-        bottomNav.setOnItemSelectedListener {
-            when(it.itemId) {
-                R.id.weatherFragment -> {
-                    loadFragment(WeatherFragment())
-                    true
-                }
-                R.id.settingsFragment -> {
-                    loadFragment(SettingsFragment())
-                    true
-                }
-                R.id.headLinesFragment -> {
-                    loadFragment(HeadlinesFragment())
-                    true
-                }
-                R.id.userNewsFragment -> {
-                    loadFragment(UserNewsFragment())
-                    true
-                }
-                else -> false
-            }
-        }
+
+        bottomNavigationView = findViewById(R.id.bottomNavigationView)
+        navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view) as NavHostFragment
+        navController = navHostFragment.navController
+
+        NavigationUI.setupWithNavController(
+            bottomNavigationView,navController
+        )
+
         val cancelButton: FloatingActionButton = findViewById(R.id.cancelBotton)
         val addButton: FloatingActionButton = findViewById(R.id.addBotton)
 
         addButton.setOnClickListener {
-            loadFragment(AddArticleFragment())
+            navController.navigate(R.id.addArticleFragment)
             cancelButton.isEnabled = true
             addButton.isEnabled = false
 
-            val size = bottomNav.menu.size()
+            val size = bottomNavigationView.menu.size()
             for (i in 0 until size) {
-                bottomNav.menu.getItem(i).isChecked = false
-                bottomNav.menu.getItem(i).isEnabled = false
+                bottomNavigationView.menu.getItem(i).isChecked = false
+                bottomNavigationView.menu.getItem(i).isEnabled = false
             }
 
-            val menuItemDashboard = bottomNav.menu.findItem(R.id.fab)
+            val menuItemDashboard = bottomNavigationView.menu.findItem(R.id.fab)
             menuItemDashboard.isChecked = true
         }
 
         cancelButton.setOnClickListener {
-            loadFragment(HeadlinesFragment())
+            navController.navigate(R.id.headlinesFragment)
             cancelButton.isEnabled = false
             addButton.isEnabled = true
 
-            val size = bottomNav.menu.size()
-            for (i in 0 until size) {
-                bottomNav.menu.getItem(i).isChecked = false
-                bottomNav.menu.getItem(i).isEnabled = true
+            val size = bottomNavigationView.menu.size()
+            for (i in 0 until size) {size
+                bottomNavigationView.menu.getItem(i).isEnabled = true
             }
-
-            val menuItemDashboard = bottomNav.menu.findItem(R.id.headLinesFragment)
-            menuItemDashboard.isChecked = true
         }
-    }
-    private  fun loadFragment(fragment: Fragment){
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.frame_layout,fragment)
-        transaction.commit()
     }
     public override fun onStop() {
         super.onStop()

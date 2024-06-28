@@ -71,7 +71,7 @@ dependencies {
     implementation ("com.squareup.okhttp3:logging-interceptor:4.5.0")
     // Navigation Components
     implementation ("androidx.navigation:navigation-fragment-ktx:2.7.5")
-    implementation ("androidx.navigation:navigation-ui-ktx:2.7.5")
+    implementation ("androidx.navigation:navigation-ui-ktx:2.3.5")
     // Glide
     implementation ("com.github.bumptech.glide:glide:4.12.0")
     ksp ("com.github.bumptech.glide:compiler:4.12.0")
@@ -79,4 +79,6 @@ dependencies {
     implementation ("com.google.android.material:material:1.12.0")
     implementation ("com.github.androdocs:Simple-HTTP-Request:v1.0")
     implementation ("com.google.android.gms:play-services-location:21.0.1")
+
+    implementation("androidx.navigation:navigation-dynamic-features-fragment:2.3.5")
 }

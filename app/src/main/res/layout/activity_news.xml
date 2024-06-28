@@ -8,10 +8,13 @@
     android:background="@color/white"
     tools:context=".ui.NewsActivity">
 
-    <FrameLayout
+    <androidx.fragment.app.FragmentContainerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/frame_layout"/>
+        android:id="@+id/fragment_container_view"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/navigation"/>
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
@@ -45,8 +48,7 @@
         app:tint="@color/white"
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MaterialComponents.FloatingActionButton"
         android:layout_gravity="bottom|center"
-        android:layout_margin="50dp"
-        />
+        android:layout_margin="50dp"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/cancelBotton"
@@ -60,7 +62,6 @@
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MaterialComponents.FloatingActionButton"
         android:layout_gravity="bottom|center"
         android:layout_margin="50dp"
-        android:enabled="false"
-        />
+        android:enabled="false"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
