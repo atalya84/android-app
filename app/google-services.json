@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "559161101260",
+    "project_id": "news-flow-android-13221",
+    "storage_bucket": "news-flow-android-13221.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:559161101260:android:3bdf40ff2636b774106b69",
+        "android_client_info": {
+          "package_name": "com.example.test"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjIohS4DIqY7tld958mEEHqnf_yiY_MZQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
