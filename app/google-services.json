@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "763712772123",
+    "project_id": "news-flow-android",
+    "storage_bucket": "news-flow-android.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:763712772123:android:5acabee8a04956c7ef80be",
+        "android_client_info": {
+          "package_name": "com.example.newsflow"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDS8HFW2o0q6lPX2OzOPQt5ExLgXih-WS8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:763712772123:android:58b2c9381ad62c7bef80be",
+        "android_client_info": {
+          "package_name": "com.example.split1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDS8HFW2o0q6lPX2OzOPQt5ExLgXih-WS8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:763712772123:android:90a4985a2bb396b5ef80be",
+        "android_client_info": {
+          "package_name": "com.example.testapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDS8HFW2o0q6lPX2OzOPQt5ExLgXih-WS8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
