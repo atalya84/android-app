@@ -13,9 +13,9 @@ class PostViewHolder (
     fun bindPost(post:Post, context: Context) {
         binding.articleTitle.text = post.title
         binding.articleImage.setImageURI(post.imageUrl.toUri())
-        binding.articleDescription.text = post.desc
-        binding.articleSource.text = post.articleUrl
-        binding.articleDateTime.text = post.createdString
+//        binding.articleDescription.text = post.desc
+//        binding.articleSource.text = post.articleUrl
+//        binding.articleDateTime.text = post.createdString
 
         ImageUtil.loadImage(post.imageUrl.toUri(), context, binding.articleImage)
     }

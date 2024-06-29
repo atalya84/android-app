@@ -15,4 +15,5 @@
     <string name="title_placeholder">TITLE</string>
     <string name="desc_placeholder">DESCRIPTION</string>
     <string name="date_time_placeholder">DATE TIME</string>
+    <string name="country_placeholder">COUNTRY</string>
 </resources>
