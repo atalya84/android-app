@@ -14,7 +14,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginVertical="12dp"
             android:fontFamily="@font/poppins"
-            android:text="Feed"
+            android:text="@string/feed"
             android:textColor="@color/yellow"
             android:textSize="30sp"
             android:textStyle="bold"

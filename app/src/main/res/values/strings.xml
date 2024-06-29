@@ -9,4 +9,10 @@
     <string name="search_news">Search news...</string>
     <string name="add_news">Add News</string>
     <string name="enter_your_city_name">Enter Your City Name</string>
+    <string name="feed">Feed</string>
+    <string name="article_image_content_desc">Article Image</string>
+    <string name="source_placeholder">SOURCE</string>
+    <string name="title_placeholder">TITLE</string>
+    <string name="desc_placeholder">DESCRIPTION</string>
+    <string name="date_time_placeholder">DATE TIME</string>
 </resources>
