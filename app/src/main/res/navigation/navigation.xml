@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/userNewsFragment"
-        android:name="com.example.newsflow.ui.fragments.UserNewsFragment"
+        android:name="com.example.newsflow.ui.userNews.UserNewsFragment"
         android:label="fragment_user_news"
         tools:layout="@layout/fragment_user_news" >
         <action
