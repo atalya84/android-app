@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.lifecycle.Observer
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -20,7 +19,6 @@ import com.google.android.gms.location.LocationServices
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-import org.json.JSONObject
 
 class WeatherFragment : Fragment() {
 
@@ -73,14 +71,15 @@ class WeatherFragment : Fragment() {
         windSpeed = view.findViewById(R.id.wind_speed)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-//        weatherViewModel.getCurrentLocationWeather()
+        weatherViewModel.getCurrentLocationWeather()
 
         search.setOnClickListener {
             val cityName = userCity.text.toString()
             if (cityName.isEmpty()) {
                 Toast.makeText(requireContext(), "Please enter a city name", Toast.LENGTH_SHORT).show()
             } else {
-                weatherViewModel.getWeatherData(userCity.text.toString())
+                weatherViewModel.getWeatherData(cityName)
+                userCity.setText("")
             }
         }
     }
