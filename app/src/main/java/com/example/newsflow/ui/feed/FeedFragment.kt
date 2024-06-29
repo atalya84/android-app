@@ -1,7 +1,6 @@
 package com.example.newsflow.ui.feed
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,14 +10,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsflow.adapters.FeedAdapter
 import com.example.newsflow.data.database.posts.PostDatabase
-import com.example.newsflow.data.models.FirestorePost
 import com.example.newsflow.data.models.Post
 import com.example.newsflow.data.repositories.PostRepository
 import com.example.newsflow.databinding.FragmentFeedBinding
 import com.google.firebase.firestore.FirebaseFirestore
 
 class FeedFragment : Fragment() {
-    private val TAG = "FeedFragment"
     private lateinit var binding: FragmentFeedBinding
     private lateinit var postViewModel: PostViewModel
 
@@ -39,16 +36,6 @@ class FeedFragment : Fragment() {
         )[PostViewModel::class.java]
 
         setRecyclerView(posts, postRepository, adapter)
-
-//        binding.btnAddPost.setOnClickListener{
-//            firestoreDb.collection("posts").add(FirestorePost(
-//                "Test",
-//                "test description",
-//                "https://i.kym-cdn.com/entries/icons/original/000/043/344/cover5.jpg",
-//                "https://knowyourmeme.com/memes/he-just-like-me-fr",
-//                userId = "aaXzimaHB8xGPTf0mF8H"
-//            ))
-//        }
         return (binding.root)
     }
 

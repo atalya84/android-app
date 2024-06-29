@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsflow.data.models.Post
 import com.example.newsflow.databinding.FragmentHeadlineBinding
-import com.example.newsflow.util.ImageUtil
 import com.example.newsflow.viewHolders.PostViewHolder
 
 class FeedAdapter (

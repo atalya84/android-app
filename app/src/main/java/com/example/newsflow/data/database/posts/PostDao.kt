@@ -7,7 +7,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.example.newsflow.data.models.Post
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PostDao {
