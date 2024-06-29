@@ -11,7 +11,7 @@
         android:label="ArticleFragment" />
     <fragment
         android:id="@+id/headlinesFragment"
-        android:name="com.example.newsflow.ui.fragments.HeadlinesFragment"
+        android:name="com.example.newsflow.ui.feed.FeedFragment"
         android:label="HeadlinesFragment" >
         <action
             android:id="@+id/action_headlinesFragment_to_addArticleFragment"
