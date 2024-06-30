@@ -15,14 +15,18 @@ import com.example.newsflow.R
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
+import com.example.newsflow.databinding.ActivityNewsBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
 
 class NewsActivity : AppCompatActivity() {
 
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var navHostFragment: NavHostFragment
     private lateinit var navController: NavController
+    private lateinit var binding: ActivityNewsBinding
+    private var auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     private val scope = CoroutineScope(Dispatchers.IO + Job())
     private var uriResult: MutableLiveData<Uri?> = MutableLiveData<Uri?>()
@@ -38,9 +42,10 @@ class NewsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_news)
+        binding = ActivityNewsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        bottomNavigationView = findViewById(R.id.bottomNavigationView)
+        bottomNavigationView = binding.bottomNavigationView
         navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view) as NavHostFragment
         navController = navHostFragment.navController
 
@@ -48,8 +53,14 @@ class NewsActivity : AppCompatActivity() {
             bottomNavigationView,navController
         )
 
-        val cancelButton: FloatingActionButton = findViewById(R.id.cancelBotton)
-        val addButton: FloatingActionButton = findViewById(R.id.addBotton)
+        if (isLoggedin()) {
+            navController.navigate(R.id.headlinesFragment)
+        } else {
+            navController.navigate(R.id.logInFragment)
+        }
+
+        val cancelButton: FloatingActionButton = binding.cancelBotton
+        val addButton: FloatingActionButton = binding.addBotton
 
         addButton.setOnClickListener {
             //navController.navigate(R.id.signUpFragment)
@@ -81,5 +92,9 @@ class NewsActivity : AppCompatActivity() {
     public override fun onStop() {
         super.onStop()
         scope.cancel()
+    }
+
+    fun isLoggedin(): Boolean {
+        return auth.currentUser != null
     }
 }

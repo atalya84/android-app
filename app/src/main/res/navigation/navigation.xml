@@ -64,7 +64,7 @@
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.newsflow.ui.fragments.SettingsFragment"
+        android:name="com.example.newsflow.ui.settings.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" >
         <action
@@ -79,6 +79,9 @@
         <action
             android:id="@+id/action_settingsFragment_to_addArticleFragment"
             app:destination="@id/addArticleFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_logInFragment"
+            app:destination="@id/logInFragment" />
     </fragment>
     <fragment
         android:id="@+id/addArticleFragment"

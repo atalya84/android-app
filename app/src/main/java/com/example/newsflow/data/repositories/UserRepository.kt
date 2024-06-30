@@ -88,4 +88,8 @@ class UserRepository (private val firestoreDb: FirebaseFirestore, private val fi
         )
         firestoreDb.collection(COLLECTION).document(email ?: "").set(userData)
     }
+
+    fun logOut() {
+        FirebaseAuth.getInstance().signOut()
+    }
 }
