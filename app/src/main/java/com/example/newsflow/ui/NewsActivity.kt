@@ -51,18 +51,19 @@ class NewsActivity : AppCompatActivity() {
         val addButton: FloatingActionButton = findViewById(R.id.addBotton)
 
         addButton.setOnClickListener {
-            navController.navigate(R.id.addArticleFragment)
-            cancelButton.isEnabled = true
-            addButton.isEnabled = false
-
-            val size = bottomNavigationView.menu.size()
-            for (i in 0 until size) {
-                bottomNavigationView.menu.getItem(i).isChecked = false
-                bottomNavigationView.menu.getItem(i).isEnabled = false
-            }
-
-            val menuItemDashboard = bottomNavigationView.menu.findItem(R.id.fab)
-            menuItemDashboard.isChecked = true
+            navController.navigate(R.id.signUpFragment)
+//            navController.navigate(R.id.addArticleFragment)
+//            cancelButton.isEnabled = true
+//            addButton.isEnabled = false
+//
+//            val size = bottomNavigationView.menu.size()
+//            for (i in 0 until size) {
+//                bottomNavigationView.menu.getItem(i).isChecked = false
+//                bottomNavigationView.menu.getItem(i).isEnabled = false
+//            }
+//
+//            val menuItemDashboard = bottomNavigationView.menu.findItem(R.id.fab)
+//            menuItemDashboard.isChecked = true
         }
 
         cancelButton.setOnClickListener {

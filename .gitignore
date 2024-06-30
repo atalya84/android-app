@@ -29,3 +29,6 @@ local.properties
 /local.properties
 /build
 *.iml
+
+.idea/assetWizardSettings.xml
+.idea/navEditor.xml
