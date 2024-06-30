@@ -24,3 +24,8 @@ hs_err_pid*
 replay_pid*
 
 *.gradle/
+
+local.properties
+/local.properties
+/build
+*.iml

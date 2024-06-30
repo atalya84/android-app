@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "763712772123",
-    "project_id": "news-flow-android",
-    "storage_bucket": "news-flow-android.appspot.com"
+    "project_number": "559161101260",
+    "project_id": "news-flow-android-13221",
+    "storage_bucket": "news-flow-android-13221.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:763712772123:android:5acabee8a04956c7ef80be",
+        "mobilesdk_app_id": "1:559161101260:android:207517ca7a968f03106b69",
         "android_client_info": {
           "package_name": "com.example.newsflow"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDS8HFW2o0q6lPX2OzOPQt5ExLgXih-WS8"
+          "current_key": "AIzaSyBjIohS4DIqY7tld958mEEHqnf_yiY_MZQ"
         }
       ],
       "services": {
@@ -26,34 +26,15 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:763712772123:android:58b2c9381ad62c7bef80be",
+        "mobilesdk_app_id": "1:559161101260:android:3bdf40ff2636b774106b69",
         "android_client_info": {
-          "package_name": "com.example.split1"
+          "package_name": "com.example.test"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDS8HFW2o0q6lPX2OzOPQt5ExLgXih-WS8"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:763712772123:android:90a4985a2bb396b5ef80be",
-        "android_client_info": {
-          "package_name": "com.example.testapplication"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDS8HFW2o0q6lPX2OzOPQt5ExLgXih-WS8"
+          "current_key": "AIzaSyBjIohS4DIqY7tld958mEEHqnf_yiY_MZQ"
         }
       ],
       "services": {
