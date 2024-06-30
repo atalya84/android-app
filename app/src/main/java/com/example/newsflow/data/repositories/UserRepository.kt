@@ -27,7 +27,10 @@ class UserRepository (private val firestoreDb: FirebaseFirestore, private val fi
     private val _usersLiveData = MutableLiveData<List<User>>()
 
     private val _loginSuccessfull = MutableLiveData<Boolean>()
-    val loginSuccessfull: LiveData<Boolean> = _loginSuccessfull
+    val signUpSuccessfull: LiveData<Boolean> = _loginSuccessfull
+
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean> = _loading
 
     val postsLiveData: LiveData<List<User>> get() = _usersLiveData
 
@@ -35,6 +38,7 @@ class UserRepository (private val firestoreDb: FirebaseFirestore, private val fi
     fun get (id: String): User = userDao.get(id)
 
     fun createUser(newUser: FirestoreUser) {
+        _loading.value = true
         firestoreAuth.createUserWithEmailAndPassword(newUser.email, newUser.password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -73,6 +77,7 @@ class UserRepository (private val firestoreDb: FirebaseFirestore, private val fi
                         e.message?.let { Log.d(TAG, it) }
                     }
                 }
+                _loading.value = false
             }
     }
 

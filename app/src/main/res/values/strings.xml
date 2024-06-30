@@ -16,7 +16,7 @@
     <string name="date_time_placeholder">DATE TIME</string>
     <string name="country_placeholder">COUNTRY</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
