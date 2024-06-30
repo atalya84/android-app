@@ -7,6 +7,25 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:559161101260:android:207517ca7a968f03106b69",
+        "android_client_info": {
+          "package_name": "com.example.newsflow"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjIohS4DIqY7tld958mEEHqnf_yiY_MZQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:559161101260:android:3bdf40ff2636b774106b69",
         "android_client_info": {
           "package_name": "com.example.test"

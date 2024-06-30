@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/headlinesFragment">
+
+    <fragment
+        android:id="@+id/articleFragment"
+        android:name="com.example.newsflow.ui.fragments.ArticleFragment"
+        android:label="ArticleFragment" />
+    <fragment
+        android:id="@+id/headlinesFragment"
+        android:name="com.example.newsflow.ui.fragments.HeadlinesFragment"
+        android:label="HeadlinesFragment" >
+        <action
+            android:id="@+id/action_headlinesFragment_to_addArticleFragment"
+            app:destination="@id/addArticleFragment" />
+        <action
+            android:id="@+id/action_headlinesFragment_to_userNewsFragment"
+            app:destination="@id/userNewsFragment" />
+        <action
+            android:id="@+id/action_headlinesFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_headlinesFragment_to_weatherFragment"
+            app:destination="@id/weatherFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userNewsFragment"
+        android:name="com.example.newsflow.ui.fragments.UserNewsFragment"
+        android:label="fragment_user_news"
+        tools:layout="@layout/fragment_user_news" >
+        <action
+            android:id="@+id/action_userNewsFragment_to_addArticleFragment"
+            app:destination="@id/addArticleFragment" />
+        <action
+            android:id="@+id/action_userNewsFragment_to_headlinesFragment"
+            app:destination="@id/headlinesFragment" />
+        <action
+            android:id="@+id/action_userNewsFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_userNewsFragment_to_weatherFragment"
+            app:destination="@id/weatherFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/weatherFragment"
+        android:name="com.example.newsflow.ui.fragments.WeatherFragment"
+        android:label="fragment_weather"
+        tools:layout="@layout/fragment_weather" >
+        <action
+            android:id="@+id/action_weatherFragment_to_addArticleFragment"
+            app:destination="@id/addArticleFragment" />
+        <action
+            android:id="@+id/action_weatherFragment_to_headlinesFragment"
+            app:destination="@id/headlinesFragment" />
+        <action
+            android:id="@+id/action_weatherFragment_to_userNewsFragment"
+            app:destination="@id/userNewsFragment" />
+        <action
+            android:id="@+id/action_weatherFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.newsflow.ui.fragments.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settingsFragment_to_headlinesFragment"
+            app:destination="@id/headlinesFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_userNewsFragment"
+            app:destination="@id/userNewsFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_weatherFragment"
+            app:destination="@id/weatherFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_addArticleFragment"
+            app:destination="@id/addArticleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addArticleFragment"
+        android:name="com.example.newsflow.ui.fragments.AddArticleFragment"
+        android:label="fragment_add_article"
+        tools:layout="@layout/fragment_add_article" >
+        <action
+            android:id="@+id/action_addArticleFragment_to_headlinesFragment"
+            app:destination="@id/headlinesFragment" />
+    </fragment>
+</navigation>
