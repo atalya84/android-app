@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -51,25 +52,25 @@ class NewsActivity : AppCompatActivity() {
         val addButton: FloatingActionButton = findViewById(R.id.addBotton)
 
         addButton.setOnClickListener {
-            navController.navigate(R.id.signUpFragment)
-//            navController.navigate(R.id.addArticleFragment)
-//            cancelButton.isEnabled = true
-//            addButton.isEnabled = false
-//
-//            val size = bottomNavigationView.menu.size()
-//            for (i in 0 until size) {
-//                bottomNavigationView.menu.getItem(i).isChecked = false
-//                bottomNavigationView.menu.getItem(i).isEnabled = false
-//            }
-//
-//            val menuItemDashboard = bottomNavigationView.menu.findItem(R.id.fab)
-//            menuItemDashboard.isChecked = true
+            //navController.navigate(R.id.signUpFragment)
+            navController.navigate(R.id.addArticleFragment)
+            cancelButton.isVisible = true
+            addButton.isVisible = false
+
+            val size = bottomNavigationView.menu.size()
+            for (i in 0 until size) {
+                bottomNavigationView.menu.getItem(i).isChecked = false
+                bottomNavigationView.menu.getItem(i).isEnabled = false
+            }
+
+            val menuItemDashboard = bottomNavigationView.menu.findItem(R.id.fab)
+            menuItemDashboard.isChecked = true
         }
 
         cancelButton.setOnClickListener {
             navController.navigate(R.id.headlinesFragment)
-            cancelButton.isEnabled = false
-            addButton.isEnabled = true
+            cancelButton.isVisible = false
+            addButton.isVisible = true
 
             val size = bottomNavigationView.menu.size()
             for (i in 0 until size) {size
