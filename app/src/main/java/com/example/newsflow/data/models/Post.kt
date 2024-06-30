@@ -9,6 +9,7 @@ data class Post (
     @PrimaryKey var id: String,
     @ColumnInfo(name = "title") var title: String,
     @ColumnInfo(name = "description") var desc: String,
+    @ColumnInfo(name = "country") var country: String,
     @ColumnInfo(name = "imageUrl") var imageUrl: String,
     @ColumnInfo(name = "articleUrl") var articleUrl: String,
     @ColumnInfo(name = "createdString") var createdString: String,
@@ -18,6 +19,7 @@ data class Post (
 data class FirestorePost(
     val title: String = "",
     val desc: String = "",
+    val country: String = "",
     val imageUrl: String = "",
     val articleUrl: String = "",
     val createdString: String = "",
@@ -29,6 +31,7 @@ fun FirestorePost.toRoomPost(id: String): Post {
         id = id,
         title = this.title,
         desc = this.desc,
+        country = this.country,
         imageUrl = this.imageUrl,
         articleUrl = this.articleUrl,
         createdString = this.createdString,
@@ -40,6 +43,7 @@ fun Post.toFirestorePost(): FirestorePost {
     return FirestorePost(
         title = this.title,
         desc = this.desc,
+        country = this.country,
         imageUrl = this.imageUrl,
         articleUrl = this.articleUrl,
         createdString = this.createdString,

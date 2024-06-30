@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.newsflow.data.models.Post
 
-@Database(entities = [Post::class], version = 2, exportSchema = false)
+@Database(entities = [Post::class], version = 1, exportSchema = false)
 abstract class PostDatabase: RoomDatabase() {
 
     abstract fun postDao(): PostDao

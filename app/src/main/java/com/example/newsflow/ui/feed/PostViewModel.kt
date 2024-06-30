@@ -22,8 +22,9 @@ class PostViewModel(private val repository: PostRepository): ViewModel() {
             try {
                 val allPosts = repository.getAll()
                 _postsLiveData.postValue(allPosts)
+                Log.d("PostViewModel", "get all posts")
             } catch(e: Exception) {
-                Log.w("PostViewModel", "Error getting all posts")
+                Log.e("PostViewModel", "Error getting all posts")
             }
         }
     }

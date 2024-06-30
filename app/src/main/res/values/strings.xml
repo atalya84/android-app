@@ -16,4 +16,12 @@
     <string name="desc_placeholder">DESCRIPTION</string>
     <string name="date_time_placeholder">DATE TIME</string>
     <string name="country_placeholder">COUNTRY</string>
+    <string name="time_placeholder">RELATIVE TIME</string>
+    <string name="username_placeholder">USERNAME</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Orci dapibus ultrices in iaculis nunc sed augue. Augue ut lectus arcu bibendum at varius vel pharetra vel. Nullam non nisi est sit amet facilisis magna etiam tempor. Pulvinar mattis nunc sed blandit libero. Morbi non arcu risus quis varius quam quisque id diam. Elementum pulvinar etiam non quam lacus. Quis commodo odio aenean sed adipiscing diam donec adipiscing tristique. Est ultricies integer quis auctor elit sed. Arcu dictum varius duis at. Pretium fusce id velit ut tortor. Pellentesque diam volutpat commodo sed egestas. Quis vel eros donec ac odio tempor orci dapibus ultrices. Consequat mauris nunc congue nisi vitae suscipit.
+
+        Sodales ut etiam sit amet nisl. Interdum consectetur libero id faucibus nisl tincidunt eget. Viverra suspendisse potenti nullam ac tortor vitae purus. In cursus turpis massa tincidunt dui ut. A pellentesque sit amet porttitor eget. Interdum varius sit amet mattis vulputate enim nulla. Nisi lacus sed viverra tellus in. Non arcu risus quis varius quam quisque id diam vel. Tortor dignissim convallis aenean et tortor at risus. Egestas tellus rutrum tellus pellentesque. Mi ipsum faucibus vitae aliquet nec ullamcorper sit amet risus. Diam quam nulla porttitor massa id neque aliquam.
+
+Integer enim neque volutpat ac tincidunt vitae. Dapibus ultrices in iaculis nunc. Et odio pellentesque diam volutpat commodo sed egestas egestas. Sem et tortor consequat id. Lobortis scelerisque fermentum dui faucibus in. Nisi est sit amet facilisis. Arcu dui vivamus arcu felis bibendum ut. Mauris pharetra et ultrices neque ornare aenean. Erat velit scelerisque in dictum non consectetur a erat. Ac felis donec et odio pellentesque. Sagittis aliquam malesuada bibendum arcu vitae elementum curabitur. Vel turpis nunc eget lorem dolor sed viverra ipsum nunc. Elementum nibh tellus molestie nunc non blandit massa enim.</string>
+    <string name="return_content_desc">Return</string>
 </resources>

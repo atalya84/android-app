@@ -33,7 +33,8 @@ class PostRepository (private val firestoreDb: FirebaseFirestore, private val po
     @WorkerThread
     suspend fun update(post: Post) { postDao.update(post) }
 
-//    fun delete (id: Int) = postDao.delete(id)
+    @WorkerThread
+    suspend fun delete (post: Post) = postDao.delete(post)
 
     init {
         listenForPostUpdates()
@@ -57,9 +58,6 @@ class PostRepository (private val firestoreDb: FirebaseFirestore, private val po
                         posts.add(post)
                     }
                 }
-
-//                Log.d("PostRepo", posts.toString())
-
                 _postsLiveData.postValue(posts)
             }
         }
