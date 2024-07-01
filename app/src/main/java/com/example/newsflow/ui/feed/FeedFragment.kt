@@ -1,7 +1,6 @@
 package com.example.newsflow.ui.feed
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -34,9 +33,8 @@ class FeedFragment : Fragment() {
             override fun onPostClick(post: Post) {
                 posts.value?.find { p -> p.id == post.id }
                     ?.let {
-                        Log.d("AAA", post.toString())
                         articleViewModel.selectPost(it, ArticleViewModel.Origin.FEED)
-                        findNavController().navigate(R.id.action_headlinesFragment_to_articleFragment)
+                        findNavController().navigate(R.id.action_feedFragment_to_articleFragment)
                     }
             }
         })
