@@ -1,13 +1,8 @@
 package com.example.newsflow.data.repositories
 
 import android.content.ContentResolver
-import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Matrix
 import android.media.ExifInterface
 import android.net.Uri
-import android.provider.OpenableColumns
 import android.util.Log
 import android.widget.ImageView
 import androidx.annotation.WorkerThread
@@ -16,7 +11,6 @@ import androidx.lifecycle.MutableLiveData
 import com.example.newsflow.data.database.users.UserDao
 import com.example.newsflow.data.models.FirestoreUser
 import com.example.newsflow.data.models.User
-import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
@@ -24,20 +18,17 @@ import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.auth.userProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.StorageReference
-import com.google.firebase.storage.storage
 import com.squareup.picasso.Picasso
-import java.io.IOException
-import java.io.InputStream
-
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 
 class UserRepository (private val firestoreDb: FirebaseFirestore, private val firestoreAuth: FirebaseAuth, private val userDao: UserDao) {
 
     private val TAG = "SignUpViewModel"
     private val COLLECTION = "users"
-//    Log.d(TAG, "profileImageRef: $profileImageRef")
-
-    private val _imageBitmap = MutableLiveData<Bitmap>()
-    val imageBitmap: LiveData<Bitmap> = _imageBitmap
 
     private val _signUpSuccessfull = MutableLiveData<Boolean>()
     val signUpSuccessfull: LiveData<Boolean> = _signUpSuccessfull
@@ -54,36 +45,57 @@ class UserRepository (private val firestoreDb: FirebaseFirestore, private val fi
     private val _loginFailed = MutableLiveData<Boolean>()
     val loginFailed: LiveData<Boolean> = _loginFailed
 
-
-    private val storageRef = Firebase.storage.reference;
-
+    private val _ImageToShow = MutableLiveData<Uri>()
+    val imageToShow: LiveData<Uri> = _ImageToShow
+    
     @WorkerThread
     fun get (id: String): User = userDao.get(id)
 
-    fun createUser(newUser: FirestoreUser) {
+    fun createUser(newUser: FirestoreUser, profileImageRef: StorageReference ) {
         _loading.value = true
         firestoreAuth.createUserWithEmailAndPassword(newUser.email, newUser.password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+                    // get user created from firebase auth
                     val user = firestoreAuth.currentUser
                     user?.let {
-                        val profileUpdates = userProfileChangeRequest {
-                            displayName = newUser.name
-//                            photoUri = ImageToShow.value
-                        }
-                        it.updateProfile(profileUpdates)
-                            .addOnCompleteListener { profileUpdateTask ->
-                                if (profileUpdateTask.isSuccessful) {
-                                    Log.d(TAG, "User profile updated.")
+                        // if the user has uploaded an image
+                        _ImageToShow.value?.let {uri ->
+                            // asynchronous operation to upload image and creating user
+                            CoroutineScope(Dispatchers.IO).launch {
+                                try {
+                                    // upload image to firebase storage
+                                    val uri = UploadImage(uri, profileImageRef)
+                                    // if download url is not empty the upload was successful
+                                    if (uri != null) {
+                                        // update the new user with the name and image url
+                                        val profileUpdates = userProfileChangeRequest {
+                                            displayName = newUser.name
+                                            photoUri = uri
+                                        }
+                                        // when the update is done
+                                        it.updateProfile(profileUpdates)
+                                            .addOnCompleteListener { profileUpdateTask ->
+                                                if (profileUpdateTask.isSuccessful) {
+                                                    Log.d(TAG, "User profile updated.")
 
-                                    val updatedUser = firestoreAuth.currentUser
-                                    updatedUser?.let { updatedUser ->
-                                        storeUserData(updatedUser.uid, updatedUser.email, updatedUser.displayName, updatedUser.photoUrl)
+                                                    // save all the data in firestore db
+                                                    val updatedUser = firestoreAuth.currentUser
+                                                    updatedUser?.let { user ->
+                                                        storeUserData(user.uid, user.email, user.displayName, user.photoUrl)
+                                                    }
+                                                } else {
+                                                    Log.d(TAG, "There was an error updating the user profile")
+                                                }
+                                            }
                                     }
-                                } else {
-                                    Log.d(TAG, "There was an error updating the user profile")
+                                } catch (e: Exception) {
+                                    // Handle exceptions
                                 }
                             }
+                        }
+
+
                     }
 
                     _signUpSuccessfull.value = true
@@ -122,7 +134,6 @@ class UserRepository (private val firestoreDb: FirebaseFirestore, private val fi
         _loading.value = false
     }
 
-    // Function to store user data in Firestore
     private fun storeUserData(userId: String?, email: String?, name: String?, photo: Uri?) {
         val userData = hashMapOf(
             "userId" to userId,
@@ -136,24 +147,22 @@ class UserRepository (private val firestoreDb: FirebaseFirestore, private val fi
         FirebaseAuth.getInstance().signOut()
     }
 
-    fun UplaodImage(imageUri: Uri, context: Context, storageDir: String, profileImageRef: StorageReference) {
-        val imgName = getFileName(context, imageUri)
-        Log.d(TAG, "imgName: ${imgName}")
-        Log.d(TAG, "firestoreAuth.currentUser: ${firestoreAuth.currentUser}")
-        Log.d(TAG, "firestoreAuth.currentUser.uid: ${firestoreAuth.currentUser?.uid}")
-//        val imageRef = profileImageRef.child(firestoreAuth.currentUser?.uid ?: "")
-//        val uploadTask = storageRef.child("$storageDir/$imgName").putFile(imageUri)
-//
-//        uploadTask.addOnSuccessListener {
-//            storageRef.child("upload/$imgName").downloadUrl.addOnSuccessListener { uri ->
-//                ImageToShow.value = uri
-//                Log.e("Firebase", "download passed")
-//            }.addOnFailureListener { exception ->
-//                Log.e("Firebase", "Failed in downloading", exception)
-//            }
-//        }.addOnFailureListener { exception ->
-//            Log.e("Firebase", "Image Upload fail", exception)
-//        }
+    suspend fun UploadImage(imageUri: Uri, profileImageRef: StorageReference): Uri? {
+        val userId = firestoreAuth.currentUser?.uid ?: ""
+        val imageRef = profileImageRef.child(userId)
+
+        return try {
+            imageRef.putFile(imageUri).await()
+
+            val downloadUrl = withContext(Dispatchers.IO) {
+                imageRef.downloadUrl.await()
+            }
+
+            downloadUrl
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
     }
 
     fun ShowImgInView(contentResolver: ContentResolver, imageView: ImageView, imageUri: Uri) {
@@ -178,25 +187,10 @@ class UserRepository (private val firestoreDb: FirebaseFirestore, private val fi
                 .fit()
                 .centerCrop()
                 .into(imageView)
+
+            _ImageToShow.value = imageUri
         } else {
             Log.d("Picturerequest", "Input stream is null")
         }
-    }
-
-    private fun getFileName(context: Context, uri: Uri): String? {
-        if (uri.scheme == "content") {
-            val cursor = context.contentResolver.query(uri, null, null, null, null)
-            cursor.use {
-                if (cursor != null) {
-                    if(cursor.moveToFirst()) {
-                        val nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
-                        if (nameIndex != -1) {
-                            return cursor.getString(nameIndex)
-                        }
-                    }
-                }
-            }
-        }
-        return uri.path?.lastIndexOf('/')?.let { uri.path?.substring(it) }
     }
 }

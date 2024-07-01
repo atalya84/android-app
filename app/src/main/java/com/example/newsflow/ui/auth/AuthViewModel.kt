@@ -1,22 +1,17 @@
 package com.example.newsflow.ui.auth
 
 import android.content.ContentResolver
-import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
 import android.widget.ImageView
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.newsflow.data.models.FirestoreUser
-import com.example.newsflow.data.models.Post
-import com.example.newsflow.data.models.User
 import com.example.newsflow.data.repositories.UserRepository
 import com.google.firebase.storage.StorageReference
 import kotlinx.coroutines.launch
-import java.io.InputStream
 
 class AuthViewModel(private val repository: UserRepository): ViewModel() {
 
@@ -25,10 +20,10 @@ class AuthViewModel(private val repository: UserRepository): ViewModel() {
     val signUpFailed: LiveData<Boolean> = repository.signUpFailed
     val loginSuccessfull: LiveData<Boolean> = repository.loginSuccessfull
     val loginFailed: LiveData<Boolean> = repository.loginFailed
-    val imageBitmap: LiveData<Bitmap> = repository.imageBitmap
+    val imageToShow: LiveData<Uri> = repository.imageToShow
 
-    fun createUser(newUser: FirestoreUser) = viewModelScope.launch {
-        repository.createUser(newUser)
+    fun createUser(newUser: FirestoreUser, profileImageRef: StorageReference ) = viewModelScope.launch {
+        repository.createUser(newUser, profileImageRef)
     }
 
     fun logOut() = viewModelScope.launch {
@@ -39,9 +34,9 @@ class AuthViewModel(private val repository: UserRepository): ViewModel() {
         repository.login(email, password)
     }
 
-//    fun UplaodImage(imageUri: Uri, context: Context, storageDir: String, profileImageRef: StorageReference) = viewModelScope.launch {
-//        repository.UplaodImage(imageUri, context, storageDir, profileImageRef)
-//    }
+    suspend fun UploadImage(imageUri: Uri, profileImageRef: StorageReference){
+        repository.UploadImage(imageUri, profileImageRef)
+    }
 
     fun ShowImgInView(contentResolver: ContentResolver, imageView: ImageView, imageUri: Uri) {
         repository.ShowImgInView(contentResolver, imageView, imageUri)

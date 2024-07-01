@@ -44,5 +44,6 @@
     <string name="enter_email">Enter Your Email</string>
     <string name="invalid_email">Invalid email entered</string>
     <string name="enter_password">Enter password</string>
+    <string name="enter_img">Select A Picture As Your Profile Image</string>
     <string name="log_out">Log Out</string>
 </resources>

@@ -23,8 +23,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.storage
-import com.squareup.picasso.Picasso
-import android.media.ExifInterface
 import android.util.Log
 import android.widget.ImageView
 
@@ -71,7 +69,7 @@ class SignUpFragment : Fragment() {
                         email = binding.etEmail.text.toString(),
                         password = binding.etPassword.text.toString(),
                         name = binding.etName.text.toString()
-                    )
+                    ), profileImageRef
                 )
             }
         }
@@ -121,35 +119,41 @@ class SignUpFragment : Fragment() {
     }
 
     fun validation(): Boolean {
-        var isValid = true
         val name = binding.etName.text
         val email = binding.etEmail.text
         val password = binding.etPassword.text
 
+        if (viewModel.imageToShow.value == null) {
+            Toast.makeText(requireContext(), getString(R.string.enter_img), Toast.LENGTH_SHORT).show()
+            return false
+        }
+
         if (name.isNullOrEmpty()){
-            isValid = false
             Toast.makeText(requireContext(), getString(R.string.enter_name), Toast.LENGTH_SHORT).show()
+            return false
         }
 
         if (email.isNullOrEmpty()){
-            isValid = false
             Toast.makeText(requireContext(), getString(R.string.enter_email), Toast.LENGTH_SHORT).show()
+            return false
         } else {
             val emailRegex = "^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})"
             if (!emailRegex.toRegex().matches(email.toString())){
-                isValid = false
                 Toast.makeText(requireContext(), getString(R.string.invalid_email), Toast.LENGTH_SHORT).show()
+                return false
             }
         }
+
         if (password.isNullOrEmpty()){
-            isValid = false
             Toast.makeText(requireContext(), getString(R.string.enter_password), Toast.LENGTH_SHORT).show()
+            return false
         } else {
             if (password.toString().length < 8){
-                isValid = false
                 Toast.makeText(requireContext(), getString(R.string.invalid_password), Toast.LENGTH_SHORT).show()
+                return false
             }
         }
-        return isValid
+
+        return true
     }
 }
