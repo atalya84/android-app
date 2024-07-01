@@ -91,6 +91,7 @@ class SignUpFragment : Fragment() {
                     viewModel.ShowImgInView(contentResolver, imageView, uri)
                 } catch (e: Exception) {
                     Log.e("Picturerequest", "Error reading exif", e)
+                    Toast.makeText(requireContext(), getString(R.string.image_error), Toast.LENGTH_SHORT).show()
                 }
             }
         }

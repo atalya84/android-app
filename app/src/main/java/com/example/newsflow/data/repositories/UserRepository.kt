@@ -175,6 +175,8 @@ class UserRepository (private val firestoreDb: FirebaseFirestore, private val fi
             Picasso.get()
                 .load(imageUri)
                 .rotate(degrees)
+                .fit()
+                .centerCrop()
                 .into(imageView)
         } else {
             Log.d("Picturerequest", "Input stream is null")
