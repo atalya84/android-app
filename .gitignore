@@ -1,15 +1,11 @@
 # Compiled class file
 *.class
-
 # Log file
 *.log
-
 # BlueJ files
 *.ctxt
-
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
-
 # Package Files #
 *.jar
 *.war
@@ -18,15 +14,65 @@
 *.zip
 *.tar.gz
 *.rar
-
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
-
 *.gradle/
-
 local.properties
 /local.properties
 /build
 *.iml
 .idea/
+.gradle
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/captures
+.externalNativeBuild
+#built application files
+*.apk
+*.ap_
+*.aab
+# files for the dex VM
+*.dex
+# Java class files
+# generated files
+bin/
+gen/
+# Local configuration file (sdk path, etc)
+# Windows thumbnail db
+Thumbs.db
+# OSX files
+# Android Studio
+.idea
+#.idea/workspace.xml - remove # and delete .idea if it better suit your needs.
+build/
+.navigation
+captures/
+output.json
+#NDK
+obj/
+/*/out
+/*/*/build
+/*/*/production
+*.iws
+*.ipr
+*~
+*.swp
+# Gradle files
+.gradle/
+# Log/OS Files
+# Android Studio generated files and folders
+.externalNativeBuild/
+.cxx/
+# IntelliJ
+misc.xml
+deploymentTargetDropDown.xml
+render.experimental.xml
+# Keystore files
+*.jks
+*.keystore
+# Google Services (e.g. APIs or Firebase)
+google-services.json
+# Android Profiling
+*.hprof
