@@ -51,7 +51,7 @@ class UserRepository (private val firestoreDb: FirebaseFirestore, private val fi
     @WorkerThread
     fun get (id: String): User = userDao.get(id)
 
-    fun createUser(newUser: FirestoreUser, profileImageRef: StorageReference ) {
+    fun createUser(newUser: FirestoreUser, profileImageRef: StorageReference, errorCallback: (String) -> Unit ) {
         _loading.value = true
         firestoreAuth.createUserWithEmailAndPassword(newUser.email, newUser.password)
             .addOnCompleteListener { task ->
@@ -103,12 +103,19 @@ class UserRepository (private val firestoreDb: FirebaseFirestore, private val fi
                     try {
                         throw task.exception ?: java.lang.Exception("Invalid authentication")
                     } catch (e: FirebaseAuthWeakPasswordException) {
-                        Log.d(TAG, "Authentication failed, Password should be at least 6 characters")
+                        val message = "Authentication failed, Password should be at least 6 characters"
+                        errorCallback(message)
+                        Log.d(TAG, message)
                     } catch (e: FirebaseAuthInvalidCredentialsException) {
-                        Log.d(TAG, "Authentication failed, Invalid email entered")
+                        val message = "Authentication failed, Invalid email entered"
+                        errorCallback(message)
+                        Log.d(TAG, message)
                     } catch (e: FirebaseAuthUserCollisionException) {
-                        Log.d(TAG, "Authentication failed, Email already registered.")
+                        val message = "Authentication failed, Email already registered."
+                        errorCallback(message)
+                        Log.d(TAG, message)
                     } catch (e: Exception) {
+                        errorCallback(" An error occured while creating your user")
                         e.message?.let { Log.d(TAG, it) }
                     }
                 }

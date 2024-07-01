@@ -70,7 +70,9 @@ class SignUpFragment : Fragment() {
                         password = binding.etPassword.text.toString(),
                         name = binding.etName.text.toString()
                     ), profileImageRef
-                )
+                ) { errorMessage ->
+                    Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+                }
             }
         }
 

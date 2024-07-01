@@ -22,8 +22,8 @@ class AuthViewModel(private val repository: UserRepository): ViewModel() {
     val loginFailed: LiveData<Boolean> = repository.loginFailed
     val imageToShow: LiveData<Uri> = repository.imageToShow
 
-    fun createUser(newUser: FirestoreUser, profileImageRef: StorageReference ) = viewModelScope.launch {
-        repository.createUser(newUser, profileImageRef)
+    fun createUser(newUser: FirestoreUser, profileImageRef: StorageReference, errorCallback: (String) -> Unit ) = viewModelScope.launch {
+        repository.createUser(newUser, profileImageRef, errorCallback)
     }
 
     fun logOut() = viewModelScope.launch {
