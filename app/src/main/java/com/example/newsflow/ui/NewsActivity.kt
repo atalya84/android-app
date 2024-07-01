@@ -66,7 +66,7 @@ class NewsActivity : AppCompatActivity() {
         }
 
         cancelButton.setOnClickListener {
-            navController.navigate(R.id.headlinesFragment)
+            navController.navigate(R.id.feedFragment)
             cancelButton.isEnabled = false
             addButton.isEnabled = true
 

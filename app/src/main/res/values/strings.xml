@@ -53,4 +53,5 @@ Integer enim neque volutpat ac tincidunt vitae. Dapibus ultrices in iaculis nunc
     <!-- Content Description -->
     <string name="article_image_content_desc">Article Image</string>
     <string name="return_content_desc">Return</string>
+    <string name="post_options">Post Options</string>
 </resources>
