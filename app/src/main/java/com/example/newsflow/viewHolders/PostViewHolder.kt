@@ -14,7 +14,6 @@ class PostViewHolder (
 ): RecyclerView.ViewHolder(binding.root){
     fun bindPost(post:Post, context: Context, postClickListener: FeedAdapter.PostClickListener?) {
 
-        ImageUtil.loadImage(post.imageUrl.toUri(), context, binding.headlineImage)
         binding.headlineTitle.text = post.title
         binding.headlineImage.setImageURI(post.imageUrl.toUri())
         if (post.country.isNotEmpty()) {
@@ -25,5 +24,7 @@ class PostViewHolder (
         binding.root.setOnClickListener{
             postClickListener?.onPostClick(post)
         }
+
+        ImageUtil.loadImage(post.imageUrl.toUri(), context, binding.headlineImage)
     }
 }
