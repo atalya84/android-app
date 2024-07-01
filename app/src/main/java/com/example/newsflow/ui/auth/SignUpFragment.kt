@@ -1,23 +1,32 @@
 package com.example.newsflow.ui.auth
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.newsflow.R
-import com.example.newsflow.databinding.FragmentSignUpBinding
 import androidx.navigation.fragment.findNavController
+import com.example.newsflow.R
 import com.example.newsflow.data.database.users.UserDatabase
 import com.example.newsflow.data.models.FirestoreUser
 import com.example.newsflow.data.repositories.UserRepository
+import com.example.newsflow.databinding.FragmentSignUpBinding
+import com.example.newsflow.ui.NewsActivity
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.storage
+import com.squareup.picasso.Picasso
+import android.media.ExifInterface
+import android.util.Log
+import android.widget.ImageView
 
 class SignUpFragment : Fragment() {
 
@@ -34,6 +43,8 @@ class SignUpFragment : Fragment() {
     ): View {
         val firestoreDb: FirebaseFirestore = FirebaseFirestore.getInstance()
         val firestoreAuth: FirebaseAuth = FirebaseAuth.getInstance()
+        val profileImageRef: StorageReference = Firebase.storage.reference.child("profileImages")
+
         val userRepository = UserRepository(firestoreDb, firestoreAuth, UserDatabase.getDatabase(requireContext()).userDao())
 
         val bottomAppBar = requireActivity().findViewById<View>(R.id.bottomAppBar)
@@ -62,6 +73,25 @@ class SignUpFragment : Fragment() {
                         name = binding.etName.text.toString()
                     )
                 )
+            }
+        }
+
+        binding.imageView.setOnClickListener {
+            (activity as NewsActivity).requestPermission.launch(
+                PickVisualMediaRequest(
+                    ActivityResultContracts.PickVisualMedia.ImageOnly
+                )
+            )
+        }
+        (activity as NewsActivity).uriResult.observe(viewLifecycleOwner) { uri ->
+            if (uri != null) {
+                try {
+                    val contentResolver = requireContext().contentResolver
+                    val imageView: ImageView = binding.imageView
+                    viewModel.ShowImgInView(contentResolver, imageView, uri)
+                } catch (e: Exception) {
+                    Log.e("Picturerequest", "Error reading exif", e)
+                }
             }
         }
 

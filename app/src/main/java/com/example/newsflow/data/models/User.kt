@@ -6,25 +6,27 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "users")
 data class User (
-    @PrimaryKey var email: String,
+    @PrimaryKey var id: String,
     @ColumnInfo(name = "name") var name: String,
+    @ColumnInfo(name = "email") var email: String,
     @ColumnInfo(name = "password") var password: String,
-//    @ColumnInfo(name = "imageUrl") var imageUrl: String
+    @ColumnInfo(name = "imageUrl") var imageUrl: String
 )
 
 data class FirestoreUser(
     val name: String = "",
     val email: String = "",
     val password: String = "",
-//    val imageUrl: String = "",
+    val imageUrl: String = "",
 )
 
 fun FirestoreUser.toRoomUser(id: String): User {
     return User(
+        id = id,
         name = this.name,
         email = this.email,
         password = this.password,
-//        imageUrl = this.imageUrl
+        imageUrl = this.imageUrl
     )
 }
 
@@ -33,6 +35,6 @@ fun User.toFirestoreUser(): FirestoreUser {
         name = this.name,
         email = this.email,
         password = this.password,
-//        imageUrl = this.imageUrl
+        imageUrl = this.imageUrl
     )
 }

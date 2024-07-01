@@ -54,6 +54,8 @@ dependencies {
     implementation(libs.androidx.legacy.support.v4)
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.firebase.auth.ktx)
+    implementation(libs.firebase.storage.ktx)
+    implementation(libs.firebase.storage)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -88,6 +90,6 @@ dependencies {
     implementation ("com.google.android.material:material:1.12.0")
     implementation ("com.github.androdocs:Simple-HTTP-Request:v1.0")
     implementation ("com.google.android.gms:play-services-location:21.0.1")
-
+    implementation ("com.squareup.picasso:picasso:2.71828")
     implementation("androidx.navigation:navigation-dynamic-features-fragment:2.3.5")
 }

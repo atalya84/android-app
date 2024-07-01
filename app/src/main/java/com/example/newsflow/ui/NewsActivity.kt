@@ -29,7 +29,7 @@ class NewsActivity : AppCompatActivity() {
     private var auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     private val scope = CoroutineScope(Dispatchers.IO + Job())
-    private var uriResult: MutableLiveData<Uri?> = MutableLiveData<Uri?>()
+    var uriResult: MutableLiveData<Uri?> = MutableLiveData<Uri?>()
     val requestPermission =
         registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
             if (uri != null) {
