@@ -1,7 +1,6 @@
 package com.example.newsflow.ui.auth
 
 import android.content.ContentResolver
-import android.graphics.Bitmap
 import android.net.Uri
 import android.widget.ImageView
 import androidx.lifecycle.ViewModel
