@@ -26,13 +26,20 @@ class UserRepository (private val firestoreDb: FirebaseFirestore, private val fi
     val ImageToShow: MutableLiveData<Uri?> = MutableLiveData<Uri?>()
     private val _usersLiveData = MutableLiveData<List<User>>()
 
-    private val _loginSuccessfull = MutableLiveData<Boolean>()
-    val signUpSuccessfull: LiveData<Boolean> = _loginSuccessfull
+    private val _signUpSuccessfull = MutableLiveData<Boolean>()
+    val signUpSuccessfull: LiveData<Boolean> = _signUpSuccessfull
+
+    private val _signUpFailed = MutableLiveData<Boolean>()
+    val signUpFailed: LiveData<Boolean> = _signUpFailed
 
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> = _loading
 
-    val postsLiveData: LiveData<List<User>> get() = _usersLiveData
+    private val _loginSuccessfull = MutableLiveData<Boolean>()
+    val loginSuccessfull: LiveData<Boolean> = _loginSuccessfull
+
+    private val _loginFailed = MutableLiveData<Boolean>()
+    val loginFailed: LiveData<Boolean> = _loginFailed
 
     @WorkerThread
     fun get (id: String): User = userDao.get(id)
@@ -63,7 +70,7 @@ class UserRepository (private val firestoreDb: FirebaseFirestore, private val fi
                             }
                     }
 
-                    _loginSuccessfull.value = true
+                    _signUpSuccessfull.value = true
                 } else {
                     try {
                         throw task.exception ?: java.lang.Exception("Invalid authentication")
@@ -79,6 +86,24 @@ class UserRepository (private val firestoreDb: FirebaseFirestore, private val fi
                 }
                 _loading.value = false
             }
+    }
+
+    fun login(email: String, password: String) {
+        _loading.value = true
+        firestoreAuth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val user = firestoreAuth.currentUser
+                    if (user != null) {
+                        _loginSuccessfull.value = true
+                        Log.i("Login", "signInWithEmailAndPassword:success")
+                    }
+                } else {
+                    _loginFailed.value = true
+                    Log.i("Login", "Error")
+                }
+            }
+        _loading.value = false
     }
 
     // Function to store user data in Firestore

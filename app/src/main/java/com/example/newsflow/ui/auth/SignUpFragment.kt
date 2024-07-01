@@ -28,7 +28,6 @@ class SignUpFragment : Fragment() {
     private lateinit var binding: FragmentSignUpBinding
     private lateinit var viewModel: AuthViewModel
 
-    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -83,7 +82,7 @@ class SignUpFragment : Fragment() {
                 binding.btnSignUp.text = ""
             } else {
                 binding.registerProgress.isVisible = false
-                binding.btnSignUp.text = "@string/sign_me_up"
+                binding.btnSignUp.text = "Sign Me Up"
             }
         })
 

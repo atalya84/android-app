@@ -13,8 +13,11 @@ import kotlinx.coroutines.launch
 
 class AuthViewModel(private val repository: UserRepository): ViewModel() {
 
-    val signUpSuccessfull: LiveData<Boolean> = repository.signUpSuccessfull
     val loading: LiveData<Boolean> = repository.loading
+    val signUpSuccessfull: LiveData<Boolean> = repository.signUpSuccessfull
+    val signUpFailed: LiveData<Boolean> = repository.signUpFailed
+    val loginSuccessfull: LiveData<Boolean> = repository.loginSuccessfull
+    val loginFailed: LiveData<Boolean> = repository.loginFailed
 
     fun createUser(newUser: FirestoreUser) = viewModelScope.launch {
         repository.createUser(newUser)
@@ -22,6 +25,10 @@ class AuthViewModel(private val repository: UserRepository): ViewModel() {
 
     fun logOut() = viewModelScope.launch {
         repository.logOut()
+    }
+
+    fun login(email: String, password: String) = viewModelScope.launch {
+        repository.login(email, password)
     }
 
     class AuthModelFactory(private val repository: UserRepository): ViewModelProvider.Factory {
