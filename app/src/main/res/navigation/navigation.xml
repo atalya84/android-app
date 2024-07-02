@@ -71,7 +71,7 @@
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.newsflow.ui.fragments.SettingsFragment"
+        android:name="com.example.newsflow.ui.settings.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" >
         <action
@@ -86,6 +86,9 @@
         <action
             android:id="@+id/action_settingsFragment_to_addArticleFragment"
             app:destination="@id/addArticleFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_logInFragment"
+            app:destination="@id/logInFragment" />
     </fragment>
     <fragment
         android:id="@+id/addArticleFragment"
@@ -94,6 +97,30 @@
         tools:layout="@layout/fragment_add_article" >
         <action
             android:id="@+id/action_addArticleFragment_to_headlinesFragment"
+            app:destination="@id/headlinesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/logInFragment"
+        android:name="com.example.newsflow.ui.auth.LogInFragment"
+        android:label="fragment_log_in"
+        tools:layout="@layout/fragment_log_in" >
+        <action
+            android:id="@+id/action_logInFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_logInFragment_to_headlinesFragment"
+            app:destination="@id/headlinesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.example.newsflow.ui.auth.SignUpFragment"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up" >
+        <action
+            android:id="@+id/action_signUpFragment_to_logInFragment"
+            app:destination="@id/logInFragment" />
+        <action
+            android:id="@+id/action_signUpFragment_to_headlinesFragment"
             app:destination="@id/headlinesFragment" />
     </fragment>
 </navigation>

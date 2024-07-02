@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -14,17 +15,21 @@ import com.example.newsflow.R
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
+import com.example.newsflow.databinding.ActivityNewsBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
 
 class NewsActivity : AppCompatActivity() {
 
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var navHostFragment: NavHostFragment
     private lateinit var navController: NavController
+    private lateinit var binding: ActivityNewsBinding
+    private var auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     private val scope = CoroutineScope(Dispatchers.IO + Job())
-    private var uriResult: MutableLiveData<Uri?> = MutableLiveData<Uri?>()
+    var uriResult: MutableLiveData<Uri?> = MutableLiveData<Uri?>()
     val requestPermission =
         registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
             if (uri != null) {
@@ -37,9 +42,10 @@ class NewsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_news)
+        binding = ActivityNewsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        bottomNavigationView = findViewById(R.id.bottomNavigationView)
+        bottomNavigationView = binding.bottomNavigationView
         navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view) as NavHostFragment
         navController = navHostFragment.navController
 
@@ -47,13 +53,20 @@ class NewsActivity : AppCompatActivity() {
             bottomNavigationView,navController
         )
 
-        val cancelButton: FloatingActionButton = findViewById(R.id.cancelBotton)
-        val addButton: FloatingActionButton = findViewById(R.id.addBotton)
+        if (isLoggedin()) {
+            navController.navigate(R.id.headlinesFragment)
+        } else {
+            navController.navigate(R.id.logInFragment)
+        }
+
+        val cancelButton: FloatingActionButton = binding.cancelBotton
+        val addButton: FloatingActionButton = binding.addBotton
 
         addButton.setOnClickListener {
+            //navController.navigate(R.id.signUpFragment)
             navController.navigate(R.id.addArticleFragment)
-            cancelButton.isEnabled = true
-            addButton.isEnabled = false
+            cancelButton.isVisible = true
+            addButton.isVisible = false
 
             val size = bottomNavigationView.menu.size()
             for (i in 0 until size) {
@@ -67,8 +80,8 @@ class NewsActivity : AppCompatActivity() {
 
         cancelButton.setOnClickListener {
             navController.navigate(R.id.headlinesFragment)
-            cancelButton.isEnabled = false
-            addButton.isEnabled = true
+            cancelButton.isVisible = false
+            addButton.isVisible = true
 
             val size = bottomNavigationView.menu.size()
             for (i in 0 until size) {size
@@ -79,5 +92,9 @@ class NewsActivity : AppCompatActivity() {
     public override fun onStop() {
         super.onStop()
         scope.cancel()
+    }
+
+    fun isLoggedin(): Boolean {
+        return auth.currentUser != null
     }
 }
