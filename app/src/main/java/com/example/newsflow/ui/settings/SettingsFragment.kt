@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import androidx.core.net.toUri
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -52,7 +53,8 @@ class SettingsFragment : Fragment() {
         }
 
         val imageView: ImageView = binding.imageView
-        ImageUtil.showImgInViewFromUrl(currUser.photoUrl.toString(), imageView)
+        val progressBar: ProgressBar = binding.progressBar
+        ImageUtil.showImgInViewFromUrl(currUser.photoUrl.toString(), imageView, progressBar)
         binding.emailtext.text = currUser.email
         binding.userName.text = currUser.displayName
 
