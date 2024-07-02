@@ -31,7 +31,8 @@
     <string name="search_news">Search news...</string>
     <string name="add_news">Add News</string>
     <string name="enter_your_city_name">Enter Your City Name</string>
-    <string name="select_your_profile_picture">Select Your Profile Picture</string>
+    <string name="select_your_profile_picture">Touch The Logo To Select Your Profile Picture</string>
+    <string name="edit_user">Edit User</string>
 
     <!-- Titles -->
     <string name="feed">Feed</string>
@@ -42,6 +43,17 @@
     <string name="desc_placeholder">DESCRIPTION</string>
     <string name="date_time_placeholder">DATE TIME</string>
     <string name="country_placeholder">COUNTRY</string>
+    <string name="image_error">There was error when displaying your image</string>
+    <string name="log_in">Log In</string>
+    <string name="sign">Don\'t have a user? Sign Up</string>
+    <string name="line">________________________________</string>
+    <string name="log">Already Have A User? Log In</string>
+    <string name="enter_name">Enter Your Name</string>
+    <string name="enter_email">Enter Your Email</string>
+    <string name="invalid_email">Invalid email entered</string>
+    <string name="enter_password">Enter password</string>
+    <string name="enter_img">Select A Picture As Your Profile Image</string>
+    <string name="log_out">Log Out</string>
     <string name="time_placeholder">RELATIVE TIME</string>
     <string name="username_placeholder">USERNAME</string>
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Orci dapibus ultrices in iaculis nunc sed augue. Augue ut lectus arcu bibendum at varius vel pharetra vel. Nullam non nisi est sit amet facilisis magna etiam tempor. Pulvinar mattis nunc sed blandit libero. Morbi non arcu risus quis varius quam quisque id diam. Elementum pulvinar etiam non quam lacus. Quis commodo odio aenean sed adipiscing diam donec adipiscing tristique. Est ultricies integer quis auctor elit sed. Arcu dictum varius duis at. Pretium fusce id velit ut tortor. Pellentesque diam volutpat commodo sed egestas. Quis vel eros donec ac odio tempor orci dapibus ultrices. Consequat mauris nunc congue nisi vitae suscipit.
@@ -53,5 +65,10 @@ Integer enim neque volutpat ac tincidunt vitae. Dapibus ultrices in iaculis nunc
     <!-- Content Description -->
     <string name="article_image_content_desc">Article Image</string>
     <string name="return_content_desc">Return</string>
+    <string name="email_headline">Email:</string>
+    <string name="email_example">user@gmail.com</string>
+    <string name="name_placeholder">Jhon Doe</string>
+    <string name="change_picture">Change Picture</string>
+    <string name="save_changes">Save Changes</string>
     <string name="post_options">Post Options</string>
 </resources>

@@ -1,14 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.fragments.SettingsFragment">
+<androidx.constraintlayout.widget.ConstraintLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/frameLayout"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".ui.settings.SettingsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="settings" />
+<ImageView
+    android:id="@+id/imageView"
+    android:layout_width="170dp"
+    android:layout_height="154dp"
+    android:src="@mipmap/ic_app_logo"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    android:layout_marginTop="100dp" />
 
-</FrameLayout>
+<TextView
+    android:id="@+id/userName"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:fontFamily="@font/poppins"
+    android:text="@string/name_placeholder"
+    android:textSize="25sp"
+    android:textStyle="bold"
+    android:layout_marginTop="30dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/imageView"/>
+
+<TextView
+    android:id="@+id/email"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:fontFamily="@font/poppins"
+    android:text="@string/email_headline"
+    android:textColor="@color/grey"
+    android:textSize="16sp"
+    app:layout_constraintTop_toBottomOf="@+id/userName"
+    android:layout_marginTop="25dp"
+    app:layout_constraintEnd_toStartOf="@+id/emailtext"
+    app:layout_constraintHorizontal_chainStyle="packed"
+    app:layout_constraintStart_toStartOf="parent"
+    android:layout_marginEnd="8dp"/>
+
+<TextView
+    android:id="@+id/emailtext"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:fontFamily="@font/poppins"
+    android:text="@string/email_example"
+    android:textSize="16sp"
+    app:layout_constraintStart_toEndOf="@+id/email"
+    app:layout_constraintTop_toBottomOf="@+id/userName"
+    android:layout_marginTop="25dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    android:layout_marginStart="8dp"/>
+
+<Button
+    android:id="@+id/editUser"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/trans_button"
+    android:textColor="@color/blue"
+    android:fontFamily="@font/poppins"
+    android:text="@string/edit_user"
+    android:layout_marginTop="110dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/emailtext"/>
+
+<Button
+    android:id="@+id/signout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/red"
+    android:fontFamily="@font/poppins"
+    android:text="@string/log_out"
+    app:layout_constraintEnd_toEndOf="parent"
+    android:layout_marginTop="15dp"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/editUser"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
