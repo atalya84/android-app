@@ -54,10 +54,8 @@ class EditProfileFragment : Fragment() {
             bottomNavigationView.menu.getItem(i).isEnabled = false
         }
 
-        val email = args.email
         val name = args.name
         val photoUrl = args.photoUrl
-        binding.etEmail.setText(email)
         binding.etName.setText(name)
         val imageView: ImageView = binding.imageView
         val progressBar: ProgressBar = binding.progressBar
@@ -94,10 +92,8 @@ class EditProfileFragment : Fragment() {
         return binding.root
     }
 
-
     fun validation(): Boolean {
         val name = binding.etName.text
-        val email = binding.etEmail.text
 
         if (viewModel.imageToShow.value == null) {
             Toast.makeText(requireContext(), getString(R.string.enter_img), Toast.LENGTH_SHORT).show()
@@ -107,17 +103,6 @@ class EditProfileFragment : Fragment() {
         if (name.isNullOrEmpty()){
             Toast.makeText(requireContext(), getString(R.string.enter_name), Toast.LENGTH_SHORT).show()
             return false
-        }
-
-        if (email.isNullOrEmpty()){
-            Toast.makeText(requireContext(), getString(R.string.enter_email), Toast.LENGTH_SHORT).show()
-            return false
-        } else {
-            val emailRegex = "^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})"
-            if (!emailRegex.toRegex().matches(email.toString())){
-                Toast.makeText(requireContext(), getString(R.string.invalid_email), Toast.LENGTH_SHORT).show()
-                return false
-            }
         }
 
         return true

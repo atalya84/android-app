@@ -54,7 +54,6 @@ class SettingsFragment : Fragment() {
         binding.editUser.setOnClickListener(
             Navigation.createNavigateOnClickListener(
                 SettingsFragmentDirections.actionSettingsFragmentToEditProfileFragment(
-                    currUserEmail,
                     currUserName,
                     currUserPic
                 )
