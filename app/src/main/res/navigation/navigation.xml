@@ -7,8 +7,12 @@
 
     <fragment
         android:id="@+id/articleFragment"
-        android:name="com.example.newsflow.ui.fragments.ArticleFragment"
-        android:label="ArticleFragment" />
+        android:name="com.example.newsflow.ui.article.ArticleFragment"
+        android:label="ArticleFragment" >
+        <action
+            android:id="@+id/action_articleFragment_to_headlinesFragment"
+            app:destination="@id/headlinesFragment" />
+    </fragment>
     <fragment
         android:id="@+id/headlinesFragment"
         android:name="com.example.newsflow.ui.feed.FeedFragment"
@@ -25,6 +29,9 @@
         <action
             android:id="@+id/action_headlinesFragment_to_weatherFragment"
             app:destination="@id/weatherFragment" />
+        <action
+            android:id="@+id/action_headlinesFragment_to_articleFragment"
+            app:destination="@id/articleFragment" />
     </fragment>
     <fragment
         android:id="@+id/userNewsFragment"

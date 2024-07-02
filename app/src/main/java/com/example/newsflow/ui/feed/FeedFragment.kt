@@ -1,23 +1,28 @@
 package com.example.newsflow.ui.feed
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.newsflow.R
 import com.example.newsflow.adapters.FeedAdapter
 import com.example.newsflow.data.database.posts.PostDatabase
 import com.example.newsflow.data.models.Post
 import com.example.newsflow.data.repositories.PostRepository
 import com.example.newsflow.databinding.FragmentFeedBinding
+import com.example.newsflow.ui.article.ArticleViewModel
 import com.google.firebase.firestore.FirebaseFirestore
 
 class FeedFragment : Fragment() {
     private lateinit var binding: FragmentFeedBinding
     private lateinit var postViewModel: PostViewModel
+    private lateinit var articleViewModel: ArticleViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,11 +30,21 @@ class FeedFragment : Fragment() {
     ): View {
 
         val posts = MutableLiveData<List<Post>>()
-        val adapter = FeedAdapter(mutableListOf())
+        val adapter = FeedAdapter(mutableListOf(), object : FeedAdapter.PostClickListener {
+            override fun onPostClick(post: Post) {
+                posts.value?.find { p -> p.id == post.id }
+                    ?.let {
+                        Log.d("AAA", post.toString())
+                        articleViewModel.selectPost(it, ArticleViewModel.Origin.FEED)
+                        findNavController().navigate(R.id.action_headlinesFragment_to_articleFragment)
+                    }
+            }
+        })
         val firestoreDb: FirebaseFirestore = FirebaseFirestore.getInstance()
         val postRepository = PostRepository(firestoreDb, PostDatabase.getDatabase(requireContext()).postDao())
 
         binding = FragmentFeedBinding.inflate(inflater, container, false)
+        articleViewModel = ViewModelProvider(requireActivity(), ArticleViewModel.ArticleModelFactory())[ArticleViewModel::class.java]
         postViewModel = ViewModelProvider(
             this,
             PostViewModel.PostModelFactory(postRepository)
@@ -42,7 +57,6 @@ class FeedFragment : Fragment() {
     private fun setRecyclerView(posts: MutableLiveData<List<Post>>, postRepository: PostRepository, feedAdapter: FeedAdapter) {
         postRepository.postsLiveData.observe(viewLifecycleOwner) {
             posts.value = ArrayList(it)
-//            Log.d("FeedFragment", posts.value.toString())
             feedAdapter.submitList(posts.value!!)
             binding.recyclerHeadlines.apply {
                 layoutManager = LinearLayoutManager(context)

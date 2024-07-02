@@ -9,8 +9,13 @@ import com.example.newsflow.databinding.FragmentHeadlineBinding
 import com.example.newsflow.viewHolders.PostViewHolder
 
 class FeedAdapter (
-    private val posts: MutableList<Post>
+    private val posts: MutableList<Post>,
+    private val postClickListener: PostClickListener? = null
 ): RecyclerView.Adapter<PostViewHolder>() {
+
+    interface PostClickListener {
+        fun onPostClick(post: Post)
+    }
 
     var context: Context? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
@@ -25,7 +30,9 @@ class FeedAdapter (
     override fun getItemCount(): Int = posts.size
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        context?.let { holder.bindPost(posts[position], it) }
+        context?.let {
+            holder.bindPost(posts[position], it, postClickListener)
+        }
     }
 
     fun submitList(postList: List<Post>) {
