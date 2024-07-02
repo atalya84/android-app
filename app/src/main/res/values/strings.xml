@@ -71,4 +71,13 @@ Integer enim neque volutpat ac tincidunt vitae. Dapibus ultrices in iaculis nunc
     <string name="change_picture">Change Picture</string>
     <string name="save_changes">Save Changes</string>
     <string name="post_options">Post Options</string>
+    <string name="upload_image_content_desc">Upload Image</string>
+    <string name="country_label">Country</string>
+    <string name="headline_label">Headline</string>
+    <string name="country_edit_text_hint">Enter the Country Where This Happened</string>
+    <string name="headline_edit_text_hint">Enter your Headline</string>
+    <string name="source_label">Source</string>
+    <string name="source_edit_text_hint">Enter Article URL</string>
+    <string name="description_label">Description</string>
+    <string name="desc_edit_text_hint">Desctibe Your Article (optional)</string>
 </resources>
