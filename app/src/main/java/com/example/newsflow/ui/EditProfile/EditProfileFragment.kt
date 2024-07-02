@@ -12,7 +12,7 @@ import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.Navigation
 import com.example.newsflow.R
 import com.example.newsflow.data.database.users.UserDatabase
 import com.example.newsflow.data.repositories.UserRepository
@@ -51,10 +51,10 @@ class EditProfileFragment : Fragment() {
         }
 
         binding.saveChanges.setOnClickListener {
-            findNavController().navigate(R.id.action_editProfileFragment_to_settingsFragment)
+            Navigation.findNavController(requireView()).popBackStack(R.id.settingsFragment,false)
         }
         binding.cancle.setOnClickListener {
-            findNavController().navigate(R.id.action_editProfileFragment_to_settingsFragment)
+            Navigation.findNavController(requireView()).popBackStack(R.id.settingsFragment, false)
         }
 
         binding.changePic.setOnClickListener{
@@ -79,6 +79,7 @@ class EditProfileFragment : Fragment() {
 
         return binding.root
     }
+
 
     fun validation(): Boolean {
         val name = binding.etName.text

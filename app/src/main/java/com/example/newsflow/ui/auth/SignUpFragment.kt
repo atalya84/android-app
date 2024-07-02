@@ -12,7 +12,6 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.example.newsflow.R
 import com.example.newsflow.data.database.users.UserDatabase
 import com.example.newsflow.data.models.FirestoreUser
@@ -26,6 +25,7 @@ import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.storage
 import android.util.Log
 import android.widget.ImageView
+import androidx.navigation.Navigation
 
 class SignUpFragment : Fragment() {
 
@@ -59,7 +59,7 @@ class SignUpFragment : Fragment() {
         )[AuthViewModel::class.java]
 
         binding.moveToLogIn.setOnClickListener {
-            findNavController().navigate(R.id.action_signUpFragment_to_logInFragment)
+            Navigation.createNavigateOnClickListener(R.id.action_signUpFragment_to_logInFragment)
         }
 
         bottomAppBar.isVisible = false
@@ -105,7 +105,7 @@ class SignUpFragment : Fragment() {
                 bottomAppBar.isVisible = true
                 addBotton.isVisible = true
                 newsActivity.apply { uriResult.value = null }
-                findNavController().navigate(R.id.action_signUpFragment_to_feedFragment)
+                Navigation.findNavController(requireView()).popBackStack(R.id.feedFragment,false)
             } else {
                 // Handle unsuccessful login
             }

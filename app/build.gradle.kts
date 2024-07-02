@@ -75,8 +75,6 @@ dependencies {
     // Coroutines
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
-    // Coroutine Lifecycle Scopes
-    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.8.2")
     // Retrofit
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
@@ -92,5 +90,5 @@ dependencies {
     implementation ("com.github.androdocs:Simple-HTTP-Request:v1.0")
     implementation ("com.google.android.gms:play-services-location:21.0.1")
     implementation ("com.squareup.picasso:picasso:2.71828")
-    implementation("androidx.navigation:navigation-dynamic-features-fragment:2.3.5")
+    implementation ("androidx.navigation:navigation-dynamic-features-fragment:2.5.3")
 }

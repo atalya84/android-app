@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.Navigation
 import com.example.newsflow.R
 import com.example.newsflow.databinding.FragmentArticleBinding
 import com.example.newsflow.util.ImageUtil
@@ -38,8 +38,16 @@ class ArticleFragment : Fragment() {
             binding.articleSource.text = post.articleUrl
             binding.articleReturnBtn.setOnClickListener {
                 when(viewModel.origin.value) {
-                    ArticleViewModel.Origin.FEED -> findNavController().navigate(R.id.action_articleFragment_to_feedFragment)
-                    ArticleViewModel.Origin.MY_NEWS ->  findNavController().navigate((R.id.action_articleFragment_to_userNewsFragment))
+                    ArticleViewModel.Origin.FEED -> view?.let { view ->
+                        Navigation.findNavController(
+                            view
+                        ).navigate(R.id.action_articleFragment_to_feedFragment)
+                    }
+                    ArticleViewModel.Origin.MY_NEWS -> view?.let { view ->
+                        Navigation.findNavController(
+                            view
+                        ).navigate(R.id.action_articleFragment_to_userNewsFragment)
+                    }
                     else -> {}
                 }
             }

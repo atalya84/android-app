@@ -7,10 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
+import androidx.core.net.toUri
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.example.newsflow.R
 import com.example.newsflow.data.database.users.UserDatabase
+import com.example.newsflow.data.models.FirestoreUser
+import com.example.newsflow.data.models.User
 import com.example.newsflow.data.repositories.UserRepository
 import com.example.newsflow.databinding.FragmentSettingsBinding
 import com.example.newsflow.ui.auth.AuthViewModel
@@ -42,11 +45,11 @@ class SettingsFragment : Fragment() {
 
         binding.signout.setOnClickListener {
             viewModel.logOut()
-            Navigation.findNavController(requireView()).navigate(R.id.action_settingsFragment_to_logInFragment)
+            findNavController().navigate(R.id.action_settingsFragment_to_logInFragment)
         }
 
         binding.editUser.setOnClickListener {
-            Navigation.findNavController(requireView()).navigate(R.id.action_settingsFragment_to_editProfileFragment)
+            findNavController().navigate(R.id.action_settingsFragment_to_editProfileFragment)
         }
 
         val imageView: ImageView = binding.imageView
