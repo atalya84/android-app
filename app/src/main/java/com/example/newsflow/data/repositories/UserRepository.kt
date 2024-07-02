@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.userProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.StorageReference
@@ -48,6 +49,9 @@ class UserRepository (private val firestoreDb: FirebaseFirestore, private val fi
 
     private val _ImageToShow = MutableLiveData<Uri>()
     val imageToShow: LiveData<Uri> = _ImageToShow
+
+    private val _currUser = MutableLiveData<FirebaseUser>()
+    val currUser: LiveData<FirebaseUser> = _currUser
     
     @WorkerThread
     fun get (id: String): User = userDao.get(id)
@@ -158,5 +162,9 @@ class UserRepository (private val firestoreDb: FirebaseFirestore, private val fi
     fun ShowImgInView(contentResolver: ContentResolver, imageView: ImageView, imageUri: Uri) {
         ImageUtil.ShowImgInViewFromGallery(contentResolver, imageView, imageUri)
         _ImageToShow.value = imageUri
+    }
+
+    fun updateCurrUser(user: FirebaseUser) {
+        _currUser.value = user
     }
 }

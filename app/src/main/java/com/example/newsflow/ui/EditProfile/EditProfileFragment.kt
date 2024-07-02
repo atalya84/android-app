@@ -31,6 +31,8 @@ class EditProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentEditProfileBinding
     private lateinit var viewModel: AuthViewModel
+    private val newsActivity: NewsActivity
+        get() = activity as NewsActivity
     private val args: EditProfileFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -61,22 +63,23 @@ class EditProfileFragment : Fragment() {
         val progressBar: ProgressBar = binding.progressBar
         ImageUtil.showImgInViewFromUrl(photoUrl, imageView, progressBar)
 
-
         binding.saveChanges.setOnClickListener {
-            Navigation.findNavController(requireView()).popBackStack(R.id.settingsFragment,false)
+            if(validation()) {
+                Navigation.findNavController(requireView()).popBackStack(R.id.settingsFragment, false)
+            }
         }
         binding.cancle.setOnClickListener {
             Navigation.findNavController(requireView()).popBackStack(R.id.settingsFragment, false)
         }
 
         binding.changePic.setOnClickListener{
-            (activity as NewsActivity).requestPermission.launch(
+            newsActivity.requestPermission.launch(
                 PickVisualMediaRequest(
                     ActivityResultContracts.PickVisualMedia.ImageOnly
                 )
             )
         }
-        (activity as NewsActivity).uriResult.observe(viewLifecycleOwner) { uri ->
+        newsActivity.uriResult.observe(viewLifecycleOwner) { uri ->
             if (uri != null) {
                 try {
                     val contentResolver = requireContext().contentResolver
