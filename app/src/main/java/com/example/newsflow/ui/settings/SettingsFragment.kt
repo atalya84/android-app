@@ -24,6 +24,7 @@ class SettingsFragment : Fragment() {
     private lateinit var binding: FragmentSettingsBinding
     private lateinit var viewModel: AuthViewModel
     private lateinit var currUser: FirebaseUser
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,7 +34,12 @@ class SettingsFragment : Fragment() {
         val firestoreDb: FirebaseFirestore = FirebaseFirestore.getInstance()
         val firestoreAuth: FirebaseAuth = FirebaseAuth.getInstance()
         val userRepository = UserRepository(firestoreDb, firestoreAuth, UserDatabase.getDatabase(requireContext()).userDao())
+
         currUser = firestoreAuth.currentUser!!
+
+        val currUserEmail: String = currUser.email ?: ""
+        val currUserName: String = currUser.displayName ?: ""
+        val currUserPic: String = currUser.photoUrl.toString()
 
         viewModel = ViewModelProvider(
             this,
@@ -45,15 +51,21 @@ class SettingsFragment : Fragment() {
             Navigation.findNavController(requireView()).navigate(R.id.action_settingsFragment_to_logInFragment)
         }
 
-        binding.editUser.setOnClickListener {
-            Navigation.findNavController(requireView()).navigate(R.id.action_settingsFragment_to_editProfileFragment)
-        }
+        binding.editUser.setOnClickListener(
+            Navigation.createNavigateOnClickListener(
+                SettingsFragmentDirections.actionSettingsFragmentToEditProfileFragment(
+                    currUserEmail,
+                    currUserName,
+                    currUserPic
+                )
+            )
+        )
 
         val imageView: ImageView = binding.imageView
         val progressBar: ProgressBar = binding.progressBar
-        ImageUtil.showImgInViewFromUrl(currUser.photoUrl.toString(), imageView, progressBar)
-        binding.emailtext.text = currUser.email
-        binding.userName.text = currUser.displayName
+        ImageUtil.showImgInViewFromUrl(currUserPic, imageView, progressBar)
+        binding.emailtext.text = currUserEmail
+        binding.userName.text = currUserName
 
         return binding.root
     }
