@@ -62,7 +62,7 @@ class LogInFragment : Fragment() {
             if (isSuccess) {
                 bottomAppBar.isVisible = true
                 addBotton.isVisible = true
-                findNavController().navigate(R.id.action_logInFragment_to_headlinesFragment)
+                findNavController().navigate(R.id.action_logInFragment_to_feedFragment)
             } else {
                 // Handle unsuccessful login
             }
