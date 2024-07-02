@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/headlinesFragment"
+        android:id="@+id/feedFragment"
         android:title="@string/headlines"
         android:icon="@drawable/news" />
 

@@ -3,35 +3,38 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/headlinesFragment">
+    app:startDestination="@id/feedFragment">
 
     <fragment
         android:id="@+id/articleFragment"
         android:name="com.example.newsflow.ui.article.ArticleFragment"
         android:label="ArticleFragment" >
         <action
-            android:id="@+id/action_articleFragment_to_headlinesFragment"
-            app:destination="@id/headlinesFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/headlinesFragment"
-        android:name="com.example.newsflow.ui.feed.FeedFragment"
-        android:label="HeadlinesFragment" >
-        <action
-            android:id="@+id/action_headlinesFragment_to_addArticleFragment"
-            app:destination="@id/addArticleFragment" />
-        <action
-            android:id="@+id/action_headlinesFragment_to_userNewsFragment"
+            android:id="@+id/action_articleFragment_to_userNewsFragment"
             app:destination="@id/userNewsFragment" />
         <action
-            android:id="@+id/action_headlinesFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
+            android:id="@+id/action_articleFragment_to_feedFragment"
+            app:destination="@id/feedFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/feedFragment"
+        android:name="com.example.newsflow.ui.feed.FeedFragment"
+        android:label="FeedFragment" >
         <action
-            android:id="@+id/action_headlinesFragment_to_weatherFragment"
+            android:id="@+id/action_feedFragment_to_articleFragment"
+            app:destination="@id/articleFragment" />
+        <action
+            android:id="@+id/action_feedFragment_to_addArticleFragment"
+            app:destination="@id/addArticleFragment" />
+        <action
+            android:id="@+id/action_feedFragment_to_userNewsFragment"
+            app:destination="@id/userNewsFragment" />
+        <action
+            android:id="@+id/action_feedFragment_to_weatherFragment"
             app:destination="@id/weatherFragment" />
         <action
-            android:id="@+id/action_headlinesFragment_to_articleFragment"
-            app:destination="@id/articleFragment" />
+            android:id="@+id/action_feedFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/userNewsFragment"
@@ -42,14 +45,17 @@
             android:id="@+id/action_userNewsFragment_to_addArticleFragment"
             app:destination="@id/addArticleFragment" />
         <action
-            android:id="@+id/action_userNewsFragment_to_headlinesFragment"
-            app:destination="@id/headlinesFragment" />
-        <action
             android:id="@+id/action_userNewsFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
         <action
             android:id="@+id/action_userNewsFragment_to_weatherFragment"
             app:destination="@id/weatherFragment" />
+        <action
+            android:id="@+id/action_userNewsFragment_to_articleFragment"
+            app:destination="@id/articleFragment" />
+        <action
+            android:id="@+id/action_userNewsFragment_to_feedFragment"
+            app:destination="@id/feedFragment" />
     </fragment>
     <fragment
         android:id="@+id/weatherFragment"
@@ -60,23 +66,20 @@
             android:id="@+id/action_weatherFragment_to_addArticleFragment"
             app:destination="@id/addArticleFragment" />
         <action
-            android:id="@+id/action_weatherFragment_to_headlinesFragment"
-            app:destination="@id/headlinesFragment" />
-        <action
             android:id="@+id/action_weatherFragment_to_userNewsFragment"
             app:destination="@id/userNewsFragment" />
         <action
             android:id="@+id/action_weatherFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_weatherFragment_to_feedFragment"
+            app:destination="@id/feedFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.newsflow.ui.settings.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" >
-        <action
-            android:id="@+id/action_settingsFragment_to_headlinesFragment"
-            app:destination="@id/headlinesFragment" />
         <action
             android:id="@+id/action_settingsFragment_to_userNewsFragment"
             app:destination="@id/userNewsFragment" />
@@ -92,15 +95,18 @@
         <action
             android:id="@+id/action_settingsFragment_to_editProfileFragment"
             app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_feedFragment"
+            app:destination="@id/feedFragment" />
     </fragment>
     <fragment
         android:id="@+id/addArticleFragment"
-        android:name="com.example.newsflow.ui.fragments.AddArticleFragment"
+        android:name="com.example.newsflow.ui.article.AddArticleFragment"
         android:label="fragment_add_article"
         tools:layout="@layout/fragment_add_article" >
         <action
-            android:id="@+id/action_addArticleFragment_to_headlinesFragment"
-            app:destination="@id/headlinesFragment" />
+            android:id="@+id/action_addArticleFragment_to_feedFragment"
+            app:destination="@id/feedFragment" />
     </fragment>
     <fragment
         android:id="@+id/logInFragment"
@@ -111,8 +117,8 @@
             android:id="@+id/action_logInFragment_to_signUpFragment"
             app:destination="@id/signUpFragment" />
         <action
-            android:id="@+id/action_logInFragment_to_headlinesFragment"
-            app:destination="@id/headlinesFragment" />
+            android:id="@+id/action_logInFragment_to_feedFragment"
+            app:destination="@id/feedFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
@@ -123,8 +129,8 @@
             android:id="@+id/action_signUpFragment_to_logInFragment"
             app:destination="@id/logInFragment" />
         <action
-            android:id="@+id/action_signUpFragment_to_headlinesFragment"
-            app:destination="@id/headlinesFragment" />
+            android:id="@+id/action_signUpFragment_to_feedFragment"
+            app:destination="@id/feedFragment" />
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment"

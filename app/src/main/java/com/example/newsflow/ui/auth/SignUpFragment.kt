@@ -105,7 +105,7 @@ class SignUpFragment : Fragment() {
                 bottomAppBar.isVisible = true
                 addBotton.isVisible = true
                 newsActivity.apply { uriResult.value = null }
-                findNavController().navigate(R.id.action_signUpFragment_to_headlinesFragment)
+                findNavController().navigate(R.id.action_signUpFragment_to_feedFragment)
             } else {
                 // Handle unsuccessful login
             }
