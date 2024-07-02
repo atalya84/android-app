@@ -1,5 +1,6 @@
 package com.example.newsflow.ui.fragments
 
+import android.Manifest
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,14 +9,15 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.newsflow.R
+import com.example.newsflow.databinding.FragmentWeatherBinding
 import com.example.newsflow.models.WeatherResponse
 import com.example.newsflow.ui.weather.WeatherFactory
 import com.example.newsflow.ui.weather.WeatherViewModel
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -23,8 +25,11 @@ import java.util.Locale
 class WeatherFragment : Fragment() {
 
     private val weatherViewModel: WeatherViewModel by viewModels {
-        WeatherFactory(requireContext())
+        WeatherFactory()
     }
+
+    private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
+    private lateinit var binding: FragmentWeatherBinding
 
     private lateinit var userCity: EditText
     private lateinit var search: ImageView
@@ -40,38 +45,37 @@ class WeatherFragment : Fragment() {
     private lateinit var sunset: TextView
     private lateinit var windSpeed: TextView
 
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_weather, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+        binding = FragmentWeatherBinding.inflate(inflater, container, false)
         subscribe()
 
-        userCity = view.findViewById(R.id.Your_city)
-        search = view.findViewById(R.id.search)
+        userCity = binding.YourCity
+        search = binding.search
 
         // Initialize UI elements
-        city = view.findViewById(R.id.city)
-        country = view.findViewById(R.id.country)
-        time = view.findViewById(R.id.time)
-        temp = view.findViewById(R.id.temp)
-        forecast = view.findViewById(R.id.forecast)
-        humidity = view.findViewById(R.id.humidity)
-        minTemp = view.findViewById(R.id.min_temp)
-        maxTemp = view.findViewById(R.id.max_temp)
-        sunrise = view.findViewById(R.id.sunrises)
-        sunset = view.findViewById(R.id.sunsets)
-        windSpeed = view.findViewById(R.id.wind_speed)
+        city = binding.city
+        country = binding.country
+        time = binding.time
+        temp = binding.temp
+        forecast = binding.forecast
+        humidity = binding.humidity
+        minTemp = binding.minTemp
+        maxTemp = binding.maxTemp
+        sunrise = binding.sunrises
+        sunset = binding.sunsets
+        windSpeed = binding.windSpeed
 
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-        weatherViewModel.getCurrentLocationWeather()
+        // Initialize the requestPermissionLauncher
+        requestPermissionLauncher = registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { isGranted ->
+            weatherViewModel.getCurrentLocationWeather(requireContext(), requireActivity())
+        }
+
+        requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
 
         search.setOnClickListener {
             val cityName = userCity.text.toString()
@@ -82,6 +86,8 @@ class WeatherFragment : Fragment() {
                 userCity.setText("")
             }
         }
+        
+        return binding.root
     }
 
     private fun subscribe() {
