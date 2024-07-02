@@ -56,48 +56,6 @@ class ImageUtil private constructor() {
             }
         }
 
-        fun showImgInViewFromUrl(imageUri: String, imageView: ImageView) {
-            CoroutineScope(Dispatchers.Main).launch {
-                try {
-                    val degrees = withContext(Dispatchers.IO) {
-                        val client = OkHttpClient()
-                        val request = Request.Builder().url(imageUri).build()
-
-                        client.newCall(request).execute().use { response ->
-                            if (!response.isSuccessful) throw IOException("Unexpected code $response")
-
-                            val inputStream = response.body?.byteStream()
-                            if (inputStream != null) {
-                                val exif = ExifInterface(inputStream)
-                                val rotation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
-
-                                inputStream.close()
-
-                                when (rotation) {
-                                    ExifInterface.ORIENTATION_ROTATE_90 -> 90F
-                                    ExifInterface.ORIENTATION_ROTATE_180 -> 180F
-                                    ExifInterface.ORIENTATION_ROTATE_270 -> 270F
-                                    else -> 0F
-                                }
-                            } else {
-                                0F
-                            }
-                        }
-                    }
-
-                    Picasso.get()
-                        .load(imageUri)
-                        .rotate(degrees)
-                        .fit()
-                        .centerCrop()
-                        .into(imageView)
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                    // Handle error
-                }
-            }
-        }
-
         fun showImgInViewFromUrl(imageUri: String, imageView: ImageView, progressBar: ProgressBar) {
             progressBar.visibility = ProgressBar.VISIBLE
 
