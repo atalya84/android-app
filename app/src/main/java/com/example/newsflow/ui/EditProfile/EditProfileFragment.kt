@@ -1,5 +1,6 @@
 package com.example.newsflow.ui.EditProfile
 
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -11,6 +12,8 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.isVisible
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
@@ -68,8 +71,11 @@ class EditProfileFragment : Fragment() {
         ImageUtil.showImgInViewFromUrl(photoUrl, imageView, progressBar)
 
         binding.saveChanges.setOnClickListener {
-            if(validation()) {
-                Navigation.findNavController(requireView()).popBackStack(R.id.settingsFragment, false)
+            val currUserImage = viewModel.currUser.value?.photoUrl
+            val displayedName = binding.etName.text.toString()
+            val displayedImg = newsActivity.uriResult.value ?: currUserImage
+            if(validation(currUserImage, displayedName, displayedImg)) {
+                viewModel.updateProfile(displayedName, displayedImg!!)
             }
         }
         binding.cancle.setOnClickListener {
@@ -96,14 +102,34 @@ class EditProfileFragment : Fragment() {
             }
         }
 
+        viewModel.loading.observe(viewLifecycleOwner, Observer { isLoading ->
+            if (isLoading) {
+                binding.updateProgress.isVisible = true
+                binding.saveChanges.text = ""
+            } else {
+                binding.updateProgress.isVisible = false
+                binding.saveChanges.text = getString(R.string.save_changes)
+            }
+        })
+
+        viewModel.updateSuccessfull.observe(viewLifecycleOwner, Observer { isSuccess ->
+            if (isSuccess) {
+                Toast.makeText(requireContext(), "Update successfully", Toast.LENGTH_SHORT).show()
+                for (i in 0 until size) {
+                    bottomNavigationView.menu.getItem(i).isEnabled = true
+                }
+                addFab.isEnabled = true
+                Navigation.findNavController(requireView()).popBackStack(R.id.settingsFragment, false)
+            } else {
+                Toast.makeText(requireContext(), "Couldn't update your info", Toast.LENGTH_SHORT).show()
+            }
+        })
+
         return binding.root
     }
 
-    fun validation(): Boolean {
-        val currUserImage = viewModel.currUser.value?.photoUrl
+    fun validation(currUserImage: Uri?, displayedName: String, displayedImg: Uri?): Boolean {
         val currUserName = viewModel.currUser.value?.displayName
-        val displayedName = binding.etName.text.toString()
-        val displayedImg = newsActivity.uriResult.value ?: currUserImage
 
         if(displayedImg == currUserImage && displayedName == currUserName){
             Toast.makeText(requireContext(), getString(R.string.no_changes), Toast.LENGTH_SHORT).show()

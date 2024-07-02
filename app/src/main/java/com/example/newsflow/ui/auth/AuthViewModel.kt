@@ -22,6 +22,7 @@ class AuthViewModel(private val repository: UserRepository): ViewModel() {
     val loginFailed: LiveData<Boolean> = repository.loginFailed
     val imageToShow: LiveData<Uri> = repository.imageToShow
     val currUser: LiveData<FirebaseUser> = repository.currUser
+    val updateSuccessfull: LiveData<Boolean> = repository.updateSuccessfull
 
     fun createUser(newUser: FirestoreUser, profileImageRef: StorageReference, errorCallback: (String) -> Unit ) = viewModelScope.launch {
         repository.createUser(newUser, profileImageRef, errorCallback)
@@ -41,6 +42,10 @@ class AuthViewModel(private val repository: UserRepository): ViewModel() {
 
     fun updateCurrUser(user: FirebaseUser) {
         repository.updateCurrUser(user)
+    }
+
+    fun updateProfile(name: String, imgUrl: Uri) {
+        repository.updateProfile(name, imgUrl)
     }
 
     class AuthModelFactory(private val repository: UserRepository): ViewModelProvider.Factory {

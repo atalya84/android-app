@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.userProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.StorageReference
@@ -52,6 +53,9 @@ class UserRepository (private val firestoreDb: FirebaseFirestore, private val fi
 
     private val _currUser = MutableLiveData<FirebaseUser>()
     val currUser: LiveData<FirebaseUser> = _currUser
+
+    private val _updateSuccessfull = MutableLiveData<Boolean>()
+    val updateSuccessfull: LiveData<Boolean> = _updateSuccessfull
     
     @WorkerThread
     fun get (id: String): User = userDao.get(id)
@@ -141,6 +145,27 @@ class UserRepository (private val firestoreDb: FirebaseFirestore, private val fi
                 } else {
                     _loginFailed.value = true
                     Log.i("Login", "Error")
+                }
+            }
+        _loading.value = false
+    }
+
+    fun updateProfile(name: String, imgUrl: Uri) {
+        _loading.value = true
+        val profileUpdates = UserProfileChangeRequest.Builder()
+            .setDisplayName(name)
+            .setPhotoUri(imgUrl)
+            .build()
+
+        firestoreAuth.currentUser?.updateProfile(profileUpdates)
+            ?.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val updatedUser = firestoreAuth.currentUser
+                    updatedUser?.let { user ->
+                        _currUser.value = user
+                        storeUserData(user.uid, user.email, user.displayName, user.photoUrl)
+                    }
+                    _updateSuccessfull.value = true
                 }
             }
         _loading.value = false
