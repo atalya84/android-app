@@ -101,7 +101,7 @@
     </fragment>
     <fragment
         android:id="@+id/addArticleFragment"
-        android:name="com.example.newsflow.ui.fragments.AddArticleFragment"
+        android:name="com.example.newsflow.ui.article.AddArticleFragment"
         android:label="fragment_add_article"
         tools:layout="@layout/fragment_add_article" >
         <action
