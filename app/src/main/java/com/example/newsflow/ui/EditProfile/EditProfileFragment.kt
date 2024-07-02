@@ -49,6 +49,8 @@ class EditProfileFragment : Fragment() {
             AuthViewModel.AuthModelFactory(userRepository)
         )[AuthViewModel::class.java]
 
+        viewModel.updateCurrUser(firestoreAuth.currentUser!!)
+
         // Disable nav bar
         val bottomNavigationView = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         val size = bottomNavigationView.menu.size()
@@ -98,14 +100,17 @@ class EditProfileFragment : Fragment() {
     }
 
     fun validation(): Boolean {
-        val name = binding.etName.text
+        val currUserImage = viewModel.currUser.value?.photoUrl
+        val currUserName = viewModel.currUser.value?.displayName
+        val displayedName = binding.etName.text.toString()
+        val displayedImg = newsActivity.uriResult.value ?: currUserImage
 
-        if (viewModel.imageToShow.value == null) {
-            Toast.makeText(requireContext(), getString(R.string.enter_img), Toast.LENGTH_SHORT).show()
+        if(displayedImg == currUserImage && displayedName == currUserName){
+            Toast.makeText(requireContext(), getString(R.string.no_changes), Toast.LENGTH_SHORT).show()
             return false
         }
 
-        if (name.isNullOrEmpty()){
+        if (displayedName == "") {
             Toast.makeText(requireContext(), getString(R.string.enter_name), Toast.LENGTH_SHORT).show()
             return false
         }
