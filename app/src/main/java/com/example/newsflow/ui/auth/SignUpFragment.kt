@@ -118,7 +118,7 @@ class SignUpFragment : Fragment() {
                 binding.btnSignUp.text = ""
             } else {
                 binding.registerProgress.isVisible = false
-                binding.btnSignUp.text = "Sign Me Up"
+                binding.btnSignUp.text = getString(R.string.sign_me_up)
             }
         })
 

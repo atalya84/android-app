@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.core.net.toUri
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.newsflow.R
@@ -14,6 +16,7 @@ import com.example.newsflow.data.models.User
 import com.example.newsflow.data.repositories.UserRepository
 import com.example.newsflow.databinding.FragmentSettingsBinding
 import com.example.newsflow.ui.auth.AuthViewModel
+import com.example.newsflow.util.ImageUtil
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
@@ -47,6 +50,11 @@ class SettingsFragment : Fragment() {
         binding.editUser.setOnClickListener {
             findNavController().navigate(R.id.action_settingsFragment_to_editProfileFragment)
         }
+
+        val imageView: ImageView = binding.imageView
+        ImageUtil.showImgInViewFromUrl(currUser.photoUrl.toString(), imageView)
+        binding.emailtext.text = currUser.email
+        binding.userName.text = currUser.displayName
 
         return binding.root
     }

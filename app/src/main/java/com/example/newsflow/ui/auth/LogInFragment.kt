@@ -79,6 +79,17 @@ class LogInFragment : Fragment() {
             }
         })
 
+        // Observe the loading LiveData
+        viewModel.loading.observe(viewLifecycleOwner, Observer { isLoading ->
+            if (isLoading) {
+                binding.registerProgress.isVisible = true
+                binding.btnLogIn.text = ""
+            } else {
+                binding.registerProgress.isVisible = false
+                binding.btnLogIn.text = getString(R.string.log_in)
+            }
+        })
+
         return binding.root
     }
 }
