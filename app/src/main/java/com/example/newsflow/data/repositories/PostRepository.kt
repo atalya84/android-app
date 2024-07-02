@@ -11,6 +11,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 class PostRepository (private val firestoreDb: FirebaseFirestore, private val postDao: PostDao) {
@@ -26,6 +27,9 @@ class PostRepository (private val firestoreDb: FirebaseFirestore, private val po
 
     @WorkerThread
     fun get (id: Int): Post = postDao.get(id)
+
+    @WorkerThread
+    fun getUserPosts(userId: String): Flow<List<Post>> = postDao.getUserPosts(userId)
 
     @WorkerThread
     suspend fun insert(post: Post) { postDao.insert(post) }

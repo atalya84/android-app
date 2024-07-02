@@ -54,7 +54,7 @@ class NewsActivity : AppCompatActivity() {
         )
 
         if (isLoggedin()) {
-            navController.navigate(R.id.headlinesFragment)
+            navController.navigate(R.id.feedFragment)
         } else {
             navController.navigate(R.id.logInFragment)
         }
@@ -79,7 +79,7 @@ class NewsActivity : AppCompatActivity() {
         }
 
         cancelButton.setOnClickListener {
-            navController.navigate(R.id.headlinesFragment)
+            navController.navigate(R.id.feedFragment)
             cancelButton.isVisible = false
             addButton.isVisible = true
 

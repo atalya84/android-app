@@ -16,10 +16,7 @@ class PostViewHolder (
 
         binding.headlineTitle.text = post.title
         binding.headlineImage.setImageURI(post.imageUrl.toUri())
-        if (post.country.isNotEmpty()) {
-            binding.headlineCountryTag.text = post.country
-        } else
-            binding.headlineCountryTag.isVisible = false
+        binding.headlineCountryTag.text = post.country
 
         binding.root.setOnClickListener{
             postClickListener?.onPostClick(post)

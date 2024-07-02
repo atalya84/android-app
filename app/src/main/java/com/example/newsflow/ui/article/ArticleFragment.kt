@@ -30,7 +30,6 @@ class ArticleFragment : Fragment() {
         )[ArticleViewModel::class.java]
 
         viewModel.articleLiveData.observe(viewLifecycleOwner) { post ->
-            Log.d("AAA", post.toString())
             ImageUtil.loadImage(post.imageUrl.toUri(), requireContext(), binding.articleImage)
             binding.articleImage.setImageURI(post.imageUrl.toUri())
             binding.articleCountryTag.text = post.country
@@ -39,7 +38,8 @@ class ArticleFragment : Fragment() {
             binding.articleSource.text = post.articleUrl
             binding.articleReturnBtn.setOnClickListener {
                 when(viewModel.origin.value) {
-                    ArticleViewModel.Origin.FEED -> {findNavController().navigate(R.id.action_articleFragment_to_headlinesFragment)}
+                    ArticleViewModel.Origin.FEED -> findNavController().navigate(R.id.action_articleFragment_to_feedFragment)
+                    ArticleViewModel.Origin.MY_NEWS ->  findNavController().navigate((R.id.action_articleFragment_to_userNewsFragment))
                     else -> {}
                 }
             }
