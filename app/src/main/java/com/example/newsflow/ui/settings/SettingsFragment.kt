@@ -40,6 +40,10 @@ class SettingsFragment : Fragment() {
             findNavController().navigate(R.id.action_settingsFragment_to_logInFragment)
         }
 
+        binding.editUser.setOnClickListener {
+            findNavController().navigate(R.id.action_settingsFragment_to_editProfileFragment)
+        }
+
         return binding.root
     }
 }

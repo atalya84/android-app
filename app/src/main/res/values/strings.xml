@@ -30,7 +30,7 @@
     <string name="search_news">Search news...</string>
     <string name="add_news">Add News</string>
     <string name="enter_your_city_name">Enter Your City Name</string>
-    <string name="select_your_profile_picture">Select Your Profile Picture</string>
+    <string name="select_your_profile_picture">Touch The Logo To Select Your Profile Picture</string>
     <string name="edit_user">Edit User</string>
 
     <!-- Titles -->
@@ -64,4 +64,9 @@ Integer enim neque volutpat ac tincidunt vitae. Dapibus ultrices in iaculis nunc
     <!-- Content Description -->
     <string name="article_image_content_desc">Article Image</string>
     <string name="return_content_desc">Return</string>
+    <string name="email_headline">Email:</string>
+    <string name="email_example">user@gmail.com</string>
+    <string name="name_placeholder">Jhon Doe</string>
+    <string name="change_picture">Change Picture</string>
+    <string name="save_changes">Save Changes</string>
 </resources>

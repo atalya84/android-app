@@ -38,6 +38,27 @@
                             <option name="y" value="-390" />
                           </Point>
                         </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_articleFragment_to_headlinesFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="editProfileFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-233" />
+                            <option name="y" value="-550" />
+                          </Point>
+                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>
@@ -53,6 +74,11 @@
                         <option name="myPositions">
                           <map>
                             <entry key="action_headlinesFragment_to_addArticleFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_headlinesFragment_to_articleFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -120,6 +146,11 @@
                               </value>
                             </entry>
                             <entry key="action_settingsFragment_to_headlinesFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_settingsFragment_to_logInFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
