@@ -11,6 +11,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.newsflow.data.database.users.UserDao
 import com.example.newsflow.data.models.FirestoreUser
 import com.example.newsflow.data.models.User
+import com.example.newsflow.util.ImageUtil
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
@@ -65,7 +66,7 @@ class UserRepository (private val firestoreDb: FirebaseFirestore, private val fi
                             CoroutineScope(Dispatchers.IO).launch {
                                 try {
                                     // upload image to firebase storage
-                                    val uri = UploadImage(uri, profileImageRef)
+                                    val uri = ImageUtil.UploadImage(firestoreAuth, uri, profileImageRef)
                                     // if download url is not empty the upload was successful
                                     if (uri != null) {
                                         // update the new user with the name and image url
@@ -154,50 +155,8 @@ class UserRepository (private val firestoreDb: FirebaseFirestore, private val fi
         FirebaseAuth.getInstance().signOut()
     }
 
-    suspend fun UploadImage(imageUri: Uri, profileImageRef: StorageReference): Uri? {
-        val userId = firestoreAuth.currentUser?.uid ?: ""
-        val imageRef = profileImageRef.child(userId)
-
-        return try {
-            imageRef.putFile(imageUri).await()
-
-            val downloadUrl = withContext(Dispatchers.IO) {
-                imageRef.downloadUrl.await()
-            }
-
-            downloadUrl
-        } catch (e: Exception) {
-            e.printStackTrace()
-            null
-        }
-    }
-
     fun ShowImgInView(contentResolver: ContentResolver, imageView: ImageView, imageUri: Uri) {
-        val inputStream = contentResolver.openInputStream(imageUri)
-        if (inputStream != null) {
-            val exif = ExifInterface(inputStream)
-            val rotation =
-                exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
-
-            val degrees = when (rotation) {
-                ExifInterface.ORIENTATION_ROTATE_90 -> 90F
-                ExifInterface.ORIENTATION_ROTATE_180 -> 180F
-                ExifInterface.ORIENTATION_ROTATE_270 -> 270F
-                else -> 0F
-            }
-
-            inputStream.close()
-
-            Picasso.get()
-                .load(imageUri)
-                .rotate(degrees)
-                .fit()
-                .centerCrop()
-                .into(imageView)
-
-            _ImageToShow.value = imageUri
-        } else {
-            Log.d("Picturerequest", "Input stream is null")
-        }
+        ImageUtil.ShowImgInView(contentResolver, imageView, imageUri)
+        _ImageToShow.value = imageUri
     }
 }

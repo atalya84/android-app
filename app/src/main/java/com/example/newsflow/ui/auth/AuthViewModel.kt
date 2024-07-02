@@ -33,10 +33,6 @@ class AuthViewModel(private val repository: UserRepository): ViewModel() {
         repository.login(email, password)
     }
 
-    suspend fun UploadImage(imageUri: Uri, profileImageRef: StorageReference){
-        repository.UploadImage(imageUri, profileImageRef)
-    }
-
     fun ShowImgInView(contentResolver: ContentResolver, imageView: ImageView, imageUri: Uri) {
         repository.ShowImgInView(contentResolver, imageView, imageUri)
     }
