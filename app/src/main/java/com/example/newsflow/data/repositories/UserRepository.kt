@@ -156,7 +156,7 @@ class UserRepository (private val firestoreDb: FirebaseFirestore, private val fi
     }
 
     fun ShowImgInView(contentResolver: ContentResolver, imageView: ImageView, imageUri: Uri) {
-        ImageUtil.ShowImgInView(contentResolver, imageView, imageUri)
+        ImageUtil.ShowImgInViewFromGallery(contentResolver, imageView, imageUri)
         _ImageToShow.value = imageUri
     }
 }

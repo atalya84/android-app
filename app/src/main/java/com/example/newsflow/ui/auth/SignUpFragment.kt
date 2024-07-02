@@ -1,5 +1,6 @@
 package com.example.newsflow.ui.auth
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -34,6 +35,8 @@ class SignUpFragment : Fragment() {
 
     private lateinit var binding: FragmentSignUpBinding
     private lateinit var viewModel: AuthViewModel
+    private val newsActivity: NewsActivity
+        get() = activity as NewsActivity
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,6 +64,7 @@ class SignUpFragment : Fragment() {
 
         bottomAppBar.isVisible = false
         addBotton.isVisible = false
+        Log.d("newActivity", "${newsActivity.uriResult.value}")
 
         binding.btnSignUp.setOnClickListener {
             if(validation()) {
@@ -77,13 +81,13 @@ class SignUpFragment : Fragment() {
         }
 
         binding.imageView.setOnClickListener {
-            (activity as NewsActivity).requestPermission.launch(
+            newsActivity.requestPermission.launch(
                 PickVisualMediaRequest(
                     ActivityResultContracts.PickVisualMedia.ImageOnly
                 )
             )
         }
-        (activity as NewsActivity).uriResult.observe(viewLifecycleOwner) { uri ->
+        newsActivity.uriResult.observe(viewLifecycleOwner) { uri ->
             if (uri != null) {
                 try {
                     val contentResolver = requireContext().contentResolver
@@ -100,6 +104,7 @@ class SignUpFragment : Fragment() {
             if (isSuccess) {
                 bottomAppBar.isVisible = true
                 addBotton.isVisible = true
+                newsActivity.apply { uriResult.value = null }
                 findNavController().navigate(R.id.action_signUpFragment_to_feedFragment)
             } else {
                 // Handle unsuccessful login
@@ -113,7 +118,7 @@ class SignUpFragment : Fragment() {
                 binding.btnSignUp.text = ""
             } else {
                 binding.registerProgress.isVisible = false
-                binding.btnSignUp.text = "Sign Me Up"
+                binding.btnSignUp.text = getString(R.string.sign_me_up)
             }
         })
 
