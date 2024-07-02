@@ -1,18 +1,17 @@
 package com.example.newsflow.ui.auth
 
-import androidx.fragment.app.viewModels
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.Navigation
 import com.example.newsflow.R
 import com.example.newsflow.data.database.users.UserDatabase
-import com.example.newsflow.data.models.FirestoreUser
 import com.example.newsflow.data.repositories.UserRepository
 import com.example.newsflow.databinding.FragmentLogInBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -45,7 +44,7 @@ class LogInFragment : Fragment() {
         )[AuthViewModel::class.java]
 
         binding.moveToSignUp.setOnClickListener {
-            findNavController().navigate(R.id.action_logInFragment_to_signUpFragment)
+            Navigation.createNavigateOnClickListener(R.id.action_logInFragment_to_signUpFragment)
         }
 
         bottomAppBar.isVisible = false
@@ -62,9 +61,9 @@ class LogInFragment : Fragment() {
             if (isSuccess) {
                 bottomAppBar.isVisible = true
                 addBotton.isVisible = true
-                findNavController().navigate(R.id.action_logInFragment_to_feedFragment)
+                Navigation.findNavController(requireView()).popBackStack(R.id.feedFragment,false)
             } else {
-                // Handle unsuccessful login
+                Toast.makeText(requireContext(), "Couldn't log you in", Toast.LENGTH_SHORT).show()
             }
         })
 

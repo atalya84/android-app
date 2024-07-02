@@ -19,7 +19,7 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_addArticleFragment_to_headlinesFragment">
+                            <entry key="action_addArticleFragment_to_feedFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -40,7 +40,12 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_articleFragment_to_headlinesFragment">
+                            <entry key="action_articleFragment_to_feedFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_articleFragment_to_userNewsFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -59,41 +64,50 @@
                             <option name="y" value="-550" />
                           </Point>
                         </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_editProfileFragment_to_settingsFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="headlinesFragment">
+                  <entry key="feedFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="336" />
-                            <option name="y" value="58" />
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_headlinesFragment_to_addArticleFragment">
+                            <entry key="action_feedFragment_to_addArticleFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_headlinesFragment_to_articleFragment">
+                            <entry key="action_feedFragment_to_articleFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_headlinesFragment_to_settingsFragment">
+                            <entry key="action_feedFragment_to_settingsFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_headlinesFragment_to_userNewsFragment">
+                            <entry key="action_feedFragment_to_userNewsFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_headlinesFragment_to_weatherFragment">
+                            <entry key="action_feedFragment_to_weatherFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -114,7 +128,7 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_logInFragment_to_headlinesFragment">
+                            <entry key="action_logInFragment_to_feedFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -145,7 +159,12 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_settingsFragment_to_headlinesFragment">
+                            <entry key="action_settingsFragment_to_editProfileFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_settingsFragment_to_feedFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -181,7 +200,7 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_signUpFragment_to_headlinesFragment">
+                            <entry key="action_signUpFragment_to_feedFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -212,7 +231,12 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_userNewsFragment_to_headlinesFragment">
+                            <entry key="action_userNewsFragment_to_articleFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_userNewsFragment_to_feedFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -248,7 +272,7 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_weatherFragment_to_headlinesFragment">
+                            <entry key="action_weatherFragment_to_feedFragment">
                               <value>
                                 <LayoutPositions />
                               </value>

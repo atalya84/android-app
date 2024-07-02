@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsflow.R
 import com.example.newsflow.adapters.UserNewsAdapter
@@ -35,9 +35,7 @@ class UserNewsFragment : Fragment() {
                 userPosts.value?.find { p -> p.id == post.id }
                     ?.let {
                         articleViewModel.selectPost(it, ArticleViewModel.Origin.MY_NEWS)
-                        view?.let { view ->
-                            Navigation.findNavController(view).navigate(R.id.action_userNewsFragment_to_articleFragment)
-                        }
+                        findNavController().navigate(R.id.action_userNewsFragment_to_articleFragment)
                     }
             }
         })
