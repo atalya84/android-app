@@ -1,6 +1,5 @@
 package com.example.newsflow.ui.EditProfile
 
-import androidx.fragment.app.viewModels
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -19,11 +18,11 @@ import com.example.newsflow.R
 import com.example.newsflow.data.database.users.UserDatabase
 import com.example.newsflow.data.repositories.UserRepository
 import com.example.newsflow.databinding.FragmentEditProfileBinding
-import com.example.newsflow.databinding.FragmentSettingsBinding
 import com.example.newsflow.ui.NewsActivity
 import com.example.newsflow.ui.auth.AuthViewModel
 import com.example.newsflow.util.ImageUtil
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -50,11 +49,14 @@ class EditProfileFragment : Fragment() {
             AuthViewModel.AuthModelFactory(userRepository)
         )[AuthViewModel::class.java]
 
+        // Disable nav bar
         val bottomNavigationView = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         val size = bottomNavigationView.menu.size()
         for (i in 0 until size) {
             bottomNavigationView.menu.getItem(i).isEnabled = false
         }
+        val addFab = requireActivity().findViewById<FloatingActionButton>(R.id.addBotton)
+        addFab.isEnabled = false
 
         val name = args.name
         val photoUrl = args.photoUrl
