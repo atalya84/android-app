@@ -16,6 +16,7 @@ import com.example.newsflow.data.models.Post
 import com.example.newsflow.data.repositories.PostRepository
 import com.example.newsflow.databinding.FragmentUserNewsBinding
 import com.example.newsflow.ui.article.ArticleViewModel
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class UserNewsFragment : Fragment() {
@@ -23,6 +24,7 @@ class UserNewsFragment : Fragment() {
     private lateinit var binding: FragmentUserNewsBinding
     private lateinit var userNewsViewModel: UserNewsViewModel
     private lateinit var articleViewModel: ArticleViewModel
+    private lateinit var userEmail: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,13 +45,17 @@ class UserNewsFragment : Fragment() {
         })
 
         val firestoreDb: FirebaseFirestore = FirebaseFirestore.getInstance()
+        val firestoreAuth: FirebaseAuth = FirebaseAuth.getInstance()
         val postRepository = PostRepository(firestoreDb, PostDatabase.getDatabase(requireContext()).postDao())
 
         binding = FragmentUserNewsBinding.inflate(inflater, container, false)
         articleViewModel = ViewModelProvider(requireActivity(), ArticleViewModel.ArticleModelFactory())[ArticleViewModel::class.java]
+
+        userEmail = firestoreAuth.currentUser?.email!!
+
         userNewsViewModel = ViewModelProvider(
             this,
-            UserNewsViewModel.UserNewsModelFactory(postRepository, "aaaaa")
+            UserNewsViewModel.UserNewsModelFactory(postRepository, userEmail)
         )[UserNewsViewModel::class.java]
 
         setRecyclerView(userPosts, postRepository, userNewsAdapter)
