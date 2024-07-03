@@ -28,6 +28,8 @@ class NewsActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var binding: ActivityNewsBinding
     private var auth: FirebaseAuth = FirebaseAuth.getInstance()
+    private lateinit var cancelButton: FloatingActionButton
+    private lateinit var addButton: FloatingActionButton
 
     private val scope = CoroutineScope(Dispatchers.IO + Job())
     var uriResult: MutableLiveData<Uri?> = MutableLiveData<Uri?>()
@@ -49,6 +51,8 @@ class NewsActivity : AppCompatActivity() {
         bottomNavigationView = binding.bottomNavigationView
         navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view) as NavHostFragment
         navController = navHostFragment.navController
+        cancelButton = binding.cancelBotton
+        addButton = binding.addBotton
 
         NavigationUI.setupWithNavController(
             bottomNavigationView,navController
@@ -64,30 +68,13 @@ class NewsActivity : AppCompatActivity() {
         val addButton: FloatingActionButton = binding.addBotton
 
         addButton.setOnClickListener {
-            //navController.navigate(R.id.signUpFragment)
             navController.navigate(R.id.addArticleFragment)
-            cancelButton.isVisible = true
-            addButton.isVisible = false
-
-            val size = bottomNavigationView.menu.size()
-            for (i in 0 until size) {
-                bottomNavigationView.menu.getItem(i).isChecked = false
-                bottomNavigationView.menu.getItem(i).isEnabled = false
-            }
-
-            val menuItemDashboard = bottomNavigationView.menu.findItem(R.id.fab)
-            menuItemDashboard.isChecked = true
+            disableNavBar()
         }
 
         cancelButton.setOnClickListener {
             navController.navigate(R.id.feedFragment)
-            cancelButton.isVisible = false
-            addButton.isVisible = true
-
-            val size = bottomNavigationView.menu.size()
-            for (i in 0 until size) {size
-                bottomNavigationView.menu.getItem(i).isEnabled = true
-            }
+            enableNavBar()
         }
     }
     public override fun onStop() {
@@ -97,5 +84,29 @@ class NewsActivity : AppCompatActivity() {
 
     fun isLoggedin(): Boolean {
         return auth.currentUser != null
+    }
+
+    fun disableNavBar() {
+        cancelButton.isVisible = true
+        addButton.isVisible = false
+
+        val size = bottomNavigationView.menu.size()
+        for (i in 0 until size) {
+            bottomNavigationView.menu.getItem(i).isChecked = false
+            bottomNavigationView.menu.getItem(i).isEnabled = false
+        }
+
+        val menuItemDashboard = bottomNavigationView.menu.findItem(R.id.fab)
+        menuItemDashboard.isChecked = true
+    }
+
+    fun enableNavBar() {
+        cancelButton.isVisible = false
+        addButton.isVisible = true
+
+        val size = bottomNavigationView.menu.size()
+        for (i in 0 until size) {size
+            bottomNavigationView.menu.getItem(i).isEnabled = true
+        }
     }
 }

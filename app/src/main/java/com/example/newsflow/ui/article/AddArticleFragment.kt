@@ -13,6 +13,8 @@ import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toUri
+import androidx.core.view.isVisible
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.example.newsflow.R
@@ -21,6 +23,7 @@ import com.example.newsflow.databinding.ActivityNewsBinding
 import com.example.newsflow.databinding.FragmentAddArticleBinding
 import com.example.newsflow.ui.NewsActivity
 import com.example.newsflow.util.ImageUtil
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -31,7 +34,6 @@ class AddArticleFragment : Fragment() {
     private lateinit var articleViewModel: ArticleViewModel
     private lateinit var mainActivityBinding: ActivityNewsBinding
     private var currentPost: Post? = null
-
     private val newsActivity: NewsActivity
         get() = activity as NewsActivity
 
@@ -75,9 +77,29 @@ class AddArticleFragment : Fragment() {
        hideImage()
 
         binding.createPostBtn.setOnClickListener{
-            saveAction()
-            Navigation.findNavController(requireView()).popBackStack(R.id.feedFragment,false)
+            if(validation()) {
+                saveAction()
+            }
         }
+
+        articleViewModel.postSuccessful.observe(viewLifecycleOwner, Observer { isSuccess ->
+            if (isSuccess) {
+                newsActivity.enableNavBar()
+                newsActivity.apply { uriResult.value = null }
+                Navigation.findNavController(requireView()).popBackStack(R.id.feedFragment,false)
+            }
+        })
+
+        // Observe the loading LiveData
+        articleViewModel.loading.observe(viewLifecycleOwner, Observer { isLoading ->
+            if (isLoading) {
+                binding.uploadProgress.isVisible = true
+                binding.createPostBtn.text = ""
+            } else {
+                binding.uploadProgress.isVisible = false
+                binding.createPostBtn.text = getString(R.string.create_post_btn_text)
+            }
+        })
 
         articleViewModel.editLiveData.observe(viewLifecycleOwner) { post ->
 
@@ -133,5 +155,33 @@ class AddArticleFragment : Fragment() {
                 username = FirebaseAuth.getInstance().currentUser?.displayName ?: ""
             ))
         }
+    }
+
+    fun validation(): Boolean {
+        val headline = binding.headlineInput.text
+        val articleUrl = binding.sourceInput.text
+        val country = binding.countryInput.text
+
+        if (newsActivity.uriResult.value == null) {
+            Toast.makeText(requireContext(), getString(R.string.select_img), Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        if (country.isNullOrEmpty()){
+            Toast.makeText(requireContext(), getString(R.string.enter_country), Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        if (headline.isNullOrEmpty()){
+            Toast.makeText(requireContext(), getString(R.string.enter_headline), Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        if (articleUrl.isNullOrEmpty()){
+            Toast.makeText(requireContext(), getString(R.string.enter_url), Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        return true
     }
 }

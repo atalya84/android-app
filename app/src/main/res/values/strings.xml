@@ -54,6 +54,7 @@
     <string name="invalid_email">Invalid email entered</string>
     <string name="enter_password">Enter password</string>
     <string name="enter_img">Select A Picture As Your Profile Image</string>
+    <string name="select_img">Select A Picture For Your Article</string>
     <string name="log_out">Log Out</string>
     <string name="time_placeholder">RELATIVE TIME</string>
     <string name="username_placeholder">USERNAME</string>
@@ -83,4 +84,8 @@ Integer enim neque volutpat ac tincidunt vitae. Dapibus ultrices in iaculis nunc
     <string name="desc_edit_text_hint">Describe Your Article (optional)</string>
     <string name="create_post_btn_text">Post News</string>
     <string name="edit_post_btn_text">Save Changes</string>
+
+    <string name="enter_headline">Enter article headline</string>
+    <string name="enter_url">Enter URL of your source</string>
+    <string name="enter_country">Enter the country this article happened in</string>
 </resources>

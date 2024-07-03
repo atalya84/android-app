@@ -29,13 +29,16 @@ class ArticleViewModel : ViewModel() {
     private val _origin = MutableLiveData<Origin>()
     private val _editLiveData = MutableLiveData<Post?>()
     private val _postImage = MutableLiveData<Uri>()
+    private val _loading = MutableLiveData<Boolean>()
+    private val _postSuccessful = MutableLiveData<Boolean>()
     private val firebaseDb: FirebaseFirestore = FirebaseFirestore.getInstance()
     private val storageRef: StorageReference = Firebase.storage.reference.child("posts")
-
 
     val articleLiveData: LiveData<Post> get() = _articleLiveData
     val origin: LiveData<Origin> get() = _origin
     val editLiveData: LiveData<Post?> get() = _editLiveData
+    val loading: LiveData<Boolean> = _loading
+    val postSuccessful: LiveData<Boolean> = _postSuccessful
 
     fun selectPost(post: Post, origin: Origin) {
         _articleLiveData.postValue(post)
@@ -52,16 +55,20 @@ class ArticleViewModel : ViewModel() {
     }
 
     fun insertPost(post: Post) {
-        _postImage.value?.let {uri ->
-            setEditPost(null)
-            CoroutineScope(Dispatchers.IO).launch {
-                val storageUri = ImageUtil.UploadImage(post.id, uri, storageRef)
-                post.imageUrl = storageUri.toString()
-                val fsPost = post.toFirestorePost()
-                firebaseDb.collection(COLLECTION).document(post.id).set(fsPost)
+        _loading.value = true
+        try {
+            _postImage.value?.let { uri ->
+                setEditPost(null)
+                CoroutineScope(Dispatchers.IO).launch {
+                    val storageUri = ImageUtil.UploadImage(post.id, uri, storageRef)
+                    post.imageUrl = storageUri.toString()
+                    val fsPost = post.toFirestorePost()
+                    firebaseDb.collection(COLLECTION).document(post.id).set(fsPost)
+                }
             }
-
-
+        } finally {
+            _postSuccessful.postValue(true)
+            _loading.postValue(false)
         }
     }
 
