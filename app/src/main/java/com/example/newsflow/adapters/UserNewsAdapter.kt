@@ -3,7 +3,6 @@ package com.example.newsflow.adapters
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsflow.data.models.Post
 import com.example.newsflow.databinding.FragmentUserHeadlineBinding
@@ -12,10 +11,15 @@ import com.example.newsflow.viewHolders.UserNewsViewHolder
 class UserNewsAdapter (
     private val posts: MutableList<Post>,
     private val postClickListener: PostClickListener? = null,
+    private val menuItemClickListener: MenuClickListener? = null
 ): RecyclerView.Adapter<UserNewsViewHolder>() {
 
     interface PostClickListener {
         fun onPostClick(post: Post)
+    }
+
+    interface MenuClickListener {
+        fun onMenuItemClick(post: Post, itemId: Int)
     }
 
     var context: Context? = null
@@ -32,7 +36,7 @@ class UserNewsAdapter (
 
     override fun onBindViewHolder(holder: UserNewsViewHolder, position: Int) {
         context?.let {
-            holder.bindPost(posts[position], it, postClickListener)
+            holder.bindPost(posts[position], it, postClickListener, menuItemClickListener)
         }
     }
 

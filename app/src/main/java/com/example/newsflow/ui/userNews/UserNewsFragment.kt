@@ -1,6 +1,7 @@
 package com.example.newsflow.ui.userNews
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsflow.R
 import com.example.newsflow.adapters.UserNewsAdapter
@@ -32,38 +34,66 @@ class UserNewsFragment : Fragment() {
     ): View {
 
         val userPosts  = MutableLiveData<List<Post>>()
-        val userNewsAdapter = UserNewsAdapter(mutableListOf(), object : UserNewsAdapter.PostClickListener {
-            override fun onPostClick(post: Post) {
-                userPosts.value?.find { p -> p.id == post.id }
-                    ?.let {
-                        articleViewModel.selectPost(it, ArticleViewModel.Origin.MY_NEWS)
-                        view?.let { view ->
-                            Navigation.findNavController(view).navigate(R.id.action_userNewsFragment_to_articleFragment)
+
+        val userNewsAdapter = UserNewsAdapter(mutableListOf(),
+            object : UserNewsAdapter.PostClickListener {
+                override fun onPostClick(post: Post) {
+                    userPosts.value?.find { p -> p.id == post.id }
+                        ?.let {
+                            articleViewModel.selectPost(it, ArticleViewModel.Origin.MY_NEWS)
+                            view?.let { view ->
+                                Navigation.findNavController(view).navigate(R.id.action_userNewsFragment_to_articleFragment)
+                            }
                         }
+                }
+            },
+            object : UserNewsAdapter.MenuClickListener {
+                override fun onMenuItemClick(post: Post, itemId: Int) {
+                    when(itemId) {
+                        R.id.editArticleBtn -> {
+                            val action = UserNewsFragmentDirections.actionUserNewsFragmentToAddArticleFragment(
+                                id = post.id,
+                                title = post.title,
+                                imageUrl = post.imageUrl,
+                                source = post.articleUrl,
+                                country = post.country,
+                                desc = post.desc,
+                                userId = post.userId,
+                                username = post.username
+                            )
+
+                            findNavController().navigate(action)
+                        }
+                        R.id.deleteArticleBtn -> Log.d("MenuClick", "delete")
+                        else -> {}
                     }
+                }
             }
-        })
+        )
 
         val firestoreDb: FirebaseFirestore = FirebaseFirestore.getInstance()
-        val firestoreAuth: FirebaseAuth = FirebaseAuth.getInstance()
-        val postRepository = PostRepository(firestoreDb, firestoreAuth, PostDatabase.getDatabase(requireContext()).postDao())
+        val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
+        val postRepository = PostRepository(firestoreDb, firebaseAuth, PostDatabase.getDatabase(requireContext()).postDao())
 
         binding = FragmentUserNewsBinding.inflate(inflater, container, false)
-        articleViewModel = ViewModelProvider(requireActivity(), ArticleViewModel.ArticleModelFactory())[ArticleViewModel::class.java]
+        articleViewModel = ViewModelProvider(
+            requireActivity(),
+            ArticleViewModel.ArticleModelFactory()
+        )[ArticleViewModel::class.java]
 
-        userEmail = firestoreAuth.currentUser?.email!!
+        userEmail = firebaseAuth.currentUser?.email!!
 
         userNewsViewModel = ViewModelProvider(
             this,
             UserNewsViewModel.UserNewsModelFactory(postRepository, userEmail)
         )[UserNewsViewModel::class.java]
 
-        setRecyclerView(userPosts, postRepository, userNewsAdapter)
+        setRecyclerView(userPosts, userNewsAdapter)
 
         return (binding.root)
     }
 
-    private fun setRecyclerView(posts: MutableLiveData<List<Post>>, postRepository: PostRepository, userNewsAdapter: UserNewsAdapter) {
+    private fun setRecyclerView(posts: MutableLiveData<List<Post>>, userNewsAdapter: UserNewsAdapter) {
         userNewsViewModel.userPosts.observe(viewLifecycleOwner) {
             posts.value = ArrayList(it)
             userNewsAdapter.submitList(posts.value!!)

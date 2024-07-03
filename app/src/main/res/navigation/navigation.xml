@@ -107,6 +107,39 @@
         <action
             android:id="@+id/action_addArticleFragment_to_feedFragment"
             app:destination="@id/feedFragment" />
+        <argument
+            android:name="id"
+            app:argType="string"
+            android:defaultValue=""
+            />
+        <argument
+            android:name="title"
+            app:argType="string"
+            android:defaultValue=""/>
+        <argument
+            android:name="imageUrl"
+            app:argType="string"
+            android:defaultValue=""/>
+        <argument
+            android:name="country"
+            app:argType="string"
+            android:defaultValue=""/>
+        <argument
+            android:name="source"
+            app:argType="string"
+            android:defaultValue=""/>
+        <argument
+            android:name="desc"
+            app:argType="string"
+            android:defaultValue=""/>
+        <argument
+            android:name="userId"
+            app:argType="string"
+            android:defaultValue=""/>
+        <argument
+            android:name="username"
+            app:argType="string"
+            android:defaultValue=""/>
     </fragment>
     <fragment
         android:id="@+id/logInFragment"
