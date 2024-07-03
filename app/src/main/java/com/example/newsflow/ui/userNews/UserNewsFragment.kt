@@ -64,7 +64,7 @@ class UserNewsFragment : Fragment() {
                                 userId = post.userId,
                                 username = post.username
                             )
-
+                            newsActivity.disableNavBar()
                             findNavController().navigate(action)
                         }
                         R.id.deleteArticleBtn -> {
