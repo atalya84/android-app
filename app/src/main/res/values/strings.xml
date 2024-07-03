@@ -39,7 +39,7 @@
     <string name="feed">Feed</string>
 
     <!-- Placeholders -->
-    <string name="source_placeholder">SOURCE</string>
+    <string name="source_placeholder">Go To Source</string>
     <string name="title_placeholder">TITLE</string>
     <string name="desc_placeholder">DESCRIPTION</string>
     <string name="date_time_placeholder">DATE TIME</string>

@@ -83,6 +83,7 @@
                 android:id="@+id/divider1"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:paddingBottom="50dp"
                 android:background="?android:attr/listDivider"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="@+id/articleTitle" />
@@ -91,7 +92,7 @@
                 android:id="@+id/articleSource"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingVertical="4dp"
+                android:paddingVertical="10dp"
                 android:text="@string/source_placeholder"
                 android:fontFamily="@font/poppins"
                 android:textColor="@color/yellow"
