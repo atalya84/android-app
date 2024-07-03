@@ -7,10 +7,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.newsflow.data.models.FirestorePost
 import com.example.newsflow.data.models.Post
 import com.example.newsflow.data.models.toFirestorePost
-import com.example.newsflow.data.repositories.PostRepository
 import com.example.newsflow.util.ImageUtil
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.FirebaseFirestore
@@ -27,7 +25,6 @@ class ArticleViewModel : ViewModel() {
 
     private val _articleLiveData = MutableLiveData<Post>()
     private val _origin = MutableLiveData<Origin>()
-    private val _editLiveData = MutableLiveData<Post?>()
     private val _postImage = MutableLiveData<Uri>()
     private val _loading = MutableLiveData<Boolean>()
     private val _postSuccessful = MutableLiveData<Boolean>()
@@ -36,7 +33,6 @@ class ArticleViewModel : ViewModel() {
 
     val articleLiveData: LiveData<Post> get() = _articleLiveData
     val origin: LiveData<Origin> get() = _origin
-    val editLiveData: LiveData<Post?> get() = _editLiveData
     val loading: LiveData<Boolean> = _loading
     val postSuccessful: LiveData<Boolean> = _postSuccessful
 
@@ -45,23 +41,25 @@ class ArticleViewModel : ViewModel() {
         _origin.postValue(origin)
     }
 
-    fun setEditPost(post: Post?) {
-        _editLiveData.postValue(post)
-    }
+    fun resetForm() { _postSuccessful.postValue(false) }
 
     fun ShowImgInView(contentResolver: ContentResolver, imageView: ImageView, imageUri: Uri) {
         ImageUtil.ShowImgInViewFromGallery(contentResolver, imageView, imageUri)
-        _postImage.value = imageUri
+        setImageUri(imageUri)
+    }
+
+    fun setImageUri(uri: Uri) {
+        _postImage.postValue(uri)
     }
 
     fun insertPost(post: Post) {
         _loading.value = true
         try {
             _postImage.value?.let { uri ->
-                setEditPost(null)
                 CoroutineScope(Dispatchers.IO).launch {
-                    val storageUri = ImageUtil.UploadImage(post.id, uri, storageRef)
-                    post.imageUrl = storageUri.toString()
+                    if (post.imageUrl.isEmpty()) {
+                        post.imageUrl = ImageUtil.UploadImage(post.id, uri, storageRef).toString()
+                    }
                     val fsPost = post.toFirestorePost()
                     firebaseDb.collection(COLLECTION).document(post.id).set(fsPost)
                 }
