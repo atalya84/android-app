@@ -1,5 +1,6 @@
 package com.example.newsflow.ui.article
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.text.Editable
 import android.util.Log
@@ -124,6 +125,16 @@ class AddArticleFragment : Fragment() {
                 binding.createPostBtn.text = "Post News"
             }
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getActivity()?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    }
+
+    override fun onPause() {
+        super.onPause()
+        getActivity()?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
     }
 
     private fun showImage() {

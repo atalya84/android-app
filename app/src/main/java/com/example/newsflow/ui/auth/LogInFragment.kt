@@ -1,5 +1,6 @@
 package com.example.newsflow.ui.auth
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -79,7 +80,6 @@ class LogInFragment : Fragment() {
 
         return binding.root
     }
-
     private lateinit var viewModel: AuthViewModel
     private val newsActivity: NewsActivity
         get() = activity as NewsActivity
@@ -99,5 +99,15 @@ class LogInFragment : Fragment() {
         }
 
         return true
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getActivity()?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    }
+
+    override fun onPause() {
+        super.onPause()
+        getActivity()?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
     }
 }
