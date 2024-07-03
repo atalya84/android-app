@@ -20,7 +20,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class FeedFragment : Fragment() {
     private lateinit var binding: FragmentFeedBinding
-    private lateinit var postViewModel: PostViewModel
+//    private lateinit var postViewModel: PostViewModel
     private lateinit var articleViewModel: ArticleViewModel
 
     override fun onCreateView(
@@ -44,11 +44,14 @@ class FeedFragment : Fragment() {
         val postRepository = PostRepository(firestoreDb, PostDatabase.getDatabase(requireContext()).postDao())
 
         binding = FragmentFeedBinding.inflate(inflater, container, false)
-        articleViewModel = ViewModelProvider(requireActivity(), ArticleViewModel.ArticleModelFactory())[ArticleViewModel::class.java]
-        postViewModel = ViewModelProvider(
-            this,
-            PostViewModel.PostModelFactory(postRepository)
-        )[PostViewModel::class.java]
+        articleViewModel = ViewModelProvider(
+            requireActivity(),
+            ArticleViewModel.ArticleModelFactory()
+        )[ArticleViewModel::class.java]
+//        postViewModel = ViewModelProvider(
+//            this,
+//            PostViewModel.PostModelFactory(postRepository)
+//        )[PostViewModel::class.java]
 
         setRecyclerView(posts, postRepository, adapter)
         return (binding.root)

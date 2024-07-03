@@ -46,7 +46,11 @@ class UserNewsFragment : Fragment() {
         val postRepository = PostRepository(firestoreDb, PostDatabase.getDatabase(requireContext()).postDao())
 
         binding = FragmentUserNewsBinding.inflate(inflater, container, false)
-        articleViewModel = ViewModelProvider(requireActivity(), ArticleViewModel.ArticleModelFactory())[ArticleViewModel::class.java]
+        articleViewModel = ViewModelProvider(
+            requireActivity(),
+            ArticleViewModel.ArticleModelFactory()
+        )[ArticleViewModel::class.java]
+
         userNewsViewModel = ViewModelProvider(
             this,
             UserNewsViewModel.UserNewsModelFactory(postRepository)

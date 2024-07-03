@@ -1,7 +1,6 @@
 package com.example.newsflow.ui.article
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,22 +36,16 @@ class ArticleFragment : Fragment() {
             binding.articleDesc.text = post.desc
             binding.articleSource.text = post.articleUrl
             binding.articleReturnBtn.setOnClickListener {
-                when(viewModel.origin.value) {
-                    ArticleViewModel.Origin.FEED -> view?.let { view ->
-                        Navigation.findNavController(
-                            view
-                        ).navigate(R.id.action_articleFragment_to_feedFragment)
-                    }
-                    ArticleViewModel.Origin.MY_NEWS -> view?.let { view ->
-                        Navigation.findNavController(
-                            view
-                        ).navigate(R.id.action_articleFragment_to_userNewsFragment)
-                    }
-                    else -> {}
+                val destination: Int = when (viewModel.origin.value) {
+                    ArticleViewModel.Origin.FEED -> R.id.action_articleFragment_to_feedFragment
+                    ArticleViewModel.Origin.MY_NEWS -> R.id.action_articleFragment_to_userNewsFragment
+                    else -> R.id.action_articleFragment_to_feedFragment
+                }
+                view?.let { view ->
+                    Navigation.findNavController(view).navigate(destination)
                 }
             }
         }
-
         return (binding.root)
     }
 }

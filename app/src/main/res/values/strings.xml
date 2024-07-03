@@ -79,5 +79,7 @@ Integer enim neque volutpat ac tincidunt vitae. Dapibus ultrices in iaculis nunc
     <string name="source_label">Source</string>
     <string name="source_edit_text_hint">Enter Article URL</string>
     <string name="description_label">Description</string>
-    <string name="desc_edit_text_hint">Desctibe Your Article (optional)</string>
+    <string name="desc_edit_text_hint">Describe Your Article (optional)</string>
+    <string name="create_post_btn_text">Post News</string>
+    <string name="edit_post_btn_text">Save Changes</string>
 </resources>

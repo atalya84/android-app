@@ -14,6 +14,7 @@ data class Post (
     @ColumnInfo(name = "articleUrl") var articleUrl: String,
     @ColumnInfo(name = "createdString") var createdString: String,
     @ColumnInfo(name = "userId") var userId: String,
+    @ColumnInfo(name = "username") var username: String
 )
 
 data class FirestorePost(
@@ -23,7 +24,8 @@ data class FirestorePost(
     val imageUrl: String = "",
     val articleUrl: String = "",
     val createdString: String = "",
-    val userId: String = ""
+    val userId: String = "",
+    val username: String = ""
 )
 
 fun FirestorePost.toRoomPost(id: String): Post {
@@ -35,7 +37,8 @@ fun FirestorePost.toRoomPost(id: String): Post {
         imageUrl = this.imageUrl,
         articleUrl = this.articleUrl,
         createdString = this.createdString,
-        userId = this.userId
+        userId = this.userId,
+        username = this.username
     )
 }
 
@@ -47,6 +50,7 @@ fun Post.toFirestorePost(): FirestorePost {
         imageUrl = this.imageUrl,
         articleUrl = this.articleUrl,
         createdString = this.createdString,
-        userId = this.userId
+        userId = this.userId,
+        username = this.username
     )
 }

@@ -66,7 +66,7 @@ class UserRepository (private val firestoreDb: FirebaseFirestore, private val fi
                             CoroutineScope(Dispatchers.IO).launch {
                                 try {
                                     // upload image to firebase storage
-                                    val uri = ImageUtil.UploadImage(firestoreAuth, uri, profileImageRef)
+                                    val uri = ImageUtil.UploadImage(firestoreAuth.currentUser?.uid ?: "", uri, profileImageRef)
                                     // if download url is not empty the upload was successful
                                     if (uri != null) {
                                         // update the new user with the name and image url
