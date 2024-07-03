@@ -23,7 +23,7 @@ class SettingsFragment : Fragment() {
 
     private lateinit var binding: FragmentSettingsBinding
     private lateinit var viewModel: AuthViewModel
-    private lateinit var currUser: FirebaseUser
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,27 +33,40 @@ class SettingsFragment : Fragment() {
         val firestoreDb: FirebaseFirestore = FirebaseFirestore.getInstance()
         val firestoreAuth: FirebaseAuth = FirebaseAuth.getInstance()
         val userRepository = UserRepository(firestoreDb, firestoreAuth, UserDatabase.getDatabase(requireContext()).userDao())
-        currUser = firestoreAuth.currentUser!!
 
         viewModel = ViewModelProvider(
             this,
             AuthViewModel.AuthModelFactory(userRepository)
         )[AuthViewModel::class.java]
 
+        viewModel.updateCurrUser(firestoreAuth.currentUser!!)
+
         binding.signout.setOnClickListener {
             viewModel.logOut()
             Navigation.findNavController(requireView()).navigate(R.id.action_settingsFragment_to_logInFragment)
         }
 
-        binding.editUser.setOnClickListener {
-            Navigation.findNavController(requireView()).navigate(R.id.action_settingsFragment_to_editProfileFragment)
-        }
+        binding.editUser.setOnClickListener(
+            viewModel.currUser.value?.let {user ->
+                Navigation.createNavigateOnClickListener(
+                    SettingsFragmentDirections.actionSettingsFragmentToEditProfileFragment(
+                        user.displayName!!,
+                        user.photoUrl.toString()
+                    )
+                )
+            }
 
-        val imageView: ImageView = binding.imageView
-        val progressBar: ProgressBar = binding.progressBar
-        ImageUtil.showImgInViewFromUrl(currUser.photoUrl.toString(), imageView, progressBar)
-        binding.emailtext.text = currUser.email
-        binding.userName.text = currUser.displayName
+        )
+
+        viewModel.currUser.observe(viewLifecycleOwner) { user ->
+            user?.let {
+                val imageView: ImageView = binding.imageView
+                val progressBar: ProgressBar = binding.progressBar
+                ImageUtil.showImgInViewFromUrl(user.photoUrl.toString(), imageView, progressBar)
+                binding.emailtext.text = user.email
+                binding.userName.text = user.displayName
+            }
+        }
 
         return binding.root
     }

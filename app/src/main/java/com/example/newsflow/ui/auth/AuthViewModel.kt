@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.newsflow.data.models.FirestoreUser
 import com.example.newsflow.data.repositories.UserRepository
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.storage.StorageReference
 import kotlinx.coroutines.launch
 
@@ -20,6 +21,8 @@ class AuthViewModel(private val repository: UserRepository): ViewModel() {
     val loginSuccessfull: LiveData<Boolean> = repository.loginSuccessfull
     val loginFailed: LiveData<Boolean> = repository.loginFailed
     val imageToShow: LiveData<Uri> = repository.imageToShow
+    val currUser: LiveData<FirebaseUser> = repository.currUser
+    val updateSuccessfull: LiveData<Boolean> = repository.updateSuccessfull
 
     fun createUser(newUser: FirestoreUser, profileImageRef: StorageReference, errorCallback: (String) -> Unit ) = viewModelScope.launch {
         repository.createUser(newUser, profileImageRef, errorCallback)
@@ -35,6 +38,14 @@ class AuthViewModel(private val repository: UserRepository): ViewModel() {
 
     fun ShowImgInView(contentResolver: ContentResolver, imageView: ImageView, imageUri: Uri) {
         repository.ShowImgInView(contentResolver, imageView, imageUri)
+    }
+
+    fun updateCurrUser(user: FirebaseUser) {
+        repository.updateCurrUser(user)
+    }
+
+    fun updateProfile(name: String, profileImageRef: StorageReference, imgUrl: Uri, uploadPic: Boolean) {
+        repository.updateProfile(name, profileImageRef, imgUrl, uploadPic)
     }
 
     class AuthModelFactory(private val repository: UserRepository): ViewModelProvider.Factory {
