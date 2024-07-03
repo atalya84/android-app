@@ -17,13 +17,13 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.navArgs
 import com.example.newsflow.R
 import com.example.newsflow.data.models.Post
 import com.example.newsflow.databinding.ActivityNewsBinding
 import com.example.newsflow.databinding.FragmentAddArticleBinding
 import com.example.newsflow.ui.NewsActivity
 import com.example.newsflow.util.ImageUtil
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -33,7 +33,8 @@ class AddArticleFragment : Fragment() {
     private lateinit var binding: FragmentAddArticleBinding
     private lateinit var articleViewModel: ArticleViewModel
     private lateinit var mainActivityBinding: ActivityNewsBinding
-    private var currentPost: Post? = null
+    private val args: AddArticleFragmentArgs by navArgs()
+
     private val newsActivity: NewsActivity
         get() = activity as NewsActivity
 
@@ -84,13 +85,13 @@ class AddArticleFragment : Fragment() {
 
         articleViewModel.postSuccessful.observe(viewLifecycleOwner, Observer { isSuccess ->
             if (isSuccess) {
+                articleViewModel.resetForm()
                 newsActivity.enableNavBar()
                 newsActivity.apply { uriResult.value = null }
                 Navigation.findNavController(requireView()).popBackStack(R.id.feedFragment,false)
             }
         })
 
-        // Observe the loading LiveData
         articleViewModel.loading.observe(viewLifecycleOwner, Observer { isLoading ->
             if (isLoading) {
                 binding.uploadProgress.isVisible = true
@@ -100,32 +101,28 @@ class AddArticleFragment : Fragment() {
                 binding.createPostBtn.text = getString(R.string.create_post_btn_text)
             }
         })
-
-        articleViewModel.editLiveData.observe(viewLifecycleOwner) { post ->
-
-            currentPost = post
-            if (post != null) {
+            if (args.id.isNotEmpty()) {
                 binding.createPostBtn.text = "Save Changes"
 
                 val editable = Editable.Factory.getInstance()
-                binding.countryInput.text = editable.newEditable(post.country)
-                binding.headlineInput.text = editable.newEditable(post.title)
-                binding.sourceInput.text = editable.newEditable(post.articleUrl)
-                binding.descInput.text = editable.newEditable(post.desc)
+                binding.countryInput.text = editable.newEditable(args.country)
+                binding.headlineInput.text = editable.newEditable(args.title)
+                binding.sourceInput.text = editable.newEditable(args.source)
+                binding.descInput.text = editable.newEditable(args.desc)
 
                showImage()
-                binding.choosePhotoImgBtn.setImageURI(post.imageUrl.toUri())
+                binding.choosePhotoImgBtn.setImageURI(args.imageUrl.toUri())
+                articleViewModel.setImageUri(args.imageUrl.toUri())
                 ImageUtil.showImgInViewFromUrl(
-                    post.imageUrl,
+                    args.imageUrl,
                     binding.choosePhotoImgBtn,
                     binding.imgSpinner
                 )
+
             } else {
                 hideImage()
                 binding.createPostBtn.text = "Post News"
             }
-        }
-
         return binding.root
     }
 
@@ -140,17 +137,17 @@ class AddArticleFragment : Fragment() {
     }
 
     private fun saveAction() {
-        FirebaseAuth.getInstance().currentUser?.uid?.let { userId ->
+        FirebaseAuth.getInstance().currentUser?.email?.let { userId ->
             hideImage()
-            val postId: String = if (currentPost != null) currentPost!!.id else articleViewModel.generateRandomUid()
+            val postId: String = args.id.ifEmpty { articleViewModel.generateRandomUid() }
             articleViewModel.insertPost(Post(
                 id = postId,
                 title = binding.headlineInput.text.toString(),
                 desc = binding.descInput.text.toString(),
                 articleUrl = binding.sourceInput.text.toString(),
                 country = binding.countryInput.text.toString(),
-                imageUrl = "",
-                createdString = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.ENGLISH).format(Date()),
+                imageUrl = args.imageUrl.ifEmpty { "" },
+                createdString = SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.ENGLISH).format(Date()),
                 userId = userId,
                 username = FirebaseAuth.getInstance().currentUser?.displayName ?: ""
             ))
@@ -162,7 +159,7 @@ class AddArticleFragment : Fragment() {
         val articleUrl = binding.sourceInput.text
         val country = binding.countryInput.text
 
-        if (newsActivity.uriResult.value == null) {
+        if (newsActivity.uriResult.value == null && args.imageUrl.isEmpty()) {
             Toast.makeText(requireContext(), getString(R.string.select_img), Toast.LENGTH_SHORT).show()
             return false
         }
