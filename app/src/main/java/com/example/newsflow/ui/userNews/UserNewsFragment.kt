@@ -49,7 +49,7 @@ class UserNewsFragment : Fragment() {
         articleViewModel = ViewModelProvider(requireActivity(), ArticleViewModel.ArticleModelFactory())[ArticleViewModel::class.java]
         userNewsViewModel = ViewModelProvider(
             this,
-            UserNewsViewModel.UserNewsModelFactory(postRepository)
+            UserNewsViewModel.UserNewsModelFactory(postRepository, "aaaaa")
         )[UserNewsViewModel::class.java]
 
         setRecyclerView(userPosts, postRepository, userNewsAdapter)
@@ -61,9 +61,17 @@ class UserNewsFragment : Fragment() {
         userNewsViewModel.userPosts.observe(viewLifecycleOwner) {
             posts.value = ArrayList(it)
             userNewsAdapter.submitList(posts.value!!)
-            binding.recyclerUserHeadlines.apply {
-                layoutManager = LinearLayoutManager(context)
-                adapter = userNewsAdapter
+
+            if (posts.value.isNullOrEmpty()) {
+                binding.recyclerUserHeadlines.visibility = View.GONE
+                binding.textNoPosts.visibility = View.VISIBLE
+            } else {
+                binding.recyclerUserHeadlines.apply {
+                    binding.recyclerUserHeadlines.visibility = View.VISIBLE
+                    binding.textNoPosts.visibility = View.GONE
+                    layoutManager = LinearLayoutManager(context)
+                    adapter = userNewsAdapter
+                }
             }
         }
     }

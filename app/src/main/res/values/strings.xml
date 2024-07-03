@@ -72,4 +72,5 @@ Integer enim neque volutpat ac tincidunt vitae. Dapibus ultrices in iaculis nunc
     <string name="change_picture">Change Picture</string>
     <string name="save_changes">Save Changes</string>
     <string name="post_options">Post Options</string>
+    <string name="no_news">You don\'t have any posted articles</string>
 </resources>
