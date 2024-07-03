@@ -73,4 +73,5 @@ Integer enim neque volutpat ac tincidunt vitae. Dapibus ultrices in iaculis nunc
     <string name="save_changes">Save Changes</string>
     <string name="post_options">Post Options</string>
     <string name="no_news">You don\'t have any posted articles</string>
+    <string name="date">DD/MM/YYYY</string>
 </resources>

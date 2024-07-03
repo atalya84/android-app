@@ -44,6 +44,7 @@ class ArticleFragment : Fragment() {
             binding.articleCountryTag.text = post.country
             binding.articleTitle.text = post.title
             binding.articleDesc.text = post.desc
+            binding.date.text = post.createdString.split(" ")[0]
 
             clickable_source_link(post.articleUrl)
 
