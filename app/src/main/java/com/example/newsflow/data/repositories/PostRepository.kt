@@ -63,7 +63,7 @@ class PostRepository (private val firestoreDb: FirebaseFirestore, private val fi
             }
         }
 
-        firestoreDb.collection(COLLECTION).whereEqualTo("userId", firebaseAuth.currentUser?.email)
+        firestoreDb.collection(COLLECTION)
             .addSnapshotListener { snapshot, error ->
                 if (error != null) {
                     error.printStackTrace()

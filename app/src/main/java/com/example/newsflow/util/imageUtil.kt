@@ -7,22 +7,19 @@ import android.net.Uri
 import android.util.Log
 import android.widget.ImageView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.Rotate
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.StorageReference
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import android.widget.ProgressBar
-import android.graphics.BitmapFactory
 import com.example.newsflow.R
+import com.google.android.gms.tasks.Task
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import java.io.InputStream
 
 class ImageUtil private constructor() {
     companion object {
@@ -119,6 +116,11 @@ class ImageUtil private constructor() {
                 e.printStackTrace()
                 null
             }
+        }
+
+        fun deleteStorageImage(imageId: String, storageRef: StorageReference): Task<Void> {
+            val imageRef = storageRef.child(imageId)
+            return imageRef.delete()
         }
     }
 }
