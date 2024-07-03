@@ -26,8 +26,11 @@ import com.example.newsflow.ui.auth.AuthViewModel
 import com.example.newsflow.util.ImageUtil
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.storage
 
 class EditProfileFragment : Fragment() {
 
@@ -46,6 +49,7 @@ class EditProfileFragment : Fragment() {
         val firestoreDb: FirebaseFirestore = FirebaseFirestore.getInstance()
         val firestoreAuth: FirebaseAuth = FirebaseAuth.getInstance()
         val userRepository = UserRepository(firestoreDb, firestoreAuth, UserDatabase.getDatabase(requireContext()).userDao())
+        val profileImageRef: StorageReference = Firebase.storage.reference.child("profileImages")
 
         viewModel = ViewModelProvider(
             this,
@@ -75,7 +79,7 @@ class EditProfileFragment : Fragment() {
             val displayedName = binding.etName.text.toString()
             val displayedImg = newsActivity.uriResult.value ?: currUserImage
             if(validation(currUserImage, displayedName, displayedImg)) {
-                viewModel.updateProfile(displayedName, displayedImg!!)
+                viewModel.updateProfile(displayedName, profileImageRef, displayedImg!!)
             }
         }
         binding.cancle.setOnClickListener {
