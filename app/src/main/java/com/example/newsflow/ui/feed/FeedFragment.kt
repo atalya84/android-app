@@ -16,11 +16,11 @@ import com.example.newsflow.data.models.Post
 import com.example.newsflow.data.repositories.PostRepository
 import com.example.newsflow.databinding.FragmentFeedBinding
 import com.example.newsflow.ui.article.ArticleViewModel
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class FeedFragment : Fragment() {
     private lateinit var binding: FragmentFeedBinding
-    private lateinit var postViewModel: PostViewModel
     private lateinit var articleViewModel: ArticleViewModel
 
     override fun onCreateView(
@@ -41,15 +41,14 @@ class FeedFragment : Fragment() {
             }
         })
         val firestoreDb: FirebaseFirestore = FirebaseFirestore.getInstance()
-        val postRepository = PostRepository(firestoreDb, PostDatabase.getDatabase(requireContext()).postDao())
+        val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
+        val postRepository = PostRepository(firestoreDb, firebaseAuth, PostDatabase.getDatabase(requireContext()).postDao())
 
         binding = FragmentFeedBinding.inflate(inflater, container, false)
-        articleViewModel = ViewModelProvider(requireActivity(), ArticleViewModel.ArticleModelFactory())[ArticleViewModel::class.java]
-        postViewModel = ViewModelProvider(
-            this,
-            PostViewModel.PostModelFactory(postRepository)
-        )[PostViewModel::class.java]
-
+        articleViewModel = ViewModelProvider(
+            requireActivity(),
+            ArticleViewModel.ArticleModelFactory()
+        )[ArticleViewModel::class.java]
         setRecyclerView(posts, postRepository, adapter)
         return (binding.root)
     }

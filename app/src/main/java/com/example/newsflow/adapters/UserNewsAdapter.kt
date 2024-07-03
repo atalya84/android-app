@@ -10,11 +10,16 @@ import com.example.newsflow.viewHolders.UserNewsViewHolder
 
 class UserNewsAdapter (
     private val posts: MutableList<Post>,
-    private val postClickListener: PostClickListener? = null
+    private val postClickListener: PostClickListener? = null,
+    private val menuItemClickListener: MenuClickListener? = null
 ): RecyclerView.Adapter<UserNewsViewHolder>() {
 
     interface PostClickListener {
         fun onPostClick(post: Post)
+    }
+
+    interface MenuClickListener {
+        fun onMenuItemClick(post: Post, itemId: Int)
     }
 
     var context: Context? = null
@@ -31,7 +36,7 @@ class UserNewsAdapter (
 
     override fun onBindViewHolder(holder: UserNewsViewHolder, position: Int) {
         context?.let {
-            holder.bindPost(posts[position], it, postClickListener)
+            holder.bindPost(posts[position], it, postClickListener, menuItemClickListener)
         }
     }
 

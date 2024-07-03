@@ -13,6 +13,7 @@ import com.example.newsflow.data.models.FirestoreUser
 import com.example.newsflow.data.models.User
 import com.example.newsflow.util.ImageUtil
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
@@ -69,12 +70,12 @@ class UserRepository (private val firestoreDb: FirebaseFirestore, private val fi
                     val user = firestoreAuth.currentUser
                     user?.let {
                         // if the user has uploaded an image
-                        _ImageToShow.value?.let {uri ->
+                        _ImageToShow.value?.let { uri ->
                             // asynchronous operation to upload image and creating user
                             CoroutineScope(Dispatchers.IO).launch {
                                 try {
                                     // upload image to firebase storage
-                                    val uri = ImageUtil.UploadImage(firestoreAuth, uri, profileImageRef)
+                                    val uri = ImageUtil.UploadImage(firestoreAuth.currentUser?.uid ?: "", uri, profileImageRef)
                                     // if download url is not empty the upload was successful
                                     if (uri != null) {
                                         // update the new user with the name and image url
@@ -90,26 +91,37 @@ class UserRepository (private val firestoreDb: FirebaseFirestore, private val fi
 
                                                     // save all the data in firestore db
                                                     val updatedUser = firestoreAuth.currentUser
-                                                    updatedUser?.let { user ->
-                                                        storeUserData(user.uid, user.email, user.displayName, user.photoUrl)
+                                                    try {
+                                                        updatedUser?.let { user ->
+                                                            storeUserData(
+                                                                user.uid,
+                                                                user.email,
+                                                                user.displayName,
+                                                                user.photoUrl
+                                                            )
+                                                        }
+                                                    } finally {
+                                                        _signUpSuccessfull.value = true
                                                     }
+
                                                 } else {
-                                                    Log.d(TAG, "There was an error updating the user profile")
+                                                    Log.d(
+                                                        TAG,
+                                                        "There was an error updating the user profile"
+                                                    )
                                                 }
                                             }
                                     }
-                                } catch (e: Exception) {
-                                    // Handle exceptions
+                                }  finally {
+                                    // Update loading state after coroutine completes
+                                    _loading.postValue(false)
                                 }
                             }
                         }
-
-
                     }
-
-                    _signUpSuccessfull.value = true
                 } else {
                     try {
+                        _loading.value = false
                         throw task.exception ?: java.lang.Exception("Invalid authentication")
                     } catch (e: FirebaseAuthWeakPasswordException) {
                         val message = "Authentication failed, Password should be at least 6 characters"
@@ -128,11 +140,10 @@ class UserRepository (private val firestoreDb: FirebaseFirestore, private val fi
                         e.message?.let { Log.d(TAG, it) }
                     }
                 }
-                _loading.value = false
             }
     }
 
-    fun login(email: String, password: String) {
+    fun login(email: String, password: String, errorCallback: (String) -> Unit) {
         _loading.value = true
         firestoreAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
@@ -143,11 +154,24 @@ class UserRepository (private val firestoreDb: FirebaseFirestore, private val fi
                         Log.i("Login", "signInWithEmailAndPassword:success")
                     }
                 } else {
+                    try {
+                        throw task.exception ?: java.lang.Exception("Invalid authentication")
+                    } catch (e: FirebaseAuthInvalidUserException) {
+                        val message = "There is no user with this email address"
+                        errorCallback(message)
+                        Log.d(TAG, message)
+                    } catch (e: FirebaseAuthInvalidCredentialsException) {
+                        val message = "password is incorrect"
+                        errorCallback(message)
+                        Log.d(TAG, message)
+                    } catch (e: Exception) {
+                        errorCallback(" An error occurred while logging in")
+                        e.message?.let { Log.d(TAG, it) }
+                    }
                     _loginFailed.value = true
-                    Log.i("Login", "Error")
                 }
+                _loading.value = false
             }
-        _loading.value = false
     }
 
     fun updateProfile(name: String, profileImageRef: StorageReference, imgUrl: Uri, uploadPic: Boolean) {
@@ -158,7 +182,7 @@ class UserRepository (private val firestoreDb: FirebaseFirestore, private val fi
                 var uri = imgUrl
                 if(uploadPic) {
                     // upload image to firebase storage
-                    uri = ImageUtil.UploadImage(firestoreAuth, imgUrl, profileImageRef)!!
+                    uri = ImageUtil.UploadImage(firestoreAuth.currentUser!!.uid, imgUrl, profileImageRef)!!
                 }
                 // if download url is not empty the upload was successful
                 if (uri != null) {

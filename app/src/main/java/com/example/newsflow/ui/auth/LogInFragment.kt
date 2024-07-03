@@ -51,10 +51,14 @@ class LogInFragment : Fragment() {
         addBotton.isVisible = false
 
         binding.btnLogIn.setOnClickListener {
-            viewModel.login(
-                email = binding.etEmail.text.toString(),
-                password = binding.etPassword.text.toString()
-            )
+            if(validation()) {
+                viewModel.login(
+                    email = binding.etEmail.text.toString(),
+                    password = binding.etPassword.text.toString()
+                ) { errorMessage ->
+                    Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+                }
+            }
         }
 
         viewModel.loginSuccessfull.observe(viewLifecycleOwner, Observer { isSuccess ->
@@ -78,5 +82,22 @@ class LogInFragment : Fragment() {
         })
 
         return binding.root
+    }
+
+    fun validation(): Boolean {
+        val email = binding.etEmail.text
+        val password = binding.etPassword.text
+
+        if (email.isNullOrEmpty()){
+            Toast.makeText(requireContext(), getString(R.string.enter_email), Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        if (password.isNullOrEmpty()){
+            Toast.makeText(requireContext(), getString(R.string.enter_password), Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        return true
     }
 }
