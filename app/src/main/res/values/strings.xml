@@ -33,12 +33,13 @@
     <string name="enter_your_city_name">Enter Your City Name</string>
     <string name="select_your_profile_picture">Touch The Logo To Select Your Profile Picture</string>
     <string name="edit_user">Edit User</string>
+    <string name="no_changes">No changes Where Made</string>
 
     <!-- Titles -->
     <string name="feed">Feed</string>
 
     <!-- Placeholders -->
-    <string name="source_placeholder">SOURCE</string>
+    <string name="source_placeholder">Go To Source</string>
     <string name="title_placeholder">TITLE</string>
     <string name="desc_placeholder">DESCRIPTION</string>
     <string name="date_time_placeholder">DATE TIME</string>

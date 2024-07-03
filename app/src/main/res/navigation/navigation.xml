@@ -140,5 +140,11 @@
         <action
             android:id="@+id/action_editProfileFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="photoUrl"
+            app:argType="string" />
     </fragment>
 </navigation>

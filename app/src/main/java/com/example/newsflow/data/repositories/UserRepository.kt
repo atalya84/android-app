@@ -16,6 +16,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.userProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.StorageReference
@@ -48,6 +50,12 @@ class UserRepository (private val firestoreDb: FirebaseFirestore, private val fi
 
     private val _ImageToShow = MutableLiveData<Uri>()
     val imageToShow: LiveData<Uri> = _ImageToShow
+
+    private val _currUser = MutableLiveData<FirebaseUser>()
+    val currUser: LiveData<FirebaseUser> = _currUser
+
+    private val _updateSuccessfull = MutableLiveData<Boolean>()
+    val updateSuccessfull: LiveData<Boolean> = _updateSuccessfull
     
     @WorkerThread
     fun get (id: String): User = userDao.get(id)
@@ -142,6 +150,45 @@ class UserRepository (private val firestoreDb: FirebaseFirestore, private val fi
         _loading.value = false
     }
 
+    fun updateProfile(name: String, profileImageRef: StorageReference, imgUrl: Uri, uploadPic: Boolean) {
+        _loading.value = true
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                var uri = imgUrl
+                if(uploadPic) {
+                    // upload image to firebase storage
+                    uri = ImageUtil.UploadImage(firestoreAuth.currentUser!!.uid, imgUrl, profileImageRef)!!
+                }
+                // if download url is not empty the upload was successful
+                if (uri != null) {
+                    // update the new user with the name and image url
+                    val profileUpdates = UserProfileChangeRequest.Builder()
+                        .setDisplayName(name)
+                        .setPhotoUri(uri)
+                        .build()
+
+                    firestoreAuth.currentUser?.updateProfile(profileUpdates)
+                        ?.addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                val updatedUser = firestoreAuth.currentUser
+                                updatedUser?.let { user ->
+                                    _currUser.value = user
+                                    storeUserData(user.uid, user.email, user.displayName, user.photoUrl)
+                                }
+                                _updateSuccessfull.value = true
+                            }
+                        }
+                }
+            } catch (e: Exception) {
+                // Handle exceptions
+            } finally {
+                // Update loading state after coroutine completes
+                _loading.postValue(false)
+            }
+        }
+    }
+
     private fun storeUserData(userId: String?, email: String?, name: String?, photo: Uri?) {
         val userData = hashMapOf(
             "userId" to userId,
@@ -158,5 +205,9 @@ class UserRepository (private val firestoreDb: FirebaseFirestore, private val fi
     fun ShowImgInView(contentResolver: ContentResolver, imageView: ImageView, imageUri: Uri) {
         ImageUtil.ShowImgInViewFromGallery(contentResolver, imageView, imageUri)
         _ImageToShow.value = imageUri
+    }
+
+    fun updateCurrUser(user: FirebaseUser) {
+        _currUser.value = user
     }
 }
