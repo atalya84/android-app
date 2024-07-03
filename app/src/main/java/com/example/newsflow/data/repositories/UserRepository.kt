@@ -13,6 +13,7 @@ import com.example.newsflow.data.models.FirestoreUser
 import com.example.newsflow.data.models.User
 import com.example.newsflow.util.ImageUtil
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
@@ -143,7 +144,7 @@ class UserRepository (private val firestoreDb: FirebaseFirestore, private val fi
             }
     }
 
-    fun login(email: String, password: String) {
+    fun login(email: String, password: String, errorCallback: (String) -> Unit) {
         _loading.value = true
         firestoreAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
@@ -154,11 +155,24 @@ class UserRepository (private val firestoreDb: FirebaseFirestore, private val fi
                         Log.i("Login", "signInWithEmailAndPassword:success")
                     }
                 } else {
+                    try {
+                        throw task.exception ?: java.lang.Exception("Invalid authentication")
+                    } catch (e: FirebaseAuthInvalidUserException) {
+                        val message = "There is no user with this email address"
+                        errorCallback(message)
+                        Log.d(TAG, message)
+                    } catch (e: FirebaseAuthInvalidCredentialsException) {
+                        val message = "password is incorrect"
+                        errorCallback(message)
+                        Log.d(TAG, message)
+                    } catch (e: Exception) {
+                        errorCallback(" An error occurred while logging in")
+                        e.message?.let { Log.d(TAG, it) }
+                    }
                     _loginFailed.value = true
-                    Log.i("Login", "Error")
                 }
+                _loading.value = false
             }
-        _loading.value = false
     }
 
     fun updateProfile(name: String, profileImageRef: StorageReference, imgUrl: Uri, uploadPic: Boolean) {

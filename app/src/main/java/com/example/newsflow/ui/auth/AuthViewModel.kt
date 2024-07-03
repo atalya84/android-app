@@ -32,8 +32,8 @@ class AuthViewModel(private val repository: UserRepository): ViewModel() {
         repository.logOut()
     }
 
-    fun login(email: String, password: String) = viewModelScope.launch {
-        repository.login(email, password)
+    fun login(email: String, password: String, errorCallback: (String) -> Unit ) = viewModelScope.launch {
+        repository.login(email, password, errorCallback)
     }
 
     fun ShowImgInView(contentResolver: ContentResolver, imageView: ImageView, imageUri: Uri) {

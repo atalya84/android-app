@@ -143,22 +143,11 @@ class SignUpFragment : Fragment() {
         if (email.isNullOrEmpty()){
             Toast.makeText(requireContext(), getString(R.string.enter_email), Toast.LENGTH_SHORT).show()
             return false
-        } else {
-            val emailRegex = "^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})"
-            if (!emailRegex.toRegex().matches(email.toString())){
-                Toast.makeText(requireContext(), getString(R.string.invalid_email), Toast.LENGTH_SHORT).show()
-                return false
-            }
         }
 
         if (password.isNullOrEmpty()){
             Toast.makeText(requireContext(), getString(R.string.enter_password), Toast.LENGTH_SHORT).show()
             return false
-        } else {
-            if (password.toString().length < 8){
-                Toast.makeText(requireContext(), getString(R.string.invalid_password), Toast.LENGTH_SHORT).show()
-                return false
-            }
         }
 
         return true
