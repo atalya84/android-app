@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/weather_background"
+    android:paddingBottom="40dp"
     tools:context=".ui.fragments.WeatherFragment">
 
     <LinearLayout
@@ -36,7 +37,7 @@
                 android:inputType="text"
                 android:textColor="#ffffff"
                 android:textColorHint="#939393"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 android:layout_centerVertical="true"/>
 
             <ImageView
@@ -217,7 +218,7 @@
                     android:fontFamily="@font/poppins"
                     android:layout_gravity="center_vertical"
                     android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:layout_marginStart="20dp"
                     android:textStyle="bold" />
 
@@ -258,7 +259,7 @@
                     android:fontFamily="@font/poppins"
                     android:layout_gravity="center_vertical"
                     android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:layout_marginStart="20dp"
                     android:textStyle="bold" />
 
@@ -295,7 +296,7 @@
                     android:gravity="start"
                     android:text="Min Temperature"
                     android:textColor="@color/black"
-                    android:textSize="15sp"
+                    android:textSize="14sp"
                     android:fontFamily="@font/poppins"
                     android:layout_marginStart="20dp"
                     android:layout_gravity="center_vertical"
@@ -334,7 +335,7 @@
                     android:text="Max Temperature"
                     android:fontFamily="@font/poppins"
                     android:textColor="@color/black"
-                    android:textSize="15sp"
+                    android:textSize="14sp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="20dp"
                     android:textStyle="bold" />
@@ -358,8 +359,12 @@
                     android:text="--"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
-
             </LinearLayout>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"/>
+
 
         </LinearLayout>
 
