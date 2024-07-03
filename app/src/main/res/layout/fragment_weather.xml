@@ -25,6 +25,7 @@
 
             <EditText
                 android:id="@+id/Your_city"
+                android:fontFamily="@font/poppins"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
@@ -60,6 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAllCaps="true"
+                android:fontFamily="@font/poppins"
                 android:layout_gravity="center_horizontal"
                 android:textColor="@color/white"
                 android:textSize="16sp"
@@ -67,6 +69,7 @@
 
             <TextView
                 android:id="@+id/temp"
+                android:fontFamily="@font/poppins"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -79,6 +82,7 @@
             <TextView
                 android:id="@+id/time"
                 android:layout_width="wrap_content"
+                android:fontFamily="@font/poppins"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:layout_marginTop="40dp"
@@ -115,6 +119,7 @@
                     android:id="@+id/sunrises"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
                     android:layout_marginTop="5dp"
                     android:text="--"
                     android:includeFontPadding="false"
@@ -141,6 +146,7 @@
                 <TextView
                     android:id="@+id/sunsets"
                     android:layout_width="wrap_content"
+                    android:fontFamily="@font/poppins"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="--"
@@ -165,6 +171,7 @@
                 android:id="@+id/city"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
                 android:textColor="@color/ligthBlue"
                 android:textSize="18sp"
                 android:includeFontPadding="false"
@@ -173,6 +180,7 @@
             <TextView
                 android:id="@+id/country"
                 android:layout_width="wrap_content"
+                android:fontFamily="@font/poppins"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:textSize="16sp"
@@ -206,6 +214,7 @@
                     android:gravity="start"
                     android:text="Humidity"
                     android:textAllCaps="false"
+                    android:fontFamily="@font/poppins"
                     android:layout_gravity="center_vertical"
                     android:textColor="@color/black"
                     android:textSize="16sp"
@@ -222,6 +231,7 @@
                 <TextView
                     android:id="@+id/humidity"
                     android:layout_width="80dp"
+                    android:fontFamily="@font/poppins"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:gravity="center"
@@ -245,6 +255,7 @@
                     android:gravity="start"
                     android:text="Wind Speed"
                     android:textAllCaps="false"
+                    android:fontFamily="@font/poppins"
                     android:layout_gravity="center_vertical"
                     android:textColor="@color/black"
                     android:textSize="16sp"
@@ -265,6 +276,7 @@
                     android:layout_gravity="end"
                     android:gravity="center"
                     android:padding="5dp"
+                    android:fontFamily="@font/poppins"
                     android:text="--"
                     android:layout_marginStart="80dp"
                     android:textColor="@color/black"
@@ -284,6 +296,7 @@
                     android:text="Min Temperature"
                     android:textColor="@color/black"
                     android:textSize="15sp"
+                    android:fontFamily="@font/poppins"
                     android:layout_marginStart="20dp"
                     android:layout_gravity="center_vertical"
                     android:textStyle="bold" />
@@ -300,6 +313,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:gravity="center"
+                    android:fontFamily="@font/poppins"
                     android:padding="5dp"
                     android:text="--"
                     android:layout_marginStart="80dp"
@@ -318,6 +332,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="start"
                     android:text="Max Temperature"
+                    android:fontFamily="@font/poppins"
                     android:textColor="@color/black"
                     android:textSize="15sp"
                     android:layout_gravity="center_vertical"
@@ -329,10 +344,11 @@
                     android:layout_height="20dp"
                     android:src="@drawable/temp_up"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginStart="52dp" />
+                    android:layout_marginStart="32dp" />
 
                 <TextView
                     android:id="@+id/max_temp"
+                    android:fontFamily="@font/poppins"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"

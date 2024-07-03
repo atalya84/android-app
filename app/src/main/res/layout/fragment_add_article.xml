@@ -27,6 +27,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:text="+ Choose A Photo"
+            android:fontFamily="@font/poppins"
             android:visibility="gone"
             android:textSize="11sp"
             android:padding="0dp"
@@ -44,6 +45,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:textSize="11sp"
+            android:fontFamily="@font/poppins"
             android:padding="0dp"
             android:layout_width="120dp"
             android:layout_height="120dp"
@@ -67,6 +69,7 @@
 
         <TextView
             android:id="@+id/countryLabel"
+            android:fontFamily="@font/poppins"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imgBtnLayout"
             android:layout_width="match_parent"
@@ -81,6 +84,7 @@
             android:paddingBottom="15dp">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/countryInput"
+                android:fontFamily="@font/poppins"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/country_edit_text_hint"
@@ -90,6 +94,7 @@
 
         <TextView
             android:id="@+id/headlineLabel"
+            android:fontFamily="@font/poppins"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/countryInputLayout"
             android:layout_width="match_parent"
@@ -105,6 +110,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/headlineInput"
                 android:layout_width="match_parent"
+                android:fontFamily="@font/poppins"
                 android:layout_height="wrap_content"
                 android:hint="@string/headline_edit_text_hint"
                 android:textSize="12sp"
@@ -113,6 +119,7 @@
 
         <TextView
             android:id="@+id/sourceLabel"
+            android:fontFamily="@font/poppins"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/headlineInputLayout"
             android:layout_width="match_parent"
@@ -128,6 +135,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/sourceInput"
                 android:layout_width="match_parent"
+                android:fontFamily="@font/poppins"
                 android:layout_height="wrap_content"
                 android:hint="@string/source_edit_text_hint"
                 android:textSize="12sp"
@@ -140,6 +148,7 @@
             app:layout_constraintTop_toBottomOf="@+id/sourceInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
             android:text="@string/description_label"/>
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/descInputLayout"
@@ -151,6 +160,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/descInput"
                 android:layout_width="match_parent"
+                android:fontFamily="@font/poppins"
                 android:layout_height="wrap_content"
                 android:hint="@string/desc_edit_text_hint"
                 android:textSize="12sp"
@@ -162,6 +172,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/descInputLayout"
             android:id="@+id/createPostBtn"
+            android:fontFamily="@font/poppins"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/create_post_btn_text"
