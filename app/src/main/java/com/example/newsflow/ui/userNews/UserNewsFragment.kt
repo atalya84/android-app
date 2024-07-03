@@ -1,10 +1,10 @@
 package com.example.newsflow.ui.userNews
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
@@ -67,7 +67,14 @@ class UserNewsFragment : Fragment() {
 
                             findNavController().navigate(action)
                         }
-                        R.id.deleteArticleBtn -> Log.d("MenuClick", "delete")
+                        R.id.deleteArticleBtn -> {
+                            try {
+                                articleViewModel.deletePost(post.id)
+                                Toast.makeText(requireContext(),"Deleted post",Toast.LENGTH_SHORT).show()
+                            } catch(e: Exception) {
+                                Toast.makeText(requireContext(),e.message,Toast.LENGTH_SHORT).show()
+                            }
+                        }
                         else -> {}
                     }
                 }

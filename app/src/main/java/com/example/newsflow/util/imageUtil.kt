@@ -12,6 +12,7 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import android.widget.ProgressBar
 import com.example.newsflow.R
+import com.google.android.gms.tasks.Task
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
@@ -122,6 +123,11 @@ class ImageUtil private constructor() {
                 e.printStackTrace()
                 null
             }
+        }
+
+        fun deleteStorageImage(imageId: String, storageRef: StorageReference): Task<Void> {
+            val imageRef = storageRef.child(imageId)
+            return imageRef.delete()
         }
     }
 }

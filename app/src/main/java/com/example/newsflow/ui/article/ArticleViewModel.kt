@@ -70,6 +70,19 @@ class ArticleViewModel : ViewModel() {
         }
     }
 
+    fun deletePost(id: String) {
+        ImageUtil.deleteStorageImage(id, storageRef)
+            .addOnSuccessListener {
+                firebaseDb.collection(COLLECTION).document(id).delete()
+                    .addOnFailureListener {
+                        throw(Exception("Could not delete post"))
+                    }
+            }
+            .addOnFailureListener {
+                throw(Exception("Could not delete image from storage"))
+            }
+    }
+
     fun generateRandomUid(): String {
         val random = SecureRandom()
         val uidBytes = ByteArray(16)
