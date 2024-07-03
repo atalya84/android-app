@@ -30,7 +30,7 @@ class UserNewsViewHolder (
 //            showPopup(context, binding.articleMenuBtn, articleViewModel: ArticleViewModel)
 //        }
 
-        ImageUtil.loadImage(post.imageUrl.toUri(), context, binding.myNewsImage)
+        ImageUtil.loadImage(post.imageUrl.toUri(), binding.myNewsImage)
     }
 
 //    private fun showPopup(context: Context, view: View, articleViewModel: ArticleViewModel) {

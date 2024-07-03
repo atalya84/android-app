@@ -22,6 +22,6 @@ class PostViewHolder (
             postClickListener?.onPostClick(post)
         }
 
-        ImageUtil.loadImageInFeed(post.imageUrl.toUri(), context, binding.headlineImage)
+        ImageUtil.loadImageInFeed(post.imageUrl.toUri(), binding.headlineImage)
     }
 }

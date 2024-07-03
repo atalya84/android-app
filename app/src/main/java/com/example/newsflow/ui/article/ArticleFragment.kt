@@ -44,7 +44,7 @@ class ArticleFragment : Fragment() {
         newsActivity.hideNavBar()
 
         viewModel.articleLiveData.observe(viewLifecycleOwner) { post ->
-            ImageUtil.loadImage(post.imageUrl.toUri(), requireContext(), binding.articleImage)
+            ImageUtil.loadImage(post.imageUrl.toUri(), binding.articleImage)
             binding.articleImage.setImageURI(post.imageUrl.toUri())
             binding.articleCountryTag.text = post.country
             binding.articleTitle.text = post.title
