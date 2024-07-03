@@ -1,5 +1,6 @@
 package com.example.newsflow.ui.EditProfile
 
+import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -135,6 +136,16 @@ class EditProfileFragment : Fragment() {
         })
 
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getActivity()?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    }
+
+    override fun onPause() {
+        super.onPause()
+        getActivity()?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
     }
 
     fun validation(currUserImage: Uri?, displayedName: String, displayedImg: Uri?): Boolean {

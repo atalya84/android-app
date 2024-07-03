@@ -1,6 +1,7 @@
 package com.example.newsflow.ui.fragments
 
 import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.newsflow.R
@@ -50,10 +52,9 @@ class WeatherFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentWeatherBinding.inflate(inflater, container, false)
-        subscribe()
 
-        userCity = binding.YourCity
         search = binding.search
+        userCity = binding.YourCity
 
         // Initialize UI elements
         city = binding.city
@@ -72,28 +73,37 @@ class WeatherFragment : Fragment() {
         requestPermissionLauncher = registerForActivityResult(
             ActivityResultContracts.RequestPermission()
         ) { isGranted ->
-            weatherViewModel.getCurrentLocationWeather(requireContext(), requireActivity())
+            if (isGranted) {
+                weatherViewModel.getCurrentLocationWeather(requireContext(), requireActivity())
+            } else {
+                Toast.makeText(requireContext(), "Location permission denied", Toast.LENGTH_SHORT).show()
+            }
+        }
+        // Check if location permission is already granted
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
         }
 
         requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
 
         search.setOnClickListener {
-            val cityName = userCity.text.toString()
-            if (cityName.isEmpty()) {
+            weatherViewModel.setCity(binding.YourCity.text.toString())
+        }
+
+        weatherViewModel.cityName.observe(viewLifecycleOwner) {city ->
+            if (city.isEmpty()) {
                 Toast.makeText(requireContext(), "Please enter a city name", Toast.LENGTH_SHORT).show()
             } else {
-                weatherViewModel.getWeatherData(cityName)
+                weatherViewModel.getWeatherData()
                 userCity.setText("")
             }
         }
-        
-        return binding.root
-    }
 
-    private fun subscribe() {
         weatherViewModel.weatherData.observe(viewLifecycleOwner) { weatherData ->
             setResultText(weatherData)
         }
+        
+        return binding.root
     }
 
     private fun setResultText(weatherData: WeatherResponse) {

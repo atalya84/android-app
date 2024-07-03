@@ -20,6 +20,9 @@ class WeatherViewModel() : ViewModel() {
 
     private val _weatherData = MutableLiveData<WeatherResponse>()
     val weatherData: LiveData<WeatherResponse> get() = _weatherData
+
+    private var _cityName= MutableLiveData<String>()
+    val cityName: LiveData<String> get() = _cityName
     var errorMessage: String = ""
         private set
 
@@ -50,9 +53,13 @@ class WeatherViewModel() : ViewModel() {
         }
     }
 
-    fun getWeatherData(city: String) {
-        val client = ApiConfig.getApiService().getCurrentWeather(city = city)
+    fun getWeatherData() {
+        val client = ApiConfig.getApiService().getCurrentWeather(city = _cityName.value!!)
         handleApiResponse(client)
+    }
+
+    fun setCity(city: String) {
+        _cityName.value = city
     }
 
     private fun handleApiResponse( client: Call<WeatherResponse>) {

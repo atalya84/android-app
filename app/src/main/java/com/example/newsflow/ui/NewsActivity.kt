@@ -123,4 +123,17 @@ class NewsActivity : AppCompatActivity() {
         binding.addBotton.isVisible = true
         binding.bottomAppBar.isVisible = true
     }
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        val selectedItemId = bottomNavigationView.selectedItemId
+        outState.putInt("SELECTED_ITEM_ID", selectedItemId)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        val selectedItemId = savedInstanceState.getInt("SELECTED_ITEM_ID", R.id.feedFragment)
+        bottomNavigationView.selectedItemId = selectedItemId
+    }
+
+
 }
