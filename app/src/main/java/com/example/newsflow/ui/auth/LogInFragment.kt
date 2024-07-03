@@ -44,7 +44,7 @@ class LogInFragment : Fragment() {
         )[AuthViewModel::class.java]
 
         binding.moveToSignUp.setOnClickListener {
-            Navigation.createNavigateOnClickListener(R.id.action_logInFragment_to_signUpFragment)
+            Navigation.findNavController(requireView()).navigate(R.id.action_logInFragment_to_signUpFragment)
         }
 
         bottomAppBar.isVisible = false
@@ -67,18 +67,6 @@ class LogInFragment : Fragment() {
             }
         })
 
-        // Observe the loading LiveData
-        viewModel.loading.observe(viewLifecycleOwner, Observer { isLoading ->
-            if (isLoading) {
-                binding.registerProgress.isVisible = true
-                binding.btnLogIn.text = ""
-            } else {
-                binding.registerProgress.isVisible = false
-                binding.btnLogIn.text = "Log In"
-            }
-        })
-
-        // Observe the loading LiveData
         viewModel.loading.observe(viewLifecycleOwner, Observer { isLoading ->
             if (isLoading) {
                 binding.registerProgress.isVisible = true

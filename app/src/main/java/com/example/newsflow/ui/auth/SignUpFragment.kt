@@ -59,7 +59,7 @@ class SignUpFragment : Fragment() {
         )[AuthViewModel::class.java]
 
         binding.moveToLogIn.setOnClickListener {
-            Navigation.createNavigateOnClickListener(R.id.action_signUpFragment_to_logInFragment)
+            Navigation.findNavController(requireView()).navigate(R.id.action_signUpFragment_to_logInFragment)
         }
 
         bottomAppBar.isVisible = false
