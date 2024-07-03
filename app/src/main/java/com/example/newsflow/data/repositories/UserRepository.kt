@@ -69,12 +69,13 @@ class UserRepository (private val firestoreDb: FirebaseFirestore, private val fi
                     val user = firestoreAuth.currentUser
                     user?.let {
                         // if the user has uploaded an image
-                        _ImageToShow.value?.let {uri ->
+                        _ImageToShow.value?.let { uri ->
                             // asynchronous operation to upload image and creating user
                             CoroutineScope(Dispatchers.IO).launch {
                                 try {
                                     // upload image to firebase storage
-                                    val uri = ImageUtil.UploadImage(firestoreAuth, uri, profileImageRef)
+                                    val uri =
+                                        ImageUtil.UploadImage(firestoreAuth, uri, profileImageRef)
                                     // if download url is not empty the upload was successful
                                     if (uri != null) {
                                         // update the new user with the name and image url
@@ -90,26 +91,37 @@ class UserRepository (private val firestoreDb: FirebaseFirestore, private val fi
 
                                                     // save all the data in firestore db
                                                     val updatedUser = firestoreAuth.currentUser
-                                                    updatedUser?.let { user ->
-                                                        storeUserData(user.uid, user.email, user.displayName, user.photoUrl)
+                                                    try {
+                                                        updatedUser?.let { user ->
+                                                            storeUserData(
+                                                                user.uid,
+                                                                user.email,
+                                                                user.displayName,
+                                                                user.photoUrl
+                                                            )
+                                                        }
+                                                    } finally {
+                                                        _signUpSuccessfull.value = true
                                                     }
+
                                                 } else {
-                                                    Log.d(TAG, "There was an error updating the user profile")
+                                                    Log.d(
+                                                        TAG,
+                                                        "There was an error updating the user profile"
+                                                    )
                                                 }
                                             }
                                     }
-                                } catch (e: Exception) {
-                                    // Handle exceptions
+                                }  finally {
+                                    // Update loading state after coroutine completes
+                                    _loading.postValue(false)
                                 }
                             }
                         }
-
-
                     }
-
-                    _signUpSuccessfull.value = true
                 } else {
                     try {
+                        _loading.value = false
                         throw task.exception ?: java.lang.Exception("Invalid authentication")
                     } catch (e: FirebaseAuthWeakPasswordException) {
                         val message = "Authentication failed, Password should be at least 6 characters"
@@ -128,7 +140,6 @@ class UserRepository (private val firestoreDb: FirebaseFirestore, private val fi
                         e.message?.let { Log.d(TAG, it) }
                     }
                 }
-                _loading.value = false
             }
     }
 
