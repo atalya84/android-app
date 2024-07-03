@@ -15,6 +15,7 @@ import com.example.newsflow.data.database.posts.PostDatabase
 import com.example.newsflow.data.models.Post
 import com.example.newsflow.data.repositories.PostRepository
 import com.example.newsflow.databinding.FragmentUserNewsBinding
+import com.example.newsflow.ui.NewsActivity
 import com.example.newsflow.ui.article.ArticleViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -25,6 +26,8 @@ class UserNewsFragment : Fragment() {
     private lateinit var userNewsViewModel: UserNewsViewModel
     private lateinit var articleViewModel: ArticleViewModel
     private lateinit var userEmail: String
+    private val newsActivity: NewsActivity
+        get() = activity as NewsActivity
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,6 +46,7 @@ class UserNewsFragment : Fragment() {
                     }
             }
         })
+        newsActivity.displayNavBar()
 
         val firestoreDb: FirebaseFirestore = FirebaseFirestore.getInstance()
         val firestoreAuth: FirebaseAuth = FirebaseAuth.getInstance()

@@ -48,9 +48,6 @@ class SignUpFragment : Fragment() {
 
         val userRepository = UserRepository(firestoreDb, firestoreAuth, UserDatabase.getDatabase(requireContext()).userDao())
 
-        val bottomAppBar = requireActivity().findViewById<View>(R.id.bottomAppBar)
-        val addBotton = requireActivity().findViewById<View>(R.id.addBotton)
-
         binding = FragmentSignUpBinding.inflate(inflater, container, false)
 
         viewModel = ViewModelProvider(
@@ -62,9 +59,7 @@ class SignUpFragment : Fragment() {
             Navigation.findNavController(requireView()).navigate(R.id.action_signUpFragment_to_logInFragment)
         }
 
-        bottomAppBar.isVisible = false
-        addBotton.isVisible = false
-        Log.d("newActivity", "${newsActivity.uriResult.value}")
+        newsActivity.hideNavBar()
 
         binding.btnSignUp.setOnClickListener {
             if(validation()) {
@@ -102,8 +97,7 @@ class SignUpFragment : Fragment() {
 
         viewModel.signUpSuccessfull.observe(viewLifecycleOwner, Observer { isSuccess ->
             if (isSuccess) {
-                bottomAppBar.isVisible = true
-                addBotton.isVisible = true
+                newsActivity.displayNavBar()
                 newsActivity.apply { uriResult.value = null }
                 Navigation.findNavController(requireView()).popBackStack(R.id.feedFragment,false)
             } else {

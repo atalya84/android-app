@@ -21,11 +21,14 @@ import android.text.Spanned
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import androidx.core.content.ContextCompat
+import com.example.newsflow.ui.NewsActivity
 
 class ArticleFragment : Fragment() {
 
     private lateinit var viewModel: ArticleViewModel
     private lateinit var binding: FragmentArticleBinding
+    private val newsActivity: NewsActivity
+        get() = activity as NewsActivity
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +40,8 @@ class ArticleFragment : Fragment() {
             requireActivity(),
             ArticleViewModel.ArticleModelFactory()
         )[ArticleViewModel::class.java]
+
+        newsActivity.hideNavBar()
 
         viewModel.articleLiveData.observe(viewLifecycleOwner) { post ->
             ImageUtil.loadImage(post.imageUrl.toUri(), requireContext(), binding.articleImage)
@@ -50,12 +55,13 @@ class ArticleFragment : Fragment() {
 
             binding.articleReturnBtn.setOnClickListener {
                 val destination: Int = when (viewModel.origin.value) {
-                    ArticleViewModel.Origin.FEED -> R.id.action_articleFragment_to_feedFragment
-                    ArticleViewModel.Origin.MY_NEWS -> R.id.action_articleFragment_to_userNewsFragment
-                    else -> R.id.action_articleFragment_to_feedFragment
+                    ArticleViewModel.Origin.FEED -> R.id.feedFragment
+                    ArticleViewModel.Origin.MY_NEWS -> R.id.userNewsFragment
+                    else -> R.id.feedFragment
                 }
+                newsActivity.displayNavBar()
                 view?.let { view ->
-                    Navigation.findNavController(view).navigate(destination)
+                    Navigation.findNavController(requireView()).popBackStack(destination,false)
                 }
             }
         }
