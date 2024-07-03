@@ -44,8 +44,8 @@ class AuthViewModel(private val repository: UserRepository): ViewModel() {
         repository.updateCurrUser(user)
     }
 
-    fun updateProfile(name: String, profileImageRef: StorageReference, imgUrl: Uri) {
-        repository.updateProfile(name, profileImageRef, imgUrl)
+    fun updateProfile(name: String, profileImageRef: StorageReference, imgUrl: Uri, uploadPic: Boolean) {
+        repository.updateProfile(name, profileImageRef, imgUrl, uploadPic)
     }
 
     class AuthModelFactory(private val repository: UserRepository): ViewModelProvider.Factory {

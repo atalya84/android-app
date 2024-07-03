@@ -150,13 +150,16 @@ class UserRepository (private val firestoreDb: FirebaseFirestore, private val fi
         _loading.value = false
     }
 
-    fun updateProfile(name: String, profileImageRef: StorageReference, imgUrl: Uri) {
+    fun updateProfile(name: String, profileImageRef: StorageReference, imgUrl: Uri, uploadPic: Boolean) {
         _loading.value = true
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                // upload image to firebase storage
-                val uri = ImageUtil.UploadImage(firestoreAuth, imgUrl, profileImageRef)
+                var uri = imgUrl
+                if(uploadPic) {
+                    // upload image to firebase storage
+                    uri = ImageUtil.UploadImage(firestoreAuth, imgUrl, profileImageRef)!!
+                }
                 // if download url is not empty the upload was successful
                 if (uri != null) {
                     // update the new user with the name and image url

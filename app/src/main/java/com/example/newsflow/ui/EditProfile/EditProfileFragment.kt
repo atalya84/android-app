@@ -79,10 +79,14 @@ class EditProfileFragment : Fragment() {
             val displayedName = binding.etName.text.toString()
             val displayedImg = newsActivity.uriResult.value ?: currUserImage
             if(validation(currUserImage, displayedName, displayedImg)) {
-                viewModel.updateProfile(displayedName, profileImageRef, displayedImg!!)
+                viewModel.updateProfile(displayedName, profileImageRef, displayedImg!!, displayedImg == currUserImage)
             }
         }
         binding.cancle.setOnClickListener {
+            for (i in 0 until size) {
+                bottomNavigationView.menu.getItem(i).isEnabled = true
+            }
+            addFab.isEnabled = true
             Navigation.findNavController(requireView()).popBackStack(R.id.settingsFragment, false)
         }
 
