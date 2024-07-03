@@ -16,6 +16,7 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import android.widget.ProgressBar
 import android.graphics.BitmapFactory
+import com.bumptech.glide.request.RequestOptions
 import com.example.newsflow.R
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -30,6 +31,17 @@ class ImageUtil private constructor() {
             Glide
                 .with(context)
                 .load(imageUri)
+                .placeholder(R.mipmap.logo)
+                .into(imageView)
+        }
+
+        fun loadImageInFeed(imageUri: Uri?, context: Context, imageView: ImageView) {
+            Glide
+                .with(context)
+                .load(imageUri)
+                .apply(RequestOptions()
+                    .fitCenter()
+                    .centerCrop())
                 .placeholder(R.mipmap.logo)
                 .into(imageView)
         }

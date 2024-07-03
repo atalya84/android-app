@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/headlineImage"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="250dp"
         android:scaleType="centerInside"
         android:adjustViewBounds="true"
         android:contentDescription="@string/article_image_content_desc"
