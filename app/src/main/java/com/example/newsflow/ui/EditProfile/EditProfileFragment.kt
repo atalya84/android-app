@@ -111,6 +111,7 @@ class EditProfileFragment : Fragment() {
         }
 
         viewModel.loading.observe(viewLifecycleOwner, Observer { isLoading ->
+            Log.d("load", isLoading.toString())
             if (isLoading) {
                 binding.updateProgress.isVisible = true
                 binding.saveChanges.text = ""

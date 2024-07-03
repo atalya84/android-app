@@ -182,9 +182,11 @@ class UserRepository (private val firestoreDb: FirebaseFirestore, private val fi
                 }
             } catch (e: Exception) {
                 // Handle exceptions
+            } finally {
+                // Update loading state after coroutine completes
+                _loading.postValue(false)
             }
         }
-        _loading.value = false
     }
 
     private fun storeUserData(userId: String?, email: String?, name: String?, photo: Uri?) {
