@@ -44,11 +44,12 @@ class ArticleFragment : Fragment() {
         newsActivity.hideNavBar()
 
         viewModel.articleLiveData.observe(viewLifecycleOwner) { post ->
-            ImageUtil.loadImage(post.imageUrl.toUri(), binding.articleImage)
             binding.articleImage.setImageURI(post.imageUrl.toUri())
+            ImageUtil.loadImage(post.imageUrl.toUri(), binding.articleImage)
             binding.articleCountryTag.text = post.country
             binding.articleTitle.text = post.title
             binding.articleDesc.text = post.desc
+            binding.publisher.text = post.username
             binding.date.text = post.createdString.split(" ")[0]
 
             clickable_source_link(post.articleUrl)
