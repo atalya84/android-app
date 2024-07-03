@@ -33,7 +33,7 @@ class UserNewsViewHolder (
             showPopup(context, binding.articleMenuBtn, post, menuItemClickListener)
         }
 
-        ImageUtil.loadImage(post.imageUrl.toUri(), context, binding.myNewsImage)
+        ImageUtil.loadImage(post.imageUrl.toUri(), binding.myNewsImage)
     }
 
     private fun showPopup(context: Context, view: View, post: Post, menuItemClickListener: UserNewsAdapter.MenuClickListener?) {

@@ -15,18 +15,23 @@ import com.example.newsflow.data.database.posts.PostDatabase
 import com.example.newsflow.data.models.Post
 import com.example.newsflow.data.repositories.PostRepository
 import com.example.newsflow.databinding.FragmentFeedBinding
+import com.example.newsflow.ui.NewsActivity
 import com.example.newsflow.ui.article.ArticleViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class FeedFragment : Fragment() {
     private lateinit var binding: FragmentFeedBinding
+  private val newsActivity: NewsActivity
+        get() = activity as NewsActivity
     private lateinit var articleViewModel: ArticleViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+        newsActivity.displayNavBar()
 
         val posts = MutableLiveData<List<Post>>()
         val adapter = FeedAdapter(mutableListOf(), object : FeedAdapter.PostClickListener {

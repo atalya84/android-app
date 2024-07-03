@@ -1,12 +1,10 @@
 package com.example.newsflow.util
 
 import android.content.ContentResolver
-import android.content.Context
 import android.media.ExifInterface
 import android.net.Uri
 import android.util.Log
 import android.widget.ImageView
-import com.bumptech.glide.Glide
 import com.google.firebase.storage.StorageReference
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
@@ -23,10 +21,19 @@ import kotlinx.coroutines.launch
 
 class ImageUtil private constructor() {
     companion object {
-        fun loadImage(imageUri: Uri?, context: Context, imageView: ImageView) {
-            Glide
-                .with(context)
+
+        fun loadImage(imageUri: Uri?, imageView: ImageView) {
+            Picasso.get()
                 .load(imageUri)
+                .placeholder(R.mipmap.logo)
+                .into(imageView)
+        }
+
+        fun loadImageInFeed(imageUri: Uri?, imageView: ImageView) {
+            Picasso.get()
+                .load(imageUri)
+                .fit()
+                .centerCrop()
                 .placeholder(R.mipmap.logo)
                 .into(imageView)
         }

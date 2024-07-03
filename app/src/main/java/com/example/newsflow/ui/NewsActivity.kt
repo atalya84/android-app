@@ -109,4 +109,14 @@ class NewsActivity : AppCompatActivity() {
             bottomNavigationView.menu.getItem(i).isEnabled = true
         }
     }
+
+    fun hideNavBar() {
+        binding.addBotton.isVisible = false
+        binding.bottomAppBar.isVisible = false
+    }
+
+    fun displayNavBar() {
+        binding.addBotton.isVisible = true
+        binding.bottomAppBar.isVisible = true
+    }
 }

@@ -1,0 +1,19 @@
+Revert "fix: navbar override article fragment view"
+
+This reverts commit 2befc7519b6d1adc1cedf0d0e83144944d6e2828.
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch fix-stuff
+# Your branch is ahead of 'origin/main' by 13 commits.
+#   (use "git push" to publish your local commits)
+#
+# Changes to be committed:
+#	modified:   app/src/main/res/layout/fragment_article.xml
+#	modified:   app/src/main/res/layout/fragment_user_news.xml
+#
+# Changes not staged for commit:
+#	modified:   app/src/main/java/com/example/newsflow/ui/NewsActivity.kt
+#	modified:   app/src/main/java/com/example/newsflow/ui/article/ArticleFragment.kt
+#

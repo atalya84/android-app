@@ -14,6 +14,7 @@ import com.example.newsflow.R
 import com.example.newsflow.data.database.users.UserDatabase
 import com.example.newsflow.data.repositories.UserRepository
 import com.example.newsflow.databinding.FragmentLogInBinding
+import com.example.newsflow.ui.NewsActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -24,8 +25,6 @@ class LogInFragment : Fragment() {
     }
 
     private lateinit var binding: FragmentLogInBinding
-    private lateinit var viewModel: AuthViewModel
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,8 +33,6 @@ class LogInFragment : Fragment() {
         val firestoreAuth: FirebaseAuth = FirebaseAuth.getInstance()
         val userRepository = UserRepository(firestoreDb, firestoreAuth, UserDatabase.getDatabase(requireContext()).userDao())
 
-        val bottomAppBar = requireActivity().findViewById<View>(R.id.bottomAppBar)
-        val addBotton = requireActivity().findViewById<View>(R.id.addBotton)
         binding = FragmentLogInBinding.inflate(inflater, container, false)
 
         viewModel = ViewModelProvider(
@@ -47,8 +44,8 @@ class LogInFragment : Fragment() {
             Navigation.findNavController(requireView()).navigate(R.id.action_logInFragment_to_signUpFragment)
         }
 
-        bottomAppBar.isVisible = false
-        addBotton.isVisible = false
+
+        newsActivity.hideNavBar()
 
         binding.btnLogIn.setOnClickListener {
             if(validation()) {
@@ -63,8 +60,7 @@ class LogInFragment : Fragment() {
 
         viewModel.loginSuccessfull.observe(viewLifecycleOwner, Observer { isSuccess ->
             if (isSuccess) {
-                bottomAppBar.isVisible = true
-                addBotton.isVisible = true
+                newsActivity.displayNavBar()
                 Navigation.findNavController(requireView()).popBackStack(R.id.feedFragment,false)
             } else {
                 Toast.makeText(requireContext(), "Couldn't log you in", Toast.LENGTH_SHORT).show()
@@ -83,6 +79,10 @@ class LogInFragment : Fragment() {
 
         return binding.root
     }
+
+    private lateinit var viewModel: AuthViewModel
+    private val newsActivity: NewsActivity
+        get() = activity as NewsActivity
 
     fun validation(): Boolean {
         val email = binding.etEmail.text
