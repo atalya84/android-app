@@ -79,7 +79,7 @@ class EditProfileFragment : Fragment() {
             val displayedName = binding.etName.text.toString()
             val displayedImg = newsActivity.uriResult.value ?: currUserImage
             if(validation(currUserImage, displayedName, displayedImg)) {
-                viewModel.updateProfile(displayedName, profileImageRef, displayedImg!!, displayedImg == currUserImage)
+                viewModel.updateProfile(displayedName, profileImageRef, displayedImg!!, displayedImg != currUserImage)
             }
         }
         binding.cancle.setOnClickListener {
