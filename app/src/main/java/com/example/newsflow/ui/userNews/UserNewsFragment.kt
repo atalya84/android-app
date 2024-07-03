@@ -16,6 +16,7 @@ import com.example.newsflow.data.models.Post
 import com.example.newsflow.data.repositories.PostRepository
 import com.example.newsflow.databinding.FragmentUserNewsBinding
 import com.example.newsflow.ui.article.ArticleViewModel
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class UserNewsFragment : Fragment() {
@@ -23,6 +24,7 @@ class UserNewsFragment : Fragment() {
     private lateinit var binding: FragmentUserNewsBinding
     private lateinit var userNewsViewModel: UserNewsViewModel
     private lateinit var articleViewModel: ArticleViewModel
+    private lateinit var userEmail: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,17 +45,17 @@ class UserNewsFragment : Fragment() {
         })
 
         val firestoreDb: FirebaseFirestore = FirebaseFirestore.getInstance()
-        val postRepository = PostRepository(firestoreDb, PostDatabase.getDatabase(requireContext()).postDao())
+        val firestoreAuth: FirebaseAuth = FirebaseAuth.getInstance()
+        val postRepository = PostRepository(firestoreDb, firestoreAuth, PostDatabase.getDatabase(requireContext()).postDao())
 
         binding = FragmentUserNewsBinding.inflate(inflater, container, false)
-        articleViewModel = ViewModelProvider(
-            requireActivity(),
-            ArticleViewModel.ArticleModelFactory()
-        )[ArticleViewModel::class.java]
+        articleViewModel = ViewModelProvider(requireActivity(), ArticleViewModel.ArticleModelFactory())[ArticleViewModel::class.java]
+
+        userEmail = firestoreAuth.currentUser?.email!!
 
         userNewsViewModel = ViewModelProvider(
             this,
-            UserNewsViewModel.UserNewsModelFactory(postRepository)
+            UserNewsViewModel.UserNewsModelFactory(postRepository, userEmail)
         )[UserNewsViewModel::class.java]
 
         setRecyclerView(userPosts, postRepository, userNewsAdapter)
@@ -65,9 +67,17 @@ class UserNewsFragment : Fragment() {
         userNewsViewModel.userPosts.observe(viewLifecycleOwner) {
             posts.value = ArrayList(it)
             userNewsAdapter.submitList(posts.value!!)
-            binding.recyclerUserHeadlines.apply {
-                layoutManager = LinearLayoutManager(context)
-                adapter = userNewsAdapter
+
+            if (posts.value.isNullOrEmpty()) {
+                binding.recyclerUserHeadlines.visibility = View.GONE
+                binding.textNoPosts.visibility = View.VISIBLE
+            } else {
+                binding.recyclerUserHeadlines.apply {
+                    binding.recyclerUserHeadlines.visibility = View.VISIBLE
+                    binding.textNoPosts.visibility = View.GONE
+                    layoutManager = LinearLayoutManager(context)
+                    adapter = userNewsAdapter
+                }
             }
         }
     }

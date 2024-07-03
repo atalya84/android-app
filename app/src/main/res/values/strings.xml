@@ -73,6 +73,8 @@ Integer enim neque volutpat ac tincidunt vitae. Dapibus ultrices in iaculis nunc
     <string name="change_picture">Change Picture</string>
     <string name="save_changes">Save Changes</string>
     <string name="post_options">Post Options</string>
+    <string name="no_news">You don\'t have any posted articles</string>
+    <string name="date">DD/MM/YYYY</string>
     <string name="upload_image_content_desc">Upload Image</string>
     <string name="country_label">Country</string>
     <string name="headline_label">Headline</string>

@@ -20,6 +20,7 @@ class UserNewsViewHolder (
         binding.myNewsTitle.text = post.title
         binding.myNewsImage.setImageURI(post.imageUrl.toUri())
         binding.myNewsCountry.text = post.country
+        binding.myNewsDate.text = post.createdString.split(" ")[0]
 
         binding.root.setOnClickListener{
             postClickListener?.onPostClick(post)
