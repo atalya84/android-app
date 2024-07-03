@@ -2,6 +2,8 @@ package com.example.newsflow.ui
 
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -87,8 +89,10 @@ class NewsActivity : AppCompatActivity() {
     }
 
     fun disableNavBar() {
-        cancelButton.isVisible = true
-        addButton.isVisible = false
+        Handler(Looper.getMainLooper()).post {
+            cancelButton.isVisible = true
+            addButton.isVisible = false
+        }
 
         val size = bottomNavigationView.menu.size()
         for (i in 0 until size) {
