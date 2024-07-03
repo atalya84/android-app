@@ -18,6 +18,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
+    <ProgressBar
+        android:id="@+id/loadingSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/headlineImage"
+        app:layout_constraintEnd_toEndOf="@+id/headlineImage"
+        app:layout_constraintStart_toStartOf="@+id/headlineImage"
+        app:layout_constraintTop_toTopOf="@+id/headlineImage" />
 
     <TextView
         android:id="@+id/headlineCountryTag"

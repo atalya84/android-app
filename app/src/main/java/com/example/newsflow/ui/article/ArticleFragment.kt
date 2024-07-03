@@ -49,22 +49,16 @@ class ArticleFragment : Fragment() {
             clickable_source_link(post.articleUrl)
 
             binding.articleReturnBtn.setOnClickListener {
-                when(viewModel.origin.value) {
-                    ArticleViewModel.Origin.FEED -> view?.let { view ->
-                        Navigation.findNavController(
-                            view
-                        ).navigate(R.id.action_articleFragment_to_feedFragment)
-                    }
-                    ArticleViewModel.Origin.MY_NEWS -> view?.let { view ->
-                        Navigation.findNavController(
-                            view
-                        ).navigate(R.id.action_articleFragment_to_userNewsFragment)
-                    }
-                    else -> {}
+                val destination: Int = when (viewModel.origin.value) {
+                    ArticleViewModel.Origin.FEED -> R.id.action_articleFragment_to_feedFragment
+                    ArticleViewModel.Origin.MY_NEWS -> R.id.action_articleFragment_to_userNewsFragment
+                    else -> R.id.action_articleFragment_to_feedFragment
+                }
+                view?.let { view ->
+                    Navigation.findNavController(view).navigate(destination)
                 }
             }
         }
-
         return (binding.root)
     }
 
