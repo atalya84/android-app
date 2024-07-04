@@ -34,7 +34,14 @@ class FeedFragment : Fragment() {
         newsActivity.displayNavBar()
 
         val posts = MutableLiveData<List<Post>>()
-        val adapter = FeedAdapter(mutableListOf(), object : FeedAdapter.PostClickListener {
+        articleViewModel = ViewModelProvider(
+            requireActivity(),
+            ArticleViewModel.ArticleModelFactory()
+        )[ArticleViewModel::class.java]
+        val adapter = FeedAdapter(mutableListOf(),
+            articleViewModel,
+            viewLifecycleOwner,
+            object : FeedAdapter.PostClickListener {
             override fun onPostClick(post: Post) {
                 posts.value?.find { p -> p.id == post.id }
                     ?.let {
@@ -50,10 +57,6 @@ class FeedFragment : Fragment() {
         val postRepository = PostRepository(firestoreDb, firebaseAuth, PostDatabase.getDatabase(requireContext()).postDao())
 
         binding = FragmentFeedBinding.inflate(inflater, container, false)
-        articleViewModel = ViewModelProvider(
-            requireActivity(),
-            ArticleViewModel.ArticleModelFactory()
-        )[ArticleViewModel::class.java]
         setRecyclerView(posts, postRepository, adapter)
         return (binding.root)
     }

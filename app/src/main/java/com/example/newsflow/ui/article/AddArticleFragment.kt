@@ -157,7 +157,7 @@ class AddArticleFragment : Fragment() {
                 desc = binding.descInput.text.toString(),
                 articleUrl = binding.sourceInput.text.toString(),
                 country = binding.countryInput.text.toString(),
-                imageUrl = args.imageUrl.ifEmpty { "" },
+                imageUrl =  "",
                 createdString = SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.ENGLISH).format(Date()),
                 userId = userId,
                 username = FirebaseAuth.getInstance().currentUser?.displayName ?: ""

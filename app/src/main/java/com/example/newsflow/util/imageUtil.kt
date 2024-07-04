@@ -29,13 +29,21 @@ class ImageUtil private constructor() {
                 .into(imageView)
         }
 
-        fun loadImageInFeed(imageUri: Uri?, imageView: ImageView) {
+        fun loadImageInFeed(imageUri: Uri?, imageView: ImageView, onLoadComplete: () -> Unit) {
             Picasso.get()
                 .load(imageUri)
                 .fit()
                 .centerCrop()
                 .placeholder(R.mipmap.logo)
-                .into(imageView)
+                .into(imageView, object : com.squareup.picasso.Callback {
+                    override fun onSuccess() {
+                        onLoadComplete()
+                    }
+
+                    override fun onError(e: Exception?) {
+                        onLoadComplete()
+                    }
+                })
         }
 
         fun ShowImgInViewFromGallery(contentResolver: ContentResolver, imageView: ImageView, imageUri: Uri) {

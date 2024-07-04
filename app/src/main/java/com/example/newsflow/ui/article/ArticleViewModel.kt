@@ -2,6 +2,7 @@ package com.example.newsflow.ui.article
 
 import android.content.ContentResolver
 import android.net.Uri
+import android.util.Log
 import android.widget.ImageView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -53,7 +54,7 @@ class ArticleViewModel : ViewModel() {
     }
 
     fun insertPost(post: Post) {
-        _loading.value = true
+        _loading.postValue(true)
         try {
             _postImage.value?.let { uri ->
                 CoroutineScope(Dispatchers.IO).launch {
